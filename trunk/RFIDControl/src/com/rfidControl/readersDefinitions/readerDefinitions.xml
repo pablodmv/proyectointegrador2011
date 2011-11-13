@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : readerDefinitions.xml
+    Created on : 13 de noviembre de 2011, 02:39 PM
+    Author     : pablo
+    Description:
+        Purpose of the document follows.
+-->
+<reader-define>
+    <reader>
+        <name>Puerta</name>
+        <description>Door</description>
+        <net-address>127.0.0.1</net-address>
+    </reader>
+</reader-define>
