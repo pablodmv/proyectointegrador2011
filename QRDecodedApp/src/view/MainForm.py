@@ -6,8 +6,8 @@ Created on 10/11/2011
 import sys, os, stat
 import gtk
 import zbarpygtk
-from domain.User import User
-
+from domain.ContentData import ContentData
+from log.Logger import Logger
 
 def decoded(zbar, data):
     """callback invoked when a barcode is decoded by the zbar widget.
@@ -17,17 +17,15 @@ def decoded(zbar, data):
     end = buf.get_end_iter()
     #Get de type code
     qrType = data.split(":")[0]
-    if qrType == "QR-Code":
-        buf.insert(end, "Lectura exitosa.\n") 
+    if qrType == "QR-Code": 
+        cd = ContentData(data)
+        buf.insert(end, "Bienvenido " + cd.name + " " + cd.surname + ".\n")
         results.scroll_to_iter(end, 0)
-        contentData = data.split(":")[1]
-        usuario = User(contentData)
-        print usuario.name
-        print usuario.surname
-        print usuario.doc
-        print usuario.funcType
-        print usuario.charge
-        print usuario.captureTime
+    else:
+        buf.insert(end, "Codigo incorrecto.\n")
+        Logger.info("Codigo invalido: " + data)
+        
+        
 
 def video_enabled(zbar, param):
     """callback invoked when the zbar widget enables or disables
