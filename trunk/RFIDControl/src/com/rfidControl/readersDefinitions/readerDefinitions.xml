@@ -12,5 +12,12 @@
         <name>Puerta</name>
         <description>Door</description>
         <net-address>127.0.0.1</net-address>
+        <port>20000</port>
+    </reader>
+     <reader>
+        <name>Puerta2</name>
+        <description>Door2</description>
+        <net-address>127.0.0.1</net-address>
+        <port>20001</port>
     </reader>
 </reader-define>

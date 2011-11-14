@@ -1,0 +1,9 @@
+0    [main] ERROR com.rfidControl.main.Main  - Ha ocurrido un error : /home/pablo/Desarrollo/Repository/NetBeansProjects/RFIDControl/src/com/rfidControl/readersDefintions/readerDefinitions.xml (No such file or directory)
+0    [main] ERROR com.rfidControl.main.Main  - Error al abrir archivo : /home/pablo/Desarrollo/Repository/NetBeansProjects/RFIDControl/src/com/rfidControl/readersDefintions/readerDefinitions.xml (No such file or directory)
+0    [main] ERROR com.rfidControl.main.Main  - Error al abrir archivo : /home/pablo/Desarrollo/Repository/NetBeansProjects/RFIDControl/src/com/rfidControl/readersDefintions/readerDefinitions.xml (No such file or directory)
+2011-11-13 18:11:35,343 0    [main] ERROR com.rfidControl.main.Main  - Error al abrir archivo : /home/pablo/Desarrollo/Repository/NetBeansProjects/RFIDControl/src/com/rfidControl/readersDefintions/readerDefinitions.xml (No such file or directory)
+2011-11-13 18:12:59,652 0    [main] ERROR com.rfidControl.main.Main  - No se puede conectar al dispositivo :Puerta- 127.0.0.1
+23:24:36 1    [main] ERROR com.rfidControl.main.Main  - No se puede conectar al dispositivo :Puerta- 127.0.0.1
+23:24:36 17   [main] ERROR com.rfidControl.main.Main  - No se puede conectar al dispositivo :Puerta2- 127.0.0.1
+23:24:39 0    [main] ERROR com.rfidControl.main.Main  - No se puede conectar al dispositivo :Puerta- 127.0.0.1
+23:24:39 3    [main] ERROR com.rfidControl.main.Main  - No se puede conectar al dispositivo :Puerta2- 127.0.0.1
