@@ -21,15 +21,15 @@ import java.util.logging.Logger;
  */
 public class alienReader extends Reader implements rfidReaderOperation {
 
-    private static PrintWriter out = null;
-    private static BufferedReader in = null;
+    private PrintWriter out = null;
+    private BufferedReader in = null;
     private Socket connection = null;
     private String user;
     private String password;
 
-    public alienReader(String ipaddr,String Name) {
+    public alienReader(String ipaddr,String Name,Short port) {
         this.ip_addr = ipaddr;
-        this.port = 20000;
+        this.port = port;
         this.name = Name;
         this.description = "Defaul configuration";
         this.user = "alien";
