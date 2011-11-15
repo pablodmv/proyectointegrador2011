@@ -17,14 +17,30 @@ class RpcClient(object):
 	def send(self,data):
 		try:
 			proxy = xmlrpclib.Server('http://localhost:8000/xmlrpc')
+			
 			#Intento mandar los datos que quedaron pendientes por errores de conectividad
 			f = open("/home/gustavo/workspace/QRDecodedApp/store/store.txt")
+			#Leo el archivo y agrego cada linea del archivo a una lista
+			l = []
 			while True:
 				line = f.readline()
 				if not line: break
-				pprint(proxy.Interpreter.readData(line))
-			
+				l.append(line)
+				#pprint(proxy.Interpreter.readData(line))
 			f.close()
+			
+			countLine = 0
+			for i in l:
+				pprint(proxy.Interpreter.readData(i))
+				del l[0]
+				countLine = countLine + 1
+			
+			f = open("/home/gustavo/workspace/QRDecodedApp/store/store.txt","w")
+			auxCount = 0
+			while auxCount < countLine:
+				f.write("")
+				auxCount = auxCount +1
+					
 			#Luego mando el dato mas nuevo capturado
 			pprint(proxy.Interpreter.readData(data))
 		except:
