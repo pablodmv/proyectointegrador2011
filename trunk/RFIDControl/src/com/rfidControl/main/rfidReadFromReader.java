@@ -5,6 +5,7 @@
 package com.rfidControl.main;
 
 import com.rfidControl.abstractClasses.Reader;
+import com.rfidControl.rpc.rfidRCPClient;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -33,17 +34,25 @@ public class rfidReadFromReader extends Thread {
 
     @Override
     public void run() {
+        String lecture = "";
 
         while (true) {
             try {
-                System.out.println(reader.read());
+                lecture = reader.read();
+                rfidRCPClient rcpClient = rfidRCPClient.getInstance();
+                 lecture = rfidMainController.getInstance().convertStringToFormat(lecture, reader);
+                rcpClient.sendDataToServer(lecture);
+                System.out.println("LECTURA DESDE EL THREAD: " + lecture);
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 log.error("Error thread: " + ex.getMessage());
+                break;
             } catch (Exception ex) {
                 log.error("Error thread: " + ex.getMessage());
+                break;
             }
 
         }
     }
+
 }
