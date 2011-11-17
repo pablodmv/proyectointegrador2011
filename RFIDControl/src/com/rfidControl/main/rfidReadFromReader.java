@@ -44,6 +44,7 @@ public class rfidReadFromReader extends Thread {
                 rcpClient.sendDataToServer(lecture);
                 System.out.println("LECTURA DESDE EL THREAD: " + lecture);
                 Thread.sleep(1000);
+                //TODO: Controlar que no se envie caracter vacio
             } catch (InterruptedException ex) {
                 log.error("Error thread: " + ex.getMessage());
                 break;
