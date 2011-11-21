@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2.1-hudson-28-. --><xs:schema xmlns:tns="http://webservice.inout.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice.inout.com/">
+
+<xs:element name="AddMarca" type="tns:AddMarca" />
+
+<xs:element name="AddMarcaResponse" type="tns:AddMarcaResponse" />
+
+<xs:complexType name="AddMarca">
+<xs:sequence>
+<xs:element name="fecha" type="xs:string" minOccurs="0" />
+<xs:element name="hora" type="xs:string" minOccurs="0" />
+<xs:element name="id_Dispositivo" type="xs:int" />
+<xs:element name="descripcion_Dispositivo" type="xs:string" minOccurs="0" />
+<xs:element name="id_persona" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AddMarcaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
