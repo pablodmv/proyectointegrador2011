@@ -54,7 +54,7 @@ public class marcaTest {
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
-        String result1 = instance.alta("29/11/2010", "20:55", 4,"PUERTA", 0, "42562072");
+        Boolean result1 = instance.alta("29/11/2010", "20:55", 4,"PUERTA", "42562072");
         System.out.println("Resultado1 " + result1);
     }
 
