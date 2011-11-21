@@ -3361,3 +3361,37 @@
 01:41:19 838  [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
 01:49:02 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
 01:49:03 938  [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+23:44:45 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+23:44:46 711  [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+23:45:07 0    [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+23:45:08 204  [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+00:41:38 0    [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to create input stream: Connection refused
+00:41:38 114  [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+00:43:23 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: "127.0.0.120000"
+00:43:23 3    [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: "127.0.0.120001"
+00:44:52 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: "127.0.0.120000"
+00:45:19 27283 [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to create input stream: Connection refused
+00:45:40 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+00:45:41 933  [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+01:01:15 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: "127.0.0.120000"
+01:01:15 445  [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: "127.0.0.120001"
+01:05:56 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: ""
+01:05:56 407  [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: ""
+01:06:28 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: ""
+01:06:28 924  [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: For input string: ""
+01:08:56 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to create input stream: Connection refused
+01:08:56 3    [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to create input stream: Connection refused
+01:09:57 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to create input stream: Connection refused
+01:09:57 3    [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to create input stream: Connection refused
+01:11:33 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to create input stream: Connection refused
+01:11:33 3    [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to create input stream: Connection refused
+01:15:52 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: Failed to access the WSDL at: http://localhost:8080/InOutWebserviceService/InOutWebservice?wsdl. It failed with: 
+	http://localhost:8080/InOutWebserviceService/InOutWebservice?wsdl.
+01:15:53 602  [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to invoke method readData in class com.serverController.rcpServer.Interpreter: Failed to access the WSDL at: http://localhost:8080/InOutWebserviceService/InOutWebservice?wsdl. It failed with: 
+	http://localhost:8080/InOutWebserviceService/InOutWebservice?wsdl.
+01:18:32 0    [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+01:18:32 93   [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+01:20:14 0    [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+01:20:14 184  [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+01:24:00 0    [Thread-1] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
+01:24:00 27   [Thread-2] ERROR com.rfidControl.main.Main  - Error thread: Failed to read server's response: Connection refused
