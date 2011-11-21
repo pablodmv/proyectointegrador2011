@@ -37,7 +37,7 @@ public class persona implements personaLocal {
         persona.setDireccion(direccion);
         persona.setTelefono1(telefono1);
         persona.setTelefono2(telefono2);
-        persona.setIngreso(converters.StringDate(ingreso));
+        persona.setIngreso(converters.StringDate(ingreso,"dd/MM/yyyy"));
         persona.setNumEmpleado(Long.parseLong(num_empleado.toString()));
 
         try {

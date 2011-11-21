@@ -19,9 +19,9 @@ public class converters {
 
 
 
-    public static Date StringDate(String date){
+    public static Date StringDate(String date, String format){
         try {
-            SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat simpleDate = new SimpleDateFormat(format);
             return simpleDate.parse(date);
         } catch (ParseException ex) {
             Logger.getLogger(converters.class.getName()).log(Level.SEVERE, null, ex);

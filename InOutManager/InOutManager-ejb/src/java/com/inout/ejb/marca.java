@@ -30,24 +30,24 @@ public class marca implements marcaLocal {
     private personaLocal persona;
 
     @Override
-    public String alta(String fecha, String hora, Integer id_dispositivo, String dispositivo, Integer id_pareja, String id_persona) {
+    public Boolean alta(String fecha, String hora, Integer id_dispositivo, String dispositivo, String id_persona) {
 
-        Persona personaAux = persona.ObtenerPersona(id_persona);
+        Persona personaAux = persona.ObtenerPersona("42562072");
+        //TODO: FALTA CAMBIAR EL ID PERSONA O MANEJAR EL TAG
         Marca marca = new Marca();
-        marca.setFecha(converters.StringDate(fecha));
+        marca.setFecha(converters.StringDate(fecha, "yyyy/MM/dd"));
         marca.setHora(hora);
         marca.setIdDispositivo(id_dispositivo);
-        marca.setIdPareja(id_pareja);
         marca.setDispositivo(dispositivo);
         marca.setPersona(personaAux);
         try {
             em.persist(marca);
             em.flush();
-            return "Success";
+            return true;
         } catch (Exception e) {
             System.out.println("Error al guardar la marca: " + e.getMessage());
         }
-        return "Fail";
+        return false;
     }
 
     @Override
