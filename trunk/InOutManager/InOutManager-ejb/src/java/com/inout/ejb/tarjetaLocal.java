@@ -5,13 +5,19 @@
 
 package com.inout.ejb;
 
+import com.inout.dto.tarjetaDTO;
 import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author pablo
  */
-@Local
+@Remote
 public interface tarjetaLocal {
+
+    public Boolean altaTarjeta(tarjetaDTO tarjeta);
+    public tarjetaDTO ObtenerTarjetaID(String id);
+
     
 }

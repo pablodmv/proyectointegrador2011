@@ -5,6 +5,8 @@
 
 package com.inout.test;
 
+import com.inout.dto.tarjetaDTO;
+import com.inout.dto.personaDTO;
 import com.inout.entities.Persona;
 import com.inout.ejb.personaLocal;
 import javax.ejb.EJB;
@@ -53,7 +55,7 @@ public class personaTest {
 
 
 
-     @Test
+    // @Test
     public void testAltaPersona() throws Exception {
         System.out.println("AltaPersona");
         personaLocal instance = lookuppersona();
@@ -62,6 +64,24 @@ public class personaTest {
         System.out.println("Resultado1 " + result1);
         System.out.println("Resultado2 " + result2);
     }
+
+
+    @Test
+    public void testObtenerPersonaTarjeta() throws Exception {
+        System.out.println("testObtenerPersonaTarjeta");
+        personaLocal instance = lookuppersona();
+        String IDTARJETA = "GENERICA";
+        tarjetaDTO pTarjeta = new tarjetaDTO(IDTARJETA);
+        personaDTO persona = instance.ObtenerPersonaTarjeta(pTarjeta);
+
+        System.out.println("Resultado1 " + persona.getNombre());
+    }
+
+
+
+
+
+
 
      private personaLocal lookuppersona() {
         try {

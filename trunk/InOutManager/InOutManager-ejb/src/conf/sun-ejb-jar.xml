@@ -10,5 +10,9 @@
       <ejb-name>marca</ejb-name>
       <jndi-name>marca</jndi-name>
     </ejb>
+    <ejb>
+      <ejb-name>tarjeta</ejb-name>
+      <jndi-name>tarjeta</jndi-name>
+    </ejb>
   </enterprise-beans>
 </sun-ejb-jar>
