@@ -5,6 +5,7 @@
 
 package com.inout.ejb;
 
+import com.inout.dto.marcaDTO;
 import com.inout.entities.Marca;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +19,8 @@ import javax.ejb.Remote;
 @Remote
 public interface marcaLocal {
 
-    public Boolean alta(String fecha, String hora, Integer id_dispositivo,String dispositivo, String id_persona);
-    public List<Marca> obtenerTodasMarcas(Date fecha);
+    public Boolean alta(marcaDTO marca);
+    public List<marcaDTO> obtenerTodasMarcas(Date fecha);
 
     
 }

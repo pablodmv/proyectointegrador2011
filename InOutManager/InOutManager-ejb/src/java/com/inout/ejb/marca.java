@@ -4,6 +4,8 @@
  */
 package com.inout.ejb;
 
+import com.inout.dto.marcaDTO;
+import com.inout.dto.personaDTO;
 import com.inout.entities.Marca;
 import com.inout.entities.Persona;
 import com.inout.util.converters;
@@ -28,20 +30,27 @@ public class marca implements marcaLocal {
     private EntityManager em;
     @EJB
     private personaLocal persona;
+    @EJB
+    private tarjetaLocal tarjeta;
 
     @Override
-    public Boolean alta(String fecha, String hora, Integer id_dispositivo, String dispositivo, String id_persona) {
+    public Boolean alta(marcaDTO marca) {
 
-        Persona personaAux = persona.ObtenerPersona("42562072");
+        personaDTO personaAux = persona.ObtenerPersona(marca.getPersonaID());
+        if (personaAux==null) {
+            personaAux = persona.ObtenerPersonaTarjeta(tarjeta.ObtenerTarjetaID(marca.getPersonaID()));
+        }
+        Persona persona = new Persona();
+        persona.setDocumento(personaAux.getDocumento());
         //TODO: FALTA CAMBIAR EL ID PERSONA O MANEJAR EL TAG
-        Marca marca = new Marca();
-        marca.setFecha(converters.StringDate(fecha, "yyyy/MM/dd"));
-        marca.setHora(hora);
-        marca.setIdDispositivo(id_dispositivo);
-        marca.setDispositivo(dispositivo);
-        marca.setPersona(personaAux);
+        Marca marcaEntity = new Marca();
+        marcaEntity.setFecha(marca.getFecha());
+        marcaEntity.setHora(marca.getHora());
+        marcaEntity.setIdDispositivo(marca.getIdDispositivo());
+        marcaEntity.setDispositivo(marca.getDispositivo());
+        marcaEntity.setPersona(persona);
         try {
-            em.persist(marca);
+            em.persist(marcaEntity);
             em.flush();
             return true;
         } catch (Exception e) {
@@ -51,11 +60,12 @@ public class marca implements marcaLocal {
     }
 
     @Override
-    public List<Marca> obtenerTodasMarcas(Date fecha) {
+    public List<marcaDTO> obtenerTodasMarcas(Date fecha) {
         Query marcasPorFecha = em.createNamedQuery("Marca.findByFecha");
         marcasPorFecha.setParameter("fecha", fecha);
-        List<Marca> marcas = marcasPorFecha.getResultList();
+        List<marcaDTO> marcas = marcasPorFecha.getResultList();
         return marcas;
 
     }
+
 }

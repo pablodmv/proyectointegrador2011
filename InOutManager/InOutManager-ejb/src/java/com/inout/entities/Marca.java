@@ -102,9 +102,7 @@ public class Marca implements Serializable {
         this.fecha = fecha;
     }
 
-    public String getFechaStr(){
-        return converters.DateString(fecha, "dd/MM/yyyy");
-    }
+
 
     public String getHora() {
         return hora;

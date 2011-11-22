@@ -5,28 +5,26 @@
 
 package com.inout.test;
 
-import com.inout.dto.marcaDTO;
-import com.inout.entities.Marca;
-import java.util.List;
 import java.util.Date;
-import org.junit.Test;
+import com.inout.dto.tarjetaDTO;
 import javax.naming.NamingException;
-import com.inout.ejb.marcaLocal;
 import javax.naming.InitialContext;
 import javax.naming.Context;
+import com.inout.ejb.tarjetaLocal;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
  * @author pablo
  */
-public class marcaTest {
+public class tarjetaTest {
 
-    public marcaTest() {
+    public tarjetaTest() {
     }
 
     @BeforeClass
@@ -51,31 +49,28 @@ public class marcaTest {
     // @Test
     // public void hello() {}
 
-   @Test
-    public void testAltaMarca() throws Exception {
-        System.out.println("AltaMarca");
-        marcaLocal instance = lookupMarca();
-        marcaDTO marca = new marcaDTO("29/11/2010", "20:55", 4,"PUERTA", "GENERICA");
-        Boolean result1 = instance.alta(marca);
+
+       @Test
+    public void testAgregarTarjeta() throws Exception {
+        System.out.println("testAgregarTarjeta");
+        tarjetaLocal instance = lookupTarjeta();
+        String id = "GENERICA";
+        Short tipo = 1;
+        Date fechaEntrega = new Date();
+        Boolean activa = Boolean.TRUE;
+        tarjetaDTO tarjeta = new tarjetaDTO(id, tipo, fechaEntrega, activa);
+        Boolean result1 = instance.altaTarjeta(tarjeta);
+
         System.out.println("Resultado1 " + result1);
     }
 
-  //  @Test
-    public void testObtenerTodasMarcas() throws Exception {
-        System.out.println("ObtenerTodasMarcas");
-        marcaLocal instance = lookupMarca();
-        List<marcaDTO> result1 = instance.obtenerTodasMarcas(new Date());
-        System.out.println("Resultado1 " + result1.size());
-    }
-
-    private marcaLocal lookupMarca() {
+    private tarjetaLocal lookupTarjeta() {
         try {
             Context c = new InitialContext();
-            return (marcaLocal) c.lookup("marca");
+            return (tarjetaLocal) c.lookup("tarjeta");
         } catch (NamingException ne) {
             java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
-
 }

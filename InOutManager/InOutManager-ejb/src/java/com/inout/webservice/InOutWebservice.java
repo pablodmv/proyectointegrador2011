@@ -5,6 +5,7 @@
 
 package com.inout.webservice;
 
+import com.inout.dto.marcaDTO;
 import com.inout.ejb.marca;
 import com.inout.ejb.marcaLocal;
 import javax.ejb.EJB;
@@ -32,7 +33,8 @@ public class InOutWebservice {
     String hora, @WebParam(name = "id_Dispositivo")
     int id_Dispositivo, @WebParam(name = "descripcion_Dispositivo")
     String descripcion_Dispositivo,  @WebParam(name = "id_persona") String id_persona) {
-        return marca.alta(fecha, hora, id_Dispositivo, descripcion_Dispositivo, id_persona);
+        marcaDTO MarcaDTO = new marcaDTO(fecha, hora, id_Dispositivo, descripcion_Dispositivo, id_persona);
+        return marca.alta(MarcaDTO);
 
     }
 
