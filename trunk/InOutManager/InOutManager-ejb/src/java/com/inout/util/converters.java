@@ -29,6 +29,15 @@ public class converters {
         return null;
     }
 
+    public static String DateString(Date date, String format){
+        try {
+            SimpleDateFormat simpleDate = new SimpleDateFormat(format);
+            return simpleDate.format(date);
+        } catch (Exception ex) {
+            Logger.getLogger(converters.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 
 }

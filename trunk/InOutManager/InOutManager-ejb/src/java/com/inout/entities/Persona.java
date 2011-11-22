@@ -13,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -59,6 +61,11 @@ public class Persona implements Serializable {
     private Date ingreso;
     @Column(name = "NUM_EMPLEADO")
     private Long numEmpleado;
+    @JoinColumn(name = "ID_TARJETA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Tarjeta tarjeta;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private Collection<Marca> marcaCollection;
 
     public Persona() {
     }
@@ -137,6 +144,21 @@ public class Persona implements Serializable {
         this.numEmpleado = numEmpleado;
     }
 
+    public Tarjeta getTarjeta() {
+        return tarjeta;
+    }
+
+    public void setTarjeta(Tarjeta tarjeta) {
+        this.tarjeta = tarjeta;
+    }
+
+    public Collection<Marca> getMarcaCollection() {
+        return marcaCollection;
+    }
+
+    public void setMarcaCollection(Collection<Marca> marcaCollection) {
+        this.marcaCollection = marcaCollection;
+    }
 
     @Override
     public int hashCode() {

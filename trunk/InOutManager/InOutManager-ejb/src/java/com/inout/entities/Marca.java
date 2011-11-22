@@ -5,6 +5,7 @@
 
 package com.inout.entities;
 
+import com.inout.util.converters;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -101,6 +102,10 @@ public class Marca implements Serializable {
         this.fecha = fecha;
     }
 
+    public String getFechaStr(){
+        return converters.DateString(fecha, "dd/MM/yyyy");
+    }
+
     public String getHora() {
         return hora;
     }
@@ -156,6 +161,7 @@ public class Marca implements Serializable {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
+
 
     @Override
     public int hashCode() {
