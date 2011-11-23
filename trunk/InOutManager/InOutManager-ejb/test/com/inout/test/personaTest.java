@@ -5,6 +5,7 @@
 
 package com.inout.test;
 
+import com.inout.util.converters;
 import com.inout.dto.tarjetaDTO;
 import com.inout.dto.personaDTO;
 import com.inout.entities.Persona;
@@ -59,10 +60,9 @@ public class personaTest {
     public void testAltaPersona() throws Exception {
         System.out.println("AltaPersona");
         personaLocal instance = lookuppersona();
-        String result1 = instance.altaPersona("42562072", "Pablo", "Martinez", "Direccion cualquiera", "98376464", "8qw76e6w7", "13/06/2008", 29);
-        String result2 = instance.altaPersona("123456", "Gustavo", "Leites", "Direccion cualquiera", "98376464", "8qw76e6w7", "13/06/2008", 29);
+        personaDTO Persona = new personaDTO("42562072", "Pablo", "Martinez", "Direccion cualquiera", "98376464", "8qw76e6w7", converters.StringDate("13/06/2008", "dd/MM/yyyy"), Long.parseLong("29"));
+        Boolean result1 = instance.altaPersona(Persona,"Pablo");
         System.out.println("Resultado1 " + result1);
-        System.out.println("Resultado2 " + result2);
     }
 
 
@@ -72,7 +72,7 @@ public class personaTest {
         personaLocal instance = lookuppersona();
         String IDTARJETA = "GENERICA";
         tarjetaDTO pTarjeta = new tarjetaDTO(IDTARJETA);
-        personaDTO persona = instance.ObtenerPersonaTarjeta(pTarjeta);
+        personaDTO persona = instance.ObtenerPersonaTarjeta(pTarjeta,"Pablo");
 
         System.out.println("Resultado1 " + persona.getNombre());
     }

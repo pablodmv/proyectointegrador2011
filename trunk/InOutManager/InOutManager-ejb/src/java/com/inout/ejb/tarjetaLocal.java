@@ -16,8 +16,11 @@ import javax.ejb.Remote;
 @Remote
 public interface tarjetaLocal {
 
-    public Boolean altaTarjeta(tarjetaDTO tarjeta);
-    public tarjetaDTO ObtenerTarjetaID(String id);
+    public Boolean altaTarjeta(tarjetaDTO tarjeta, String userLogin);
+    public tarjetaDTO ObtenerTarjetaID(String id, String userLogin);
+    public Boolean modificarTarjeta(tarjetaDTO TarjetaDTO, String userLogin);
+    public Boolean eliminarTarjeta(tarjetaDTO TarjetaDTO, String userLogin);
+
 
     
 }
