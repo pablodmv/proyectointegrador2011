@@ -17,9 +17,9 @@ import javax.ejb.Remote;
 @Remote
 public interface personaLocal {
 
-    public String altaPersona(String documento, String nombre, String apellido, String direccion, String telefono1, String telefono2, String ingreso, Integer num_empleado);
-
-    public personaDTO ObtenerPersona(String idPersona);
-
-    public personaDTO ObtenerPersonaTarjeta(tarjetaDTO Tarjeta);
+    public Boolean altaPersona(personaDTO PersonaDTO, String usuario);
+    public personaDTO ObtenerPersona(String idPersona, String usuario);
+    public personaDTO ObtenerPersonaTarjeta(tarjetaDTO Tarjeta, String usuario);
+    public Boolean eliminarPersona(personaDTO PersonaDTO, String usuario);
+    public Boolean modificarPersona(personaDTO PersonaDTO, String usuario);
 }

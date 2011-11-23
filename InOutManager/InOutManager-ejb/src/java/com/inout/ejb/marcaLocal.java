@@ -19,8 +19,10 @@ import javax.ejb.Remote;
 @Remote
 public interface marcaLocal {
 
-    public Boolean alta(marcaDTO marca);
-    public List<marcaDTO> obtenerTodasMarcas(Date fecha);
+    public Boolean altaMarca(marcaDTO marca);
+    public List<marcaDTO> obtenerTodasMarcas(Date fecha, String usuario);
+    public Boolean eliminarMarca( marcaDTO MarcaDTO, String usuario);
+    public Boolean modificarMarca(marcaDTO MarcaDTO, String usuario) ;
 
     
 }

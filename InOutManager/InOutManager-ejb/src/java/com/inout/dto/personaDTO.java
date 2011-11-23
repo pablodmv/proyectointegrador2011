@@ -60,6 +60,7 @@ public class personaDTO implements Serializable {
         this.tarjeta = tarjeta;
     }
 
+
     public String getApellido() {
         return apellido;
     }

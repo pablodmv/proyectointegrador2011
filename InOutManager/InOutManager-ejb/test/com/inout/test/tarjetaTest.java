@@ -59,7 +59,7 @@ public class tarjetaTest {
         Date fechaEntrega = new Date();
         Boolean activa = Boolean.TRUE;
         tarjetaDTO tarjeta = new tarjetaDTO(id, tipo, fechaEntrega, activa);
-        Boolean result1 = instance.altaTarjeta(tarjeta);
+        Boolean result1 = instance.altaTarjeta(tarjeta,"Pablo");
 
         System.out.println("Resultado1 " + result1);
     }

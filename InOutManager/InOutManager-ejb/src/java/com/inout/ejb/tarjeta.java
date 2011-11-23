@@ -5,8 +5,10 @@
 package com.inout.ejb;
 
 import com.inout.dto.tarjetaDTO;
+import com.inout.entities.Log;
 import com.inout.entities.Tarjeta;
-import java.lang.annotation.Target;
+import java.util.Date;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,22 +22,23 @@ public class tarjeta implements tarjetaLocal {
 
     @PersistenceContext()
     private EntityManager em;
+    @EJB
+    private loggerLocal Logger;
 
     @Override
-    public Boolean altaTarjeta(tarjetaDTO tarjeta) {
-        Tarjeta tarj = new Tarjeta();
-
-        tarj.setId(tarjeta.getId());
-        tarj.setDescripcion(tarjeta.getDescripcion());
-        tarj.setFechaEntrega(tarjeta.getFechaEntrega());
-        tarj.setFechaDevolucion(tarjeta.getFechaDevolucion());
-        tarj.setActiva(tarjeta.getActiva());
-        tarj.setTipo(tarjeta.getTipo());
+    public Boolean altaTarjeta(tarjetaDTO tarjeta, String userLogin) {
 
         try {
-        em.persist(tarj);
-        em.flush();
-        return true;
+            em.persist(convertirDTOTarjeta(tarjeta, userLogin));
+            em.flush();
+
+            //Logueo
+            Log bit = new Log();
+            bit.setFechahora(new Date());
+            bit.setAccion("altaTarjeta");
+            bit.setUsuario(userLogin);
+            Logger.log(bit);
+            return true;
         } catch (Exception e) {
             System.out.println("No se pudo guardar la tarjeta " + e.getMessage());
         }
@@ -43,10 +46,60 @@ public class tarjeta implements tarjetaLocal {
     }
 
     @Override
-    public tarjetaDTO ObtenerTarjetaID(String id) {
+    public tarjetaDTO ObtenerTarjetaID(String id, String userLogin) {
         Tarjeta tarjeta = new Tarjeta();
         tarjeta = em.find(Tarjeta.class, id);
         return new tarjetaDTO(tarjeta.getId(), tarjeta.getDescripcion(), tarjeta.getTipo(), tarjeta.getFechaEntrega(), tarjeta.getFechaDevolucion(), tarjeta.getActiva());
+
+    }
+
+    @Override
+    public Boolean modificarTarjeta(tarjetaDTO TarjetaDTO, String userLogin) {
+        try {
+            em.merge(convertirDTOTarjeta(TarjetaDTO, userLogin));
+            em.flush();
+            //Logueo
+            Log bit = new Log();
+            bit.setFechahora(new Date());
+            bit.setAccion("modificarTarjeta");
+            bit.setUsuario(userLogin);
+            Logger.log(bit);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    @Override
+    public Boolean eliminarTarjeta(tarjetaDTO TarjetaDTO, String userLogin) {
+
+        try {
+            em.remove(convertirDTOTarjeta(TarjetaDTO, userLogin));
+            em.flush();
+            //Logueo
+            Log bit = new Log();
+            bit.setFechahora(new Date());
+            bit.setAccion("eliminarTarjeta");
+            bit.setUsuario(userLogin);
+            Logger.log(bit);
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Tarjeta convertirDTOTarjeta(tarjetaDTO TarjetaDTO, String userLogin) {
+        Tarjeta tarjeta = new Tarjeta();
+        tarjeta.setId(TarjetaDTO.getId());
+        tarjeta.setDescripcion(TarjetaDTO.getDescripcion());
+        tarjeta.setFechaEntrega(TarjetaDTO.getFechaEntrega());
+        tarjeta.setFechaDevolucion(TarjetaDTO.getFechaDevolucion());
+        tarjeta.setActiva(TarjetaDTO.getActiva());
+        tarjeta.setTipo(TarjetaDTO.getTipo());
+        return tarjeta;
+
 
     }
 }

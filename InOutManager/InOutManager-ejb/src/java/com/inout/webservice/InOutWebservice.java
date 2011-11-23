@@ -34,7 +34,7 @@ public class InOutWebservice {
     int id_Dispositivo, @WebParam(name = "descripcion_Dispositivo")
     String descripcion_Dispositivo,  @WebParam(name = "id_persona") String id_persona) {
         marcaDTO MarcaDTO = new marcaDTO(fecha, hora, id_Dispositivo, descripcion_Dispositivo, id_persona);
-        return marca.alta(MarcaDTO);
+        return marca.altaMarca(MarcaDTO);
 
     }
 

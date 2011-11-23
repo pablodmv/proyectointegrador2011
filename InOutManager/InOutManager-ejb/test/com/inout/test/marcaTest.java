@@ -55,8 +55,8 @@ public class marcaTest {
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
-        marcaDTO marca = new marcaDTO("29/11/2010", "20:55", 4,"PUERTA", "GENERICA");
-        Boolean result1 = instance.alta(marca);
+        marcaDTO marca = new marcaDTO("23/11/2010", "20:55", 4,"PUERTA", "GENERICA");
+        Boolean result1 = instance.altaMarca(marca);
         System.out.println("Resultado1 " + result1);
     }
 
@@ -64,7 +64,7 @@ public class marcaTest {
     public void testObtenerTodasMarcas() throws Exception {
         System.out.println("ObtenerTodasMarcas");
         marcaLocal instance = lookupMarca();
-        List<marcaDTO> result1 = instance.obtenerTodasMarcas(new Date());
+        List<marcaDTO> result1 = instance.obtenerTodasMarcas(new Date(),"Pablo");
         System.out.println("Resultado1 " + result1.size());
     }
 
