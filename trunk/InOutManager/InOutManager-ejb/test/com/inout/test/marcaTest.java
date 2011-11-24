@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.inout.test;
 
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import com.inout.dto.marcaDTO;
 import com.inout.entities.Marca;
 import java.util.List;
@@ -50,22 +51,30 @@ public class marcaTest {
     //
     // @Test
     // public void hello() {}
-
-   @Test
+    //@Test
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
-        marcaDTO marca = new marcaDTO("23/11/2010", "20:55", 4,"PUERTA", "GENERICA");
+        marcaDTO marca = new marcaDTO("23/11/2010", "20:55", 4, "PUERTA", "GENERICA");
         Boolean result1 = instance.altaMarca(marca);
         System.out.println("Resultado1 " + result1);
     }
 
-  //  @Test
+    @Test
     public void testObtenerTodasMarcas() throws Exception {
         System.out.println("ObtenerTodasMarcas");
         marcaLocal instance = lookupMarca();
-        List<marcaDTO> result1 = instance.obtenerTodasMarcas(new Date(),"Pablo");
+        DateFormat formatter;
+        Date date;
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String str_date = "2011-11-21";
+        date = (Date) formatter.parse(str_date);
+        List<marcaDTO> result1 = instance.obtenerTodasMarcas(date, "Pablo");
         System.out.println("Resultado1 " + result1.size());
+        for (marcaDTO dTO : result1) {
+            System.out.println("La fecha es : " + dTO.getFechaStr());
+
+        }
     }
 
     private marcaLocal lookupMarca() {
@@ -77,5 +86,4 @@ public class marcaTest {
             throw new RuntimeException(ne);
         }
     }
-
 }
