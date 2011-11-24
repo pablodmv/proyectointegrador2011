@@ -16,8 +16,13 @@
 
         <h:form id="form" prependId="false">
             <rich:dataTable value="#{admMarcasMBean.markSelectItems}" var="mark"
-            iterationStatusVar="it" id="table" rows="5">
+            iterationStatusVar="it" id="table" rows="10">
             
+            <rich:column>
+                <f:facet name="header">#</f:facet>
+                #{it.index}
+            </rich:column>
+
             <rich:column>
                 <f:facet name="header">#{msg.idDispositivo_label}</f:facet>
                 <h:outputText id="id" value="#{mark.id}" />
@@ -40,17 +45,17 @@
 
             <rich:column>
                 <f:facet name="header">#{msg.dispositivo_label}</f:facet>
-                <h:outputText id="idDispositivo" value="#{mark.dispositivo}" />
+                <h:outputText id="dispositivo" value="#{mark.dispositivo}" />
             </rich:column>
 
             <rich:column>
                 <f:facet name="header">#{msg.correccionFecha_label}</f:facet>
-                <h:outputText id="idDispositivo" value="#{mark.correccionFechaStr}" />
+                <h:outputText id="corrFecha" value="#{mark.correccionFechaStr}" />
             </rich:column>
 
             <rich:column>
                 <f:facet name="header">#{msg.correccionHora_label}</f:facet>
-                <h:outputText id="idDispositivo" value="#{mark.correccionHora}" />
+                <h:outputText id="corrHora" value="#{mark.correccionHora}" />
             </rich:column>
                 
             <rich:column>
@@ -77,18 +82,27 @@
             <h:graphicImage value="../resources/images/indicator.gif" alt="loadIndicator" />
             Please wait...
         </rich:popupPanel>
-            
 
             <rich:popupPanel header="Detalle Marcas" id="editPane" domElementAttachment="parent" width="400" height="170">
                 <h:panelGrid columns="2" id="editGrid">
-                    <h:outputLabel value="Dispositivo:"/>
-                    <h:outputText value="#{admMarcasMBean.editedMark.idDispositivo}" />
+                    <h:outputLabel value="#{msg.idDispositivo_label}" for="editIdDis"/>
+                    <h:outputText id="editIdDis" value="#{admMarcasMBean.editedMark.idDispositivo}" />
 
-                    <h:outputText value="#{msg.nombreCompletoPersona_label}" />
-                    <h:outputText value="#{admMarcasMBean.editedMark.persona.nombre}" />
+                    <h:outputLabel value="#{msg.nombreCompletoPersona_label}" for="editPerId" />
+                    <h:outputText id="editPerId" value="#{admMarcasMBean.editedMark.personaID}" />
 
-                    <h:outputText value="Hora:" />
-                    <h:outputText value="#{admMarcasMBean.editedMark.hora}" />
+                    <h:outputLabel value="#{msg.horaMarca_label}" for="editHora" />
+                    <h:outputText id="editHora" value="#{admMarcasMBean.editedMark.hora}" />
+
+                    <h:outputLabel value="#{msg.horaMarca_label}" for="editCorrHora" />
+                    <h:inputText id="editCorrHora" value="#{admMarcasMBean.editedMark.correccionHora}"/>
+
+                    <h:outputLabel value="#{msg.correccionFecha_label}" for="editCorrFecha"/>
+                    <rich:calendar id="editCorrFecha" datePattern="dd/MM/yyyy" style="width:200px"
+                                   value="#{admMarcasMBean.editedMark.correccionFecha}">
+                    </rich:calendar>
+
+
                 </h:panelGrid>
                     <a4j:commandButton value="Store" action="#{admMarcasMBean.store}"
                     render="table" execute="editPane"

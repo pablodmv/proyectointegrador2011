@@ -33,10 +33,4 @@
         <remote>com.inout.ejb.personaLocal</remote>
         <ejb-link>persona</ejb-link>
     </ejb-ref>
-    <ejb-local-ref>
-        <ejb-ref-name>PruebaEJB</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <local>prueba.PruebaEJBLocal</local>
-        <ejb-link>PruebaEJB</ejb-link>
-    </ejb-local-ref>
 </web-app>

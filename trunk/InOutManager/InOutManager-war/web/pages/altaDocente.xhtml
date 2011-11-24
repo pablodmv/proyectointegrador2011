@@ -20,6 +20,16 @@
                 <h:outputLabel value="#{msg.doc_label}" for="doc"/>
                 <h:inputText id="doc" value="#{docenteMB.doc}"/>
 
+                <h:outputLabel value="#{msg.fechaIngreso_label}" for="fechaIngreso"/>
+                <rich:calendar id="fechaIngreso" datePattern="dd/MM/yyyy" style="width:200px"
+                               value="#{docenteMB.fechaIngreso}"></rich:calendar>
+
+                <h:outputLabel value="#{msg.numEmpleado_label}" for="numEmpleado"/>
+                <h:inputText id="numEmpleado" value="#{docenteMB.numEmpleado}"/>
+
+                <h:outputLabel value="#{msg.idTarjeta_label}" for="idTarjeta"/>
+                <h:inputText id="idTarjeta" value="#{docenteMB.idTarjeta}"/>
+
                 <h:outputLabel value="#{msg.direccion_label}" for="dir"/>
                 <h:inputText id="dir" value="#{docenteMB.dir}"/>
 

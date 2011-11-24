@@ -5,6 +5,7 @@
 
 package ati.manager.inout.beans;
 
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
@@ -12,7 +13,6 @@ import javax.enterprise.context.Dependent;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import prueba.PruebaEJBLocal;
 
 /**
  *
@@ -21,7 +21,6 @@ import prueba.PruebaEJBLocal;
 @Named(value="docenteMB")
 @Dependent
 public class DocenteMB {
-    PruebaEJBLocal pruebaEJB = lookupPruebaEJBLocal();
 
     private String nombre;
     private String apellido;
@@ -29,12 +28,15 @@ public class DocenteMB {
     private String tel1;
     private String tel2;
     private String dir;
+    private Date fechaIngreso;
+    private int numEmpleado;
+    private String idTarjeta;
+
 
 
     /** Creates a new instance of DocenteMB */
     public DocenteMB() {
-        PruebaEJBLocal p = this.lookupPruebaEJBLocal();
-        System.out.println(">>> " + p.pruebaMethod());
+       
     }
 
     public String getApellido() {
@@ -85,14 +87,28 @@ public class DocenteMB {
         this.tel2 = tel2;
     }
 
-    private PruebaEJBLocal lookupPruebaEJBLocal() {
-        try {
-            Context c = new InitialContext();
-            return (PruebaEJBLocal) c.lookup("java:comp/env/PruebaEJB");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getIdTarjeta() {
+        return idTarjeta;
+    }
+
+    public void setIdTarjeta(String idTarjeta) {
+        this.idTarjeta = idTarjeta;
+    }
+
+    public int getNumEmpleado() {
+        return numEmpleado;
+    }
+
+    public void setNumEmpleado(int numEmpleado) {
+        this.numEmpleado = numEmpleado;
     }
 
     
