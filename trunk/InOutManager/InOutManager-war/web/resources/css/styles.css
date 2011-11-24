@@ -1,0 +1,111 @@
+body{
+    background: none repeat scroll 0 0 #F1EFE2;
+    font-family: Verdana,sans-serif;
+    color: #484848;
+    font-size: 12px;
+    margin: 0;
+    min-width: 900px;
+    padding: 0;
+}
+
+#content{
+    margin:0 auto 0 auto; width:390px;
+    padding: 20px;
+}
+
+
+.pic{
+    margin-bottom: -4px;
+    margin-right: 2px;
+}
+
+.search .rf-ddm-itm-sel{
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    cursor: default;
+}
+
+#layout{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#layout2{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#top{
+    font-size: 80%;
+    height: 1.8em;
+    background: none repeat scroll 0 0 #2C4056;
+    color: #FFFFFF;
+    font-size: 0.8em;
+    height: 1.8em;
+    padding: 2px 6px 0 6px;
+    font-weight: bold;
+}
+
+#login-container{
+    float: right;
+}
+
+#header{
+    background-color: #507AAA;
+    color: #F8F8F8;
+    height: 6.2em;
+    margin: 0;
+    padding: 4px 8px 0 6px;
+    position: relative;
+}
+
+#main-menu{
+    bottom: 0;
+    left: 6px;
+    /*argin-right: -500px;*/
+    position: absolute;
+    padding: 5px;
+}
+
+#logo{
+    float: right;
+}
+
+#menu-content{
+    bottom: 0;
+    position: absolute;
+    top: 10%;
+}
+.centrado {
+	position: absolute;
+	top: 40%;
+	text-align: center;
+}
+
+#toolbar{
+    margin-bottom: 0;
+}
+
+.rf-tb{
+    border: 1px solid #507AAA;
+}
+
+.rf-tb-emp{
+    background-color: #507AAA;
+}
+
+.rf-tb-itm{
+    background-color: #507AAA;
+    border-color: #507AAA;
+}
+
+.imageLink{
+    border: 0px;
+    border: none;
+}
+/*#dDownMenu1{
+    font-weight: bold;
+    padding: 4px 10px;
+    background-color: #507AAA;
+}*/
