@@ -27,7 +27,7 @@ public class AdmMarcasMBean {
 
     private List<marcaDTO> markSelectItems = null;
     private int currentMarkIndex;
-    private marcaDTO editedMark = new marcaDTO();
+    private marcaDTO editedMark;
     private int page = 1;
     
 
@@ -51,7 +51,7 @@ public class AdmMarcasMBean {
     }
 
     public void store() {
-        markSelectItems.set(currentMarkIndex, editedMark);
+        markSelectItems.add(currentMarkIndex, editedMark);
     }
 
     public List<marcaDTO> getMarkSelectItems() {
