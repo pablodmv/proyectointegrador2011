@@ -21,4 +21,22 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    <ejb-ref>
+        <ejb-ref-name>marca</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.inout.ejb.marcaLocal</remote>
+        <ejb-link>marca</ejb-link>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>persona</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.inout.ejb.personaLocal</remote>
+        <ejb-link>persona</ejb-link>
+    </ejb-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>PruebaEJB</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>prueba.PruebaEJBLocal</local>
+        <ejb-link>PruebaEJB</ejb-link>
+    </ejb-local-ref>
 </web-app>
