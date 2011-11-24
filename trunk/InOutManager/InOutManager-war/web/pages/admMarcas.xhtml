@@ -14,7 +14,7 @@
         <a4j:status onstart="#{rich:component('statPane')}.show()"
         onstop="#{rich:component('statPane')}.hide()" />
 
-        <h:form id="form" prependId="false">
+        <h:form id="form">
             <rich:dataTable value="#{admMarcasMBean.markSelectItems}" var="mark"
             iterationStatusVar="it" id="table" rows="10">
             
@@ -67,8 +67,7 @@
                 <a4j:commandLink styleClass="no-decor" render="editGrid"
                     execute="@this" oncomplete="#{rich:component('editPane')}.show()">
                     <h:graphicImage styleClass="imageLink" value="../resources/images/edit.gif" alt="edit"/>
-                    <a4j:param value="#{it.index}"
-                               assignTo="#{admMarcasMBean.currentMarkIndex}" />
+                    <a4j:param value="#{it.index}" assignTo="#{admMarcasMBean.currentMarkIndex}" />
                     <f:setPropertyActionListener target="#{admMarcasMBean.editedMark}"
                         value="#{mark}" />
                 </a4j:commandLink>
@@ -83,8 +82,11 @@
             Please wait...
         </rich:popupPanel>
 
-            <rich:popupPanel header="Detalle Marcas" id="editPane" domElementAttachment="parent" width="400" height="170">
+            <rich:popupPanel header="Detalle Marcas" id="editPane" domElementAttachment="parent" width="400" height="370">
                 <h:panelGrid columns="2" id="editGrid">
+                    <h:outputLabel value="Current Index:"/>
+                    <h:outputText value="#{admMarcasMBean.currentMarkIndex}"/>
+                    
                     <h:outputLabel value="#{msg.idDispositivo_label}" for="editIdDis"/>
                     <h:outputText id="editIdDis" value="#{admMarcasMBean.editedMark.idDispositivo}" />
 
