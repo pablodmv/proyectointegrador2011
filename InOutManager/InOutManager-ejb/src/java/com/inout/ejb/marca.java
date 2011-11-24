@@ -70,11 +70,11 @@ public class marca implements marcaLocal {
         }
         
             //Logueo
-        Log bit = new Log();
-        bit.setFechahora(new Date());
-        bit.setAccion("obtenerTodasMarcas");
-        bit.setUsuario(userLogin);
-        LoggerBean.log(bit);
+//        Log bit = new Log();
+//        bit.setFechahora(new Date());
+//        bit.setAccion("obtenerTodasMarcas");
+//        bit.setUsuario(userLogin);
+//        LoggerBean.log(bit);
         return marcaDTOList;
 
     }
@@ -137,12 +137,18 @@ public class marca implements marcaLocal {
         MarcaDTO.setId(marca.getId());
         MarcaDTO.setIdDispositivo(marca.getIdDispositivo());
         MarcaDTO.setIdPareja(marca.getIdPareja());
-        MarcaDTO.setCorreccionFecha(marca.getCorreccionFecha());
+        MarcaDTO.setFecha(marca.getFecha());
+        MarcaDTO.setCorreccionFecha(marca.getFecha());
         MarcaDTO.setCorreccionFechaStr(converters.DateString(MarcaDTO.getCorreccionFecha(), "dd/MM/yyyy"));
         MarcaDTO.setDispositivo(marca.getDispositivo());
-        MarcaDTO.setFecha(marca.getFecha());
         MarcaDTO.setFechaStr(converters.DateString(MarcaDTO.getFecha(), "dd/MM/yyyy"));
         MarcaDTO.setHora(marca.getHora());
+        if(marca.getCorreccionHora()!=null){
+            MarcaDTO.setCorreccionHora(marca.getCorreccionHora());
+        }else{
+            MarcaDTO.setCorreccionHora("");
+        }
+
         return MarcaDTO;
     }
 
