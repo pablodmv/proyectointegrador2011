@@ -11,6 +11,7 @@ import com.inout.entities.Marca;
 import com.inout.entities.Persona;
 import com.inout.util.converters;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.SimpleFormatter;
@@ -61,15 +62,20 @@ public class marca implements marcaLocal {
     @Override
     public List<marcaDTO> obtenerTodasMarcas(Date fecha, String userLogin) {
         Query marcasPorFecha = em.createNamedQuery("Marca.findByFecha");
+        List<marcaDTO> marcaDTOList = new ArrayList<marcaDTO>();
         marcasPorFecha.setParameter("fecha", fecha);
-        List<marcaDTO> marcas = marcasPorFecha.getResultList();
+        List<Marca> marcas = marcasPorFecha.getResultList();
+        for (Marca marca : marcas) {
+            marcaDTOList.add(convertirMarcaDTO(marca, userLogin));
+        }
+        
             //Logueo
-//            Log bit = new Log();
-//            bit.setFechahora(new Date());
-//            bit.setAccion("obtenerTodasMarcas");
-//            bit.setUsuario(userLogin);
-//            LoggerBean.log(bit);
-        return marcas;
+        Log bit = new Log();
+        bit.setFechahora(new Date());
+        bit.setAccion("obtenerTodasMarcas");
+        bit.setUsuario(userLogin);
+        LoggerBean.log(bit);
+        return marcaDTOList;
 
     }
 
@@ -125,4 +131,23 @@ public class marca implements marcaLocal {
         return marca;
 
     }
+
+    private marcaDTO convertirMarcaDTO(Marca marca, String userLogin){
+        marcaDTO MarcaDTO = new marcaDTO();
+        MarcaDTO.setId(marca.getId());
+        MarcaDTO.setIdDispositivo(marca.getIdDispositivo());
+        MarcaDTO.setIdPareja(marca.getIdPareja());
+        MarcaDTO.setCorreccionFecha(marca.getCorreccionFecha());
+        MarcaDTO.setCorreccionFechaStr(converters.DateString(MarcaDTO.getCorreccionFecha(), "dd/MM/yyyy"));
+        MarcaDTO.setDispositivo(marca.getDispositivo());
+        MarcaDTO.setFecha(marca.getFecha());
+        MarcaDTO.setFechaStr(converters.DateString(MarcaDTO.getFecha(), "dd/MM/yyyy"));
+        MarcaDTO.setHora(marca.getHora());
+        return MarcaDTO;
+    }
+
+
+
+
+
 }
