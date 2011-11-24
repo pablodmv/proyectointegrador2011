@@ -69,8 +69,8 @@ public class AdmMarcasMBean {
     }
 
     public marcaDTO getEditedMark() {
-
-        return this.markSelectItems.get(this.currentMarkIndex);
+        this.editedMark = this.markSelectItems.get(this.currentMarkIndex);
+        return editedMark;
     }
 
     public void setEditedMark(marcaDTO editedMark) {
