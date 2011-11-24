@@ -16,13 +16,19 @@ public class marcaDTO implements Serializable {
 
     private Long id;
     private Date fecha;
-    private String hora;
+    private String fechaStr="";
+    private String hora="";
     private long idDispositivo;
     private String dispositivo;
     private long idPareja;
     private Date correccionFecha;
-    private String correccionHora;
-    private String personaID;
+    private String correccionFechaStr="";
+    private String correccionHora="";
+    private String personaID="";
+
+    public marcaDTO(){
+        
+    }
 
     public marcaDTO(Date fecha, String hora, long idDispositivo, String dispositivo, String personaID) {
         this.fecha = fecha;
@@ -68,11 +74,13 @@ public class marcaDTO implements Serializable {
     }
 
     public String getFechaStr() {
-        return converters.DateString(fecha, "dd/MM/yyyy");
+        this.fechaStr = converters.DateString(fecha, "dd/MM/yyyy");
+        return this.fechaStr;
     }
 
-    public void setFechaStr(String Fecha) {
-        this.fecha= converters.StringDate(Fecha, "dd/MM/yyyy");
+    public void setFechaStr(String fecha) {
+        this.fechaStr = fecha;
+        //this.fecha= converters.StringDate(Fecha, "dd/MM/yyyy");
     }
 
     public void setFecha(Date fecha) {
@@ -118,4 +126,14 @@ public class marcaDTO implements Serializable {
     public void setPersonaID(String persona) {
         this.personaID = persona;
     }
+
+    public String getCorreccionFechaStr() {
+        return correccionFechaStr;
+    }
+
+    public void setCorreccionFechaStr(String correccionFechaStr) {
+        this.correccionFechaStr = correccionFechaStr;
+    }
+
+
 }

@@ -64,11 +64,11 @@ public class marca implements marcaLocal {
         marcasPorFecha.setParameter("fecha", fecha);
         List<marcaDTO> marcas = marcasPorFecha.getResultList();
             //Logueo
-            Log bit = new Log();
-            bit.setFechahora(new Date());
-            bit.setAccion("obtenerTodasMarcas");
-            bit.setUsuario(userLogin);
-            LoggerBean.log(bit);
+//            Log bit = new Log();
+//            bit.setFechahora(new Date());
+//            bit.setAccion("obtenerTodasMarcas");
+//            bit.setUsuario(userLogin);
+//            LoggerBean.log(bit);
         return marcas;
 
     }
