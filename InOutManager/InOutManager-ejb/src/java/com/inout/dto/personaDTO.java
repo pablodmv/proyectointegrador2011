@@ -27,6 +27,10 @@ public class personaDTO implements Serializable {
     private tarjetaDTO tarjeta;
     private List<marcaDTO> marcaCollection;
 
+    public personaDTO(){
+        
+    }
+
     public personaDTO(String documento, String nombre, String apellido, String direccion, String telefono1, String telefono2, Date ingreso, Long numEmpleado, tarjetaDTO tarjeta, List<marcaDTO> marcaCollection) {
         this.documento = documento;
         this.nombre = nombre;
