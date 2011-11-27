@@ -5,15 +5,15 @@
 package com.rfidControl.main;
 
 import com.rfidControl.DTO.serverRCPDTO;
-import com.rfidControl.rpc.rfidRCPClient;
-import java.net.MalformedURLException;
-import org.apache.xmlrpc.XmlRpcException;
 import com.rfidControl.Readers.alienReader;
 import com.rfidControl.abstractClasses.Reader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -38,7 +38,7 @@ public class rfidMainController {
 
     private rfidMainController() {
         readersCollection = new ArrayList<Reader>();
-    
+
         PropertyConfigurator.configure("src/com/rfidControl/log4j/log4j.properties");
 
     }
@@ -49,7 +49,6 @@ public class rfidMainController {
         }
         return instance;
     }
-
 
     public List<Reader> getReadersCollection() {
         return readersCollection;
@@ -76,6 +75,7 @@ public class rfidMainController {
                 new rfidReadFromReader(readers).start();
             } else {
                 log.error("No se puede conectar al dispositivo :" + readers.getName() + "- " + readers.getIp_addr());
+                System.out.println("No se puede conectar al dispositivo :" + readers.getName() + "- " + readers.getIp_addr());
             }
         }
 //        String data = reader.read();
@@ -155,12 +155,10 @@ public class rfidMainController {
         String tagsAux2 = "";
         if (data.length() > 50) {
             tagsAux2 = data.split("Tag:")[1];
-
-
             if (tagsAux2 != null) {
                 tags = tagsAux2.split(",")[0];
                 tags += "," + tagsAux2.split(",")[2].split("Last:")[1].replace(" ", ",");
-                tags += "," + reader.getIp_addr() + reader.getPort();
+                tags += "," + reader.getIp_addr()+ ":" + reader.getPort()+ ":"+tagsAux2.split(",")[4].split(":")[1];
                 tags += "," + reader.getDescription();
             }
 
@@ -168,7 +166,7 @@ public class rfidMainController {
         return tags;
     }
 
-    public  serverRCPDTO readProperties() {
+    public serverRCPDTO readProperties() {
         Properties props = new Properties();
         serverRCPDTO server = new serverRCPDTO();
         try {
