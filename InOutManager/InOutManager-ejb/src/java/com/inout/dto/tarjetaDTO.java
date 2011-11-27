@@ -29,11 +29,12 @@ public class tarjetaDTO implements Serializable {
         this.activa = activa;
     }
 
-    public tarjetaDTO(String id, Short tipo, Date FechaEntrega, Boolean activa) {
+    public tarjetaDTO(String id, String Descripcion,Short tipo, Date FechaEntrega, Boolean activa) {
         this.id = id;
         this.tipo = tipo;
         this.FechaEntrega = FechaEntrega;
         this.activa = activa;
+        this.descripcion=Descripcion;
     }
 
     public tarjetaDTO(String id) {

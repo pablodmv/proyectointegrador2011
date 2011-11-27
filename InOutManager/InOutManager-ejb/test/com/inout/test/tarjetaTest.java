@@ -50,7 +50,7 @@ public class tarjetaTest {
     // public void hello() {}
 
 
-       @Test
+    //@Test
     public void testAgregarTarjeta() throws Exception {
         System.out.println("testAgregarTarjeta");
         tarjetaLocal instance = lookupTarjeta();
@@ -58,11 +58,28 @@ public class tarjetaTest {
         Short tipo = 1;
         Date fechaEntrega = new Date();
         Boolean activa = Boolean.TRUE;
-        tarjetaDTO tarjeta = new tarjetaDTO(id, tipo, fechaEntrega, activa);
+        String Descripcion = "Tarjeta Nueva";
+        tarjetaDTO tarjeta = new tarjetaDTO(id, Descripcion,tipo, fechaEntrega, activa);
         Boolean result1 = instance.altaTarjeta(tarjeta,"Pablo");
 
         System.out.println("Resultado1 " + result1);
     }
+
+    @Test
+    public void testmodificarTarjeta() throws Exception {
+        System.out.println("testmodificarTarjeta");
+        tarjetaLocal instance = lookupTarjeta();
+        String id = "FFF0 4021 A0D3 CCA5 6939 5F93";
+        Short tipo = 1;
+        Date fechaEntrega = new Date();
+        Boolean activa = Boolean.TRUE;
+        String Descripcion = "Tarjeta Modificada";
+        tarjetaDTO tarjeta = new tarjetaDTO(id, Descripcion,tipo, fechaEntrega, activa);
+        Boolean result1 = instance.modificarTarjeta(tarjeta,"Pablo");
+
+        System.out.println("Resultado1 " + result1);
+    }
+
 
     private tarjetaLocal lookupTarjeta() {
         try {

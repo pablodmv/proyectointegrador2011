@@ -5,9 +5,7 @@
 package com.inout.ejb;
 
 import com.inout.dto.tarjetaDTO;
-import com.inout.entities.Log;
 import com.inout.entities.Tarjeta;
-import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,13 +29,6 @@ public class tarjeta implements tarjetaLocal {
         try {
             em.persist(convertirDTOTarjeta(tarjeta, userLogin));
             em.flush();
-
-            //Logueo
-            Log bit = new Log();
-            bit.setFechahora(new Date());
-            bit.setAccion("altaTarjeta");
-            bit.setUsuario(userLogin);
-           // Logger.log(bit);
             return true;
         } catch (Exception e) {
             System.out.println("No se pudo guardar la tarjeta " + e.getMessage());
@@ -46,24 +37,31 @@ public class tarjeta implements tarjetaLocal {
     }
 
     @Override
-    public tarjetaDTO ObtenerTarjetaID(String id, String userLogin) {
+    public tarjetaDTO ObtenerTarjetaDTOID(String id, String userLogin) {
         Tarjeta tarjeta = new Tarjeta();
         tarjeta = em.find(Tarjeta.class, id);
         return new tarjetaDTO(tarjeta.getId(), tarjeta.getDescripcion(), tarjeta.getTipo(), tarjeta.getFechaEntrega(), tarjeta.getFechaDevolucion(), tarjeta.getActiva());
 
     }
 
+    private Tarjeta ObtenerTarjetaID(String id, String userLogin) {
+        Tarjeta tarjeta = new Tarjeta();
+        tarjeta = em.find(Tarjeta.class, id);
+        return tarjeta;
+
+    }
+
     @Override
     public Boolean modificarTarjeta(tarjetaDTO TarjetaDTO, String userLogin) {
         try {
-            em.merge(convertirDTOTarjeta(TarjetaDTO, userLogin));
+            Tarjeta tarjeta = ObtenerTarjetaID(TarjetaDTO.getId(), userLogin);
+            tarjeta.setDescripcion(TarjetaDTO.getDescripcion());
+            tarjeta.setActiva(TarjetaDTO.getActiva());
+            tarjeta.setFechaDevolucion(TarjetaDTO.getFechaDevolucion());
+            tarjeta.setTipo(TarjetaDTO.getTipo());
+            em.merge(tarjeta);
             em.flush();
-            //Logueo
-            Log bit = new Log();
-            bit.setFechahora(new Date());
-            bit.setAccion("modificarTarjeta");
-            bit.setUsuario(userLogin);
-            //Logger.log(bit);
+            Logger.loggerMessage("modificarTarjeta", userLogin, "IdTarjeta: " + TarjetaDTO.getId());
             return true;
         } catch (Exception e) {
             return false;
@@ -77,12 +75,7 @@ public class tarjeta implements tarjetaLocal {
         try {
             em.remove(convertirDTOTarjeta(TarjetaDTO, userLogin));
             em.flush();
-            //Logueo
-            Log bit = new Log();
-            bit.setFechahora(new Date());
-            bit.setAccion("eliminarTarjeta");
-            bit.setUsuario(userLogin);
-            //Logger.log(bit);
+            Logger.loggerMessage("eliminarTarjeta", userLogin, "IdTarjeta: " + TarjetaDTO.getId());
 
             return true;
         } catch (Exception e) {

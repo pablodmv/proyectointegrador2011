@@ -54,7 +54,7 @@ public class Marca implements Serializable {
     private String hora;
     @Basic(optional = false)
     @Column(name = "ID_DISPOSITIVO")
-    private long idDispositivo;
+    private String idDispositivo;
     @Basic(optional = false)
     @Column(name = "DISPOSITIVO")
     private String dispositivo;
@@ -77,7 +77,7 @@ public class Marca implements Serializable {
         this.id = id;
     }
 
-    public Marca(Long id, Date fecha, String hora, long idDispositivo, String dispositivo, long idPareja) {
+    public Marca(Long id, Date fecha, String hora, String idDispositivo, String dispositivo, long idPareja) {
         this.id = id;
         this.fecha = fecha;
         this.hora = hora;
@@ -112,11 +112,11 @@ public class Marca implements Serializable {
         this.hora = hora;
     }
 
-    public long getIdDispositivo() {
+    public String getIdDispositivo() {
         return idDispositivo;
     }
 
-    public void setIdDispositivo(long idDispositivo) {
+    public void setIdDispositivo(String idDispositivo) {
         this.idDispositivo = idDispositivo;
     }
 
