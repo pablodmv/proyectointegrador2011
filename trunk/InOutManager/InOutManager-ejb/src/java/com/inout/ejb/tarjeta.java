@@ -23,7 +23,7 @@ public class tarjeta implements tarjetaLocal {
     @PersistenceContext()
     private EntityManager em;
     @EJB
-    private loggerLocal Logger;
+    private loggerJMSLocal Logger;
 
     @Override
     public Boolean altaTarjeta(tarjetaDTO tarjeta, String userLogin) {
@@ -37,7 +37,7 @@ public class tarjeta implements tarjetaLocal {
             bit.setFechahora(new Date());
             bit.setAccion("altaTarjeta");
             bit.setUsuario(userLogin);
-            Logger.log(bit);
+           // Logger.log(bit);
             return true;
         } catch (Exception e) {
             System.out.println("No se pudo guardar la tarjeta " + e.getMessage());
@@ -63,7 +63,7 @@ public class tarjeta implements tarjetaLocal {
             bit.setFechahora(new Date());
             bit.setAccion("modificarTarjeta");
             bit.setUsuario(userLogin);
-            Logger.log(bit);
+            //Logger.log(bit);
             return true;
         } catch (Exception e) {
             return false;
@@ -82,7 +82,7 @@ public class tarjeta implements tarjetaLocal {
             bit.setFechahora(new Date());
             bit.setAccion("eliminarTarjeta");
             bit.setUsuario(userLogin);
-            Logger.log(bit);
+            //Logger.log(bit);
 
             return true;
         } catch (Exception e) {

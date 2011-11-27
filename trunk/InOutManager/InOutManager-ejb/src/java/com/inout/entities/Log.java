@@ -45,9 +45,13 @@ public class Log implements Serializable {
     @Basic(optional = false)
     @Column(name = "ACCION")
     private String accion;
+     @Basic(optional = false)
+    @Column(name = "DETALLE")
+    private String detalle;
     @Basic(optional = false)
     @Column(name = "USUARIO")
     private String usuario;
+
 
     public Log() {
     }
@@ -56,12 +60,23 @@ public class Log implements Serializable {
         this.id = id;
     }
 
+    public Log(Long id, Date fechahora, String accion, String detalle, String usuario) {
+        this.id = id;
+        this.fechahora = fechahora;
+        this.accion = accion;
+        this.detalle = detalle;
+        this.usuario = usuario;
+    }
+
     public Log(Long id, Date fechahora, String accion, String usuario) {
         this.id = id;
         this.fechahora = fechahora;
         this.accion = accion;
         this.usuario = usuario;
     }
+
+    
+   
 
     public Long getId() {
         return id;
@@ -94,6 +109,15 @@ public class Log implements Serializable {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
+
+    public String getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
+    }
+    
 
     @Override
     public int hashCode() {

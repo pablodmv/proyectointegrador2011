@@ -6,15 +6,14 @@
 package com.inout.ejb;
 
 import javax.ejb.Local;
-import javax.ejb.Remote;
 
 /**
  *
  * @author pablo
  */
 @Local
-public interface loggerLocal {
+public interface marcaJMSLocal {
 
-    public void log(Object messageData);
+    public void persistir(Object messageData);
     
 }

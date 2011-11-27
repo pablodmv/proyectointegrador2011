@@ -23,6 +23,7 @@ public interface marcaLocal {
     public List<marcaDTO> obtenerTodasMarcas(Date fecha, String usuario);
     public Boolean eliminarMarca( marcaDTO MarcaDTO, String usuario);
     public Boolean modificarMarca(marcaDTO MarcaDTO, String usuario) ;
+    public Marca obtenerMarca(Long idMarca);
 
     
 }

@@ -51,16 +51,18 @@ public class marcaTest {
     //
     // @Test
     // public void hello() {}
+
+
     //@Test
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
-        marcaDTO marca = new marcaDTO("23/11/2010", "20:55", 4, "PUERTA", "GENERICA");
+        marcaDTO marca = new marcaDTO("2010/11/23", "20:55", 4, "PUERTA", "FFF0 4021 A0D3 CCA5 6939 5F93");
         Boolean result1 = instance.altaMarca(marca);
         System.out.println("Resultado1 " + result1);
     }
 
-    @Test
+    //@Test
     public void testObtenerTodasMarcas() throws Exception {
         System.out.println("ObtenerTodasMarcas");
         marcaLocal instance = lookupMarca();
@@ -76,6 +78,41 @@ public class marcaTest {
 
         }
     }
+
+
+     //@Test
+    public void testEliminarMarca() throws Exception {
+        System.out.println("ObtenerTodasMarcas");
+        marcaLocal instance = lookupMarca();
+        DateFormat formatter;
+        Date date;
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String str_date = "2011-11-21";
+        date = (Date) formatter.parse(str_date);
+        List<marcaDTO> result1 = instance.obtenerTodasMarcas(date, "Pablo");
+        Boolean resultado = instance.eliminarMarca(result1.get(0), "Pablo");
+        System.out.println("Resultado1 " + resultado);
+
+    }
+
+         @Test
+    public void testModificarMarca() throws Exception {
+        System.out.println("ObtenerTodasMarcas");
+        marcaLocal instance = lookupMarca();
+        DateFormat formatter;
+        Date date;
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String str_date = "2011-11-26";
+        date = (Date) formatter.parse(str_date);
+        List<marcaDTO> result1 = instance.obtenerTodasMarcas(date, "Pablo");
+        result1.get(0).setHora("pablo");
+        result1.get(0).setPersonaID("42562072");
+        Boolean resultado = instance.modificarMarca(result1.get(0), "Pablo");
+        System.out.println("Resultado1 " + resultado);
+
+    }
+
+
 
     private marcaLocal lookupMarca() {
         try {

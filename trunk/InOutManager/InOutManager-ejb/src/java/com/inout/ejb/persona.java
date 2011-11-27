@@ -28,19 +28,13 @@ public class persona implements personaLocal {
     @PersistenceContext()
     private EntityManager em;
     @EJB
-    private loggerLocal Logger;
+    private loggerJMSLocal Logger;
 
     @Override
     public Boolean altaPersona(personaDTO PersonaDTO, String userLogin) {
         try {
             em.persist(convertirDTOPersona(PersonaDTO));
             em.flush();
-            //Logueo
-            Log bit = new Log();
-            bit.setFechahora(new Date());
-            bit.setAccion("altaPersona");
-            bit.setUsuario(userLogin);
-            Logger.log(bit);
             return true;
         } catch (Exception e) {
             System.out.println("Alta persona:" + e.getMessage());
@@ -53,14 +47,7 @@ public class persona implements personaLocal {
     public personaDTO ObtenerPersona(String idPersona, String userLogin) {
         try {
             Persona persona = new Persona();
-
             persona = em.find(Persona.class, idPersona);
-//            //Logueo
-//            Log bit = new Log();
-//            bit.setFechahora(new Date());
-//            bit.setAccion("ObtenerPersona");
-//            bit.setUsuario(userLogin);
-//            Logger.log(bit);
             return new personaDTO(persona.getDocumento(), persona.getNombre(), persona.getApellido(), persona.getDireccion(), persona.getTelefono1(), persona.getTelefono2(), persona.getIngreso(), persona.getNumEmpleado());
         } catch (Exception e) {
             return null;
@@ -83,7 +70,7 @@ public class persona implements personaLocal {
             bit.setFechahora(new Date());
             bit.setAccion("ObtenerPersonaTarjeta");
             bit.setUsuario(userLogin);
-            Logger.log(bit);
+            //Logger.log(bit);
 
             return new personaDTO(persona.getDocumento(), persona.getNombre(), persona.getApellido(), persona.getDireccion(), persona.getTelefono1(), persona.getTelefono2(), persona.getIngreso(), persona.getNumEmpleado());
 
@@ -100,14 +87,10 @@ public class persona implements personaLocal {
             em.remove(convertirDTOPersona(PersonaDTO));
             em.flush();
             //Logueo
-            Log bit = new Log();
-            bit.setFechahora(new Date());
-            bit.setAccion("eliminarPersona");
-            bit.setUsuario(userLogin);
-            Logger.log(bit);
+            Logger.loggerMessage("eliminarPersona", userLogin, "IdMarca: " + PersonaDTO.getDocumento());
             return true;
         } catch (Exception e) {
-            System.out.println("");
+            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -122,7 +105,7 @@ public class persona implements personaLocal {
             bit.setFechahora(new Date());
             bit.setAccion("modificarPersona");
             bit.setUsuario(userLogin);
-            Logger.log(bit);
+            //Logger.log(bit);
             return true;
         } catch (Exception e) {
         }
