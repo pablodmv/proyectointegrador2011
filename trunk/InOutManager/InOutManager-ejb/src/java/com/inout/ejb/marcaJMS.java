@@ -28,7 +28,7 @@ public class marcaJMS implements marcaJMSLocal {
     @Resource(name = "jms/loggerFactory")
     private ConnectionFactory marcaJMSFactory;
 
-    // <editor-fold defaultstate="collapsed" desc="Metodos de cola de mensaje">ç
+
     @Override
     public void persistir(Object messageData) {
         try {
@@ -65,5 +65,5 @@ public class marcaJMS implements marcaJMSLocal {
             }
         }
     }
-// </editor-fold>
+
 }

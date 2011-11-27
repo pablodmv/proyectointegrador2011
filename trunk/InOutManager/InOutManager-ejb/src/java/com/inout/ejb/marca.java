@@ -129,7 +129,7 @@ public class marca implements marcaLocal {
             if (!MarcaDTO.getPersonaID().equals("")) {
                 personaDTO personaAux = personaEJB.ObtenerPersona(MarcaDTO.getPersonaID(), userLogin);
                 if (personaAux == null) {
-                    personaAux = personaEJB.ObtenerPersonaTarjeta(tarjeta.ObtenerTarjetaID(MarcaDTO.getPersonaID(), userLogin), userLogin);
+                    personaAux = personaEJB.ObtenerPersonaTarjeta(tarjeta.ObtenerTarjetaDTOID(MarcaDTO.getPersonaID(), userLogin), userLogin);
                 }
                 Persona persona = new Persona();
                 persona.setDocumento(personaAux.getDocumento());

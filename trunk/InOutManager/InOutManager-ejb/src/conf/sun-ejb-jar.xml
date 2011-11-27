@@ -15,6 +15,23 @@
       </message-destination-ref>
     </ejb>
     <ejb>
+      <ejb-name>marcaJMS</ejb-name>
+      <jndi-name>marcaJMS</jndi-name>
+      <resource-ref>
+        <res-ref-name>jms/loggerFactory</res-ref-name>
+        <jndi-name>jms/loggerFactory</jndi-name>
+      </resource-ref>
+      <message-destination-ref>
+        <message-destination-ref-name>jms/logger</message-destination-ref-name>
+        <jndi-name>jms/logger</jndi-name>
+      </message-destination-ref>
+    </ejb>
+
+
+
+
+
+    <ejb>
       <ejb-name>persona</ejb-name>
       <jndi-name>persona</jndi-name>
     </ejb>

@@ -57,7 +57,7 @@ public class marcaTest {
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
-        marcaDTO marca = new marcaDTO("2010/11/23", "20:55", 4, "PUERTA", "FFF0 4021 A0D3 CCA5 6939 5F93");
+        marcaDTO marca = new marcaDTO("2010/11/23", "20:55", "4", "PUERTA", "FFF0 4021 A0D3 CCA5 6939 5F93");
         Boolean result1 = instance.altaMarca(marca);
         System.out.println("Resultado1 " + result1);
     }

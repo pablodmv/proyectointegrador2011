@@ -18,7 +18,7 @@ public class marcaDTO implements Serializable {
     private Date fecha;
     private String fechaStr="";
     private String hora="";
-    private long idDispositivo;
+    private String idDispositivo;
     private String dispositivo;
     private long idPareja;
     private Date correccionFecha;
@@ -30,14 +30,14 @@ public class marcaDTO implements Serializable {
         
     }
 
-    public marcaDTO(Date fecha, String hora, long idDispositivo, String dispositivo, String personaID) {
+    public marcaDTO(Date fecha, String hora, String idDispositivo, String dispositivo, String personaID) {
         this.fecha = fecha;
         this.hora = hora;
         this.idDispositivo = idDispositivo;
         this.dispositivo = dispositivo;
         this.personaID = personaID;
     }
-     public marcaDTO(String fecha, String hora, long idDispositivo, String dispositivo, String personaID) {
+     public marcaDTO(String fecha, String hora, String idDispositivo, String dispositivo, String personaID) {
         this.fecha = converters.StringDate(fecha, "yyyy/MM/dd");
         this.hora = hora;
         this.idDispositivo = idDispositivo;
@@ -103,11 +103,11 @@ public class marcaDTO implements Serializable {
         this.id = id;
     }
 
-    public long getIdDispositivo() {
+    public String getIdDispositivo() {
         return idDispositivo;
     }
 
-    public void setIdDispositivo(long idDispositivo) {
+    public void setIdDispositivo(String idDispositivo) {
         this.idDispositivo = idDispositivo;
     }
 
