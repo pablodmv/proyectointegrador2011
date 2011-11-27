@@ -4,7 +4,9 @@
  */
 package com.inout.ejb;
 
+import com.inout.entities.Log;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -24,21 +26,20 @@ import javax.jms.TextMessage;
  * @author pablo
  */
 @Stateless
-public class logger implements loggerLocal {
+public class loggerJMS implements loggerJMSLocal {
 
     @Resource(name = "jms/logger")
     private Queue bitacoraLogger;
     @Resource(name = "jms/loggerFactory")
     private ConnectionFactory bitacoraLoggerFactory;
 
-    @Override
     public void log(Object messageData) {
         try {
             sendJMSMessageToBitacoraLogger(messageData);
         } catch (JMSException ex) {
-            Logger.getLogger(logger.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(loggerJMS.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        }
 
     private Message createJMSMessageForjmsBitacoraLogger(Session session, Object messageData) throws JMSException {
         // TODO create and populate message to send
@@ -69,5 +70,20 @@ public class logger implements loggerLocal {
                 connection.close();
             }
         }
+    }
+
+
+
+
+    @Override
+       public void loggerMessage(String method, String user, String action){
+                 //Logueo
+
+            Log bit = new Log();
+            bit.setFechahora(new Date());
+            bit.setAccion(method);
+            bit.setUsuario(user);
+            bit.setDetalle(action);
+            log(bit);
     }
 }

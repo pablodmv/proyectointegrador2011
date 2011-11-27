@@ -38,7 +38,7 @@ public class marcaDTO implements Serializable {
         this.personaID = personaID;
     }
      public marcaDTO(String fecha, String hora, long idDispositivo, String dispositivo, String personaID) {
-        this.fecha = converters.StringDate(fecha, "dd/MM/yyyy");
+        this.fecha = converters.StringDate(fecha, "yyyy/MM/dd");
         this.hora = hora;
         this.idDispositivo = idDispositivo;
         this.dispositivo = dispositivo;
