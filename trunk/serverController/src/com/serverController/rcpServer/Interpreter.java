@@ -1,6 +1,5 @@
 package com.serverController.rcpServer;
 
-
 public class Interpreter {
 
     private String data;
@@ -19,25 +18,23 @@ public class Interpreter {
     public String readData(String data) {
         this.data = data;
         String[] datosEnvio = data.split(",");
-        System.out.println("Ohon: " + data);
+        System.out.println("Recibe: " + data);
         InOutWebserviceService ws = new InOutWebserviceService();
         InOutWebservice webservice = ws.getInOutWebservicePort();
-        String prueba = datosEnvio[3];
-        String[] ip = prueba.split(".");
-        String armoIdDispositivo ="" ;
-        for (int i= 0; i < ip.length; i++) {
-            armoIdDispositivo += ip[i];
-        }
+  
+        try {
+            Boolean resultado = webservice.addMarca(datosEnvio[1], datosEnvio[2], datosEnvio[3], datosEnvio[4], datosEnvio[0]);
+            if (resultado) {
+                return "Sucess!";
 
+            }
 
-
-
-
-        Boolean resultado = webservice.addMarca(datosEnvio[1], datosEnvio[2], 10, datosEnvio[4], datosEnvio[0]);
-        if (resultado) {
-            return "Sucess!";
-
+        } catch (Exception e) {
+            System.out.println("No se pudo conecta al webservice " + e.getLocalizedMessage());
+            return "Fail";
         }
         return "Fail";
+
+
     }
 }
