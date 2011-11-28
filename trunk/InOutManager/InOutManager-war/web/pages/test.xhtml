@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="index.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+<h:panelGrid columns="1" cellpadding="5">
+	<p:commandButton value="Basic" onclick="dlg1.show();" type="button"/>
+
+	<p:commandButton value="Modal" onclick="dlg2.show();" type="button"/>
+
+	<p:commandButton value="Effects" onclick="dlg3.show();" type="button"/>
+</h:panelGrid>
+
+<p:dialog header="Basic Dialog" widgetVar="dlg1">
+	<h:outputText value="Resistance to PrimeFaces is futile!" />
+</p:dialog>
+
+<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="200">
+	<h:outputText value="This is a Modal Dialog." />
+</p:dialog>
+
+<p:dialog header="Effect Dialog" widgetVar="dlg3" showEffect="bounce" hideEffect="explode" height="200">
+	<h:outputText value="This dialog has cool effects." />
+</p:dialog>
+
+</ui:define>
+</ui:composition>
+
+
+    
