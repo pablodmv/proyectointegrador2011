@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="index.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+        <fieldset>
+            <legend>Ingreso Persona</legend>
+        <h:form id="form" prependId="false">
+            <h:panelGrid columns="4">
+
+                <h:outputLabel value="*#{msg.nombre_label}" for="nombre"
+                               styleClass="#{personaBean.nombreInputValid?'':'inputLabel'}"/>
+                <h:inputText id="nombre" value="#{personaBean.nombre}" required="true" requiredMessage="#{msg.nombre_required}"
+                             styleClass="#{personaBean.nombreInputValid?'':'inputTextError'}"/>
+
+                <h:outputLabel value="*#{msg.apellido_label}" for="apellido"
+                               styleClass="#{personaBean.apellidoInputValid?'':'inputLabel'}"/>
+                <h:inputText id="apellido" value="#{personaBean.apellido}" required="true" requiredMessage="#{msg.apellido_required}"
+                             styleClass="#{personaBean.apellidoInputValid?'':'inputTextError'}"/>
+
+                <h:outputLabel value="*#{msg.doc_label}" for="doc" styleClass="#{personaBean.docInputValid?'':'inputLabel'}"/>
+                <p:inputMask id="doc" value="#{personaBean.doc}" mask="9.999.999-9" styleClass="#{personaBean.docInputValid?'':'inputTextError'}"
+                             required="true" requiredMessage="#{msg.doc_required}"/>
+
+                <h:outputLabel value="*#{msg.fechaIngreso_label}" for="fechaIngreso" styleClass="#{personaBean.fechaIngresoInputValid?'':'inputLabel'}"/>
+                <p:calendar id="fechaIngreso"  style="width:200px" pattern="dd/MM/yyyy" required="true" requiredMessage="#{msg.fechaIngreso_required}"
+                               value="#{personaBean.fechaIngreso}"/>
+
+                <h:outputLabel value="*#{msg.numEmpleado_label}" for="numEmpleado" styleClass="#{personaBean.numEmpleadoInputValid?'':'inputLabel'}"/>
+                <p:inputMask mask="9999" id="numEmpleado" value="#{personaBean.numEmpleado}" styleClass="#{personaBean.numEmpleadoInputValid?'':'inputTextError'}"
+                             required="true" requiredMessage="#{msg.numEmpleado_required}"/>
+
+                <h:outputLabel value="*#{msg.direccion_label}" for="dir" styleClass="#{personaBean.dirInputValid?'':'inputLabel'}"/>
+                <h:inputText id="dir" value="#{personaBean.dir}" required="true" requiredMessage="#{msg.direccion_required}"
+                             styleClass="#{personaBean.dirInputValid?'':'inputTextError'}"/>
+
+                <h:outputLabel value="*#{msg.tel1_label}" for="tel1" styleClass="#{personaBean.tel1InputValid?'':'inputLabel'}"/>
+                <h:inputText id="tel1" value="#{personaBean.tel1}" required="true" requiredMessage="#{msg.tel1_required}"
+                             styleClass="#{personaBean.tel1InputValid?'':'inputTextError'}" maxlength="20"/>
+
+                <h:outputLabel value="#{msg.tel2_label}" for="tel2"/>
+                <p:inputMask mask="999999999?99999999999" id="tel2" value="#{personaBean.tel2}" validatorMessage="#{msg.tel_validation}" />
+
+            </h:panelGrid>
+
+            <h:panelGrid id="panelMessages">
+                <h:messages />
+            </h:panelGrid>
+
+            <h:panelGrid id="panelBtn">
+                <p:commandButton value="Aceptar"  actionListener="#{personaBean.save}" update="infoPanel,panelMessages"/>
+            </h:panelGrid>
+            <h:panelGrid id="infoPanel">
+                <h:outputText value="#{personaBean.msgSuccess}"/>
+            </h:panelGrid>
+        </h:form>
+        </fieldset>
+    </ui:define>
+</ui:composition>
