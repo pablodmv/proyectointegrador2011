@@ -6,10 +6,13 @@ package com.inout.ejb;
 
 import com.inout.dto.tarjetaDTO;
 import com.inout.entities.Tarjeta;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,7 +30,7 @@ public class tarjeta implements tarjetaLocal {
     public Boolean altaTarjeta(tarjetaDTO tarjeta, String userLogin) {
 
         try {
-            em.persist(convertirDTOTarjeta(tarjeta, userLogin));
+            em.persist(convertirDTOTarjeta(tarjeta));
             em.flush();
             return true;
         } catch (Exception e) {
@@ -73,7 +76,7 @@ public class tarjeta implements tarjetaLocal {
     public Boolean eliminarTarjeta(tarjetaDTO TarjetaDTO, String userLogin) {
 
         try {
-            em.remove(convertirDTOTarjeta(TarjetaDTO, userLogin));
+            em.remove(convertirDTOTarjeta(TarjetaDTO));
             em.flush();
             Logger.loggerMessage("eliminarTarjeta", userLogin, "IdTarjeta: " + TarjetaDTO.getId());
 
@@ -83,7 +86,24 @@ public class tarjeta implements tarjetaLocal {
         }
     }
 
-    private Tarjeta convertirDTOTarjeta(tarjetaDTO TarjetaDTO, String userLogin) {
+
+
+
+    @Override
+    public List<tarjetaDTO> ObtenerTarjetasActivasDTO() {
+        Query tarjetas = em.createNamedQuery("Tarjeta.findByActiva");
+        tarjetas.setParameter("activa", Boolean.FALSE);
+        List<Tarjeta> obtenerTarjetas = tarjetas.getResultList();
+        List<tarjetaDTO> tarjetasRetorno  = new ArrayList<tarjetaDTO>();
+        for (Tarjeta tarjeta: obtenerTarjetas) {
+            tarjetasRetorno.add(convertirTarjetaDTO(tarjeta));
+        }
+        return tarjetasRetorno;
+    }
+
+
+    @Override
+     public Tarjeta convertirDTOTarjeta(tarjetaDTO TarjetaDTO) {
         Tarjeta tarjeta = new Tarjeta();
         tarjeta.setId(TarjetaDTO.getId());
         tarjeta.setDescripcion(TarjetaDTO.getDescripcion());
@@ -95,4 +115,24 @@ public class tarjeta implements tarjetaLocal {
 
 
     }
+
+    @Override
+     public tarjetaDTO convertirTarjetaDTO(Tarjeta tarjeta){
+         tarjetaDTO tarjetaRetorno = new tarjetaDTO();
+         tarjetaRetorno.setActiva(tarjeta.getActiva());
+         tarjetaRetorno.setDescripcion(tarjeta.getDescripcion());
+         tarjetaRetorno.setFechaDevolucion(tarjeta.getFechaDevolucion());
+         tarjetaRetorno.setFechaEntrega(tarjeta.getFechaEntrega());
+         tarjetaRetorno.setId(tarjeta.getId());
+         tarjetaRetorno.setTipo(tarjeta.getTipo());
+         return tarjetaRetorno;
+
+
+     }
+
+
+
+
+
+
 }

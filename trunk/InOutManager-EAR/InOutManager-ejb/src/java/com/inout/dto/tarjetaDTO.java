@@ -41,6 +41,10 @@ public class tarjetaDTO implements Serializable {
         this.id = id;
     }
 
+    public tarjetaDTO() {
+        
+    }
+
     
     public Date getFechaDevolucion() {
         return FechaDevolucion;
