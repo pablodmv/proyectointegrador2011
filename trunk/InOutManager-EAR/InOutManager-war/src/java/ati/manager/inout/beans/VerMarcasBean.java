@@ -57,4 +57,15 @@ public class VerMarcasBean {
         this.selectedMark = selectedMark;
     }
 
+    public String editarMarca(){
+        Facade f = Facade.getInstance();
+        Boolean result = f.editMark(selectedMark);
+
+        if(result){
+            return "edit mark succesfull";
+        }else{
+            return "edit mark unsuccessfull";
+        }
+    }
+
 }

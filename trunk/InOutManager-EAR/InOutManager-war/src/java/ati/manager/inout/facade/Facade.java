@@ -47,6 +47,9 @@ public class Facade {
         return this.lookuppersonaRemote().ObtenerPersona(idPersona, "Gustavo");
     }
 
+    public Boolean editMark(marcaDTO mDto){
+        return this.lookupmarcaRemote().modificarMarca(mDto, "Gustavo");
+    }
 
     private marcaLocal lookupmarcaRemote() {
         try {
