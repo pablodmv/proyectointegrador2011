@@ -2,15 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ati.manager.inout.beans;
 
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.personaDTO;
+import com.inout.dto.tarjetaDTO;
+import com.inout.ejb.tarjetaLocal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -18,6 +23,8 @@ import javax.faces.context.FacesContext;
  */
 public class PersonaBean {
 
+    @EJB
+    private tarjetaLocal tarjeta;
     private String nombre;
     private String apellido;
     private String doc;
@@ -27,7 +34,6 @@ public class PersonaBean {
     private Date fechaIngreso;
     private long numEmpleado;
     private String idTarjeta;
-
     private Boolean nombreInputValid;
     private Boolean apellidoInputValid;
     private Boolean docInputValid;
@@ -36,9 +42,10 @@ public class PersonaBean {
     private Boolean dirInputValid;
     private Boolean fechaIngresoInputValid;
     private Boolean numEmpleadoInputValid;
-
+    private Integer idTarjetaAux;
+    private List<SelectItem> tarjetaItems = new ArrayList<SelectItem>();
+    private List<tarjetaDTO> tarjetasDTO = new ArrayList<tarjetaDTO>();
     private String msgSuccess;
-
     private personaDTO selectedPerson = new personaDTO();
 
     /** Creates a new instance of PersonaBean */
@@ -132,14 +139,46 @@ public class PersonaBean {
     public void setMsgSuccess(String msgSuccess) {
         this.msgSuccess = msgSuccess;
     }
+
+    public Integer getIdTarjetaAux() {
+        return idTarjetaAux;
+    }
+
+    public void setIdTarjetaAux(Integer idTarjetaAux) {
+        this.idTarjetaAux = idTarjetaAux;
+    }
+
+    public tarjetaLocal getTarjeta() {
+        return tarjeta;
+    }
+
+    public void setTarjeta(tarjetaLocal tarjeta) {
+        this.tarjeta = tarjeta;
+    }
+
+    public List<SelectItem> getTarjetaItems() {
+        return tarjetaItems;
+    }
+
+    public void setTarjetaItems(List<SelectItem> tarjetaItems) {
+        this.tarjetaItems = tarjetaItems;
+    }
+
+    public List<tarjetaDTO> getTarjetasDTO() {
+        return tarjetasDTO;
+    }
+
+    public void setTarjetasDTO(List<tarjetaDTO> tarjetasDTO) {
+        this.tarjetasDTO = tarjetasDTO;
+    }
+
     
 
     //******************Validations ******************************
-
     public Boolean getApellidoInputValid() {
-        UIInput input = (UIInput)FacesContext.getCurrentInstance().getViewRoot().findComponent("form:apellido");
+        UIInput input = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:apellido");
 
-        this.apellidoInputValid =  input.isValid();
+        this.apellidoInputValid = input.isValid();
 
         return apellidoInputValid;
     }
@@ -149,8 +188,8 @@ public class PersonaBean {
     }
 
     public Boolean getDirInputValid() {
-        UIInput input = (UIInput)FacesContext.getCurrentInstance().getViewRoot().findComponent("form:dir");
-        this.dirInputValid =  input.isValid();
+        UIInput input = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:dir");
+        this.dirInputValid = input.isValid();
         return dirInputValid;
     }
 
@@ -159,8 +198,8 @@ public class PersonaBean {
     }
 
     public Boolean getDocInputValid() {
-        UIInput input = (UIInput)FacesContext.getCurrentInstance().getViewRoot().findComponent("form:doc");
-        this.docInputValid =  input.isValid();
+        UIInput input = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:doc");
+        this.docInputValid = input.isValid();
         return docInputValid;
     }
 
@@ -169,8 +208,8 @@ public class PersonaBean {
     }
 
     public Boolean getFechaIngresoInputValid() {
-        UIInput input = (UIInput)FacesContext.getCurrentInstance().getViewRoot().findComponent("form:fechaIngreso");
-        this.fechaIngresoInputValid =  input.isValid();
+        UIInput input = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:fechaIngreso");
+        this.fechaIngresoInputValid = input.isValid();
         return fechaIngresoInputValid;
     }
 
@@ -179,8 +218,8 @@ public class PersonaBean {
     }
 
     public Boolean getNombreInputValid() {
-        UIInput input = (UIInput)FacesContext.getCurrentInstance().getViewRoot().findComponent("form:nombre");
-        this.nombreInputValid =  input.isValid();
+        UIInput input = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:nombre");
+        this.nombreInputValid = input.isValid();
         return nombreInputValid;
     }
 
@@ -189,8 +228,8 @@ public class PersonaBean {
     }
 
     public Boolean getNumEmpleadoInputValid() {
-        UIInput input = (UIInput)FacesContext.getCurrentInstance().getViewRoot().findComponent("form:numEmpleado");
-        this.numEmpleadoInputValid =  input.isValid();
+        UIInput input = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:numEmpleado");
+        this.numEmpleadoInputValid = input.isValid();
         return numEmpleadoInputValid;
     }
 
@@ -199,8 +238,8 @@ public class PersonaBean {
     }
 
     public Boolean getTel1InputValid() {
-        UIInput input = (UIInput)FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tel1");
-        this.tel1InputValid =  input.isValid();
+        UIInput input = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tel1");
+        this.tel1InputValid = input.isValid();
         return tel1InputValid;
     }
 
@@ -216,15 +255,13 @@ public class PersonaBean {
         this.tel2InputValid = tel2InputValid;
     }
 
-
     // *******************Actions*********************************
-
-    public String prueba(){
+    public String prueba() {
         System.out.println("SUccess");
-        return"";
+        return "";
     }
 
-    public String save(){
+    public String save() {
 
         this.selectedPerson.setApellido(apellido);
         this.selectedPerson.setDireccion(dir);
@@ -234,12 +271,13 @@ public class PersonaBean {
         this.selectedPerson.setNumEmpleado(numEmpleado);
         this.selectedPerson.setTelefono1(tel1);
         this.selectedPerson.setTelefono2(tel2);
+        this.selectedPerson.setTarjeta(new tarjetaDTO(idTarjeta));
 
         Facade f = Facade.getInstance();
         String result = "";
-        if(f.savePerson(selectedPerson)){
-         result = "Ingreso exitoso.";
-        }else{
+        if (f.savePerson(selectedPerson)) {
+            result = "Ingreso exitoso.";
+        } else {
             result = "Hubo un error al ingresar la persona.";
         }
         this.msgSuccess = result;
@@ -247,8 +285,8 @@ public class PersonaBean {
         return "";
     }
 
-    public String search(){
-        
+    public String search() {
+
         Facade f = Facade.getInstance();
         this.selectedPerson = f.searchPerson(this.doc);
 
@@ -264,5 +302,21 @@ public class PersonaBean {
         return "";
     }
 
+    @PostConstruct
+    private String cargarComboTarjetas() {
+        try {
+                tarjetasDTO = tarjeta.ObtenerTarjetasActivasDTO();
+                if (tarjetasDTO != null && !tarjetasDTO.isEmpty()) {
+                    for (tarjetaDTO tarjetaAux : tarjetasDTO) {
+                        tarjetaItems.add(new SelectItem(tarjetaAux.getId(), tarjetaAux.getDescripcion()));
+                    }
 
+                }
+        } catch (Exception ex) {
+            this.msgSuccess=ex.getLocalizedMessage();
+        }
+        return "";
+
+
+    }
 }
