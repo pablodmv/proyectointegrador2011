@@ -10,7 +10,7 @@
 
         <h:form id="form" prependId="false">
 
-            <p:dataTable var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" rows="5"
+            <p:dataTable id="table" var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" rows="5"
                          rowIndexVar="count" height="300">
 
                 <f:facet name="header">
@@ -96,6 +96,10 @@
                 <h:outputLabel value="#{msg.correccionHora_label}"/>
                 <p:calendar id="fechaIngreso"  style="width:200px" pattern="dd/MM/yyyy"
                             value="#{verMarcasBean.selectedMark.correccionFecha}"/>
+
+                <h:panelGrid id="panelBtn">
+                    <p:commandButton value="Aceptar"  actionListener="#{verMarcasBean.editarMarca}" update="form:table"/>
+                </h:panelGrid>
 
             </h:panelGrid>
         </p:dialog>
