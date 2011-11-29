@@ -29,10 +29,19 @@ public class persona implements personaLocal {
     private EntityManager em;
     @EJB
     private loggerJMSLocal Logger;
+    @EJB
+    private tarjetaLocal tarjeta;
 
     @Override
     public Boolean altaPersona(personaDTO PersonaDTO, String userLogin) {
         try {
+
+            tarjetaDTO tarjetaAux = tarjeta.ObtenerTarjetaDTOID(PersonaDTO.getTarjeta().getId(), userLogin);
+            tarjetaAux.setFechaEntrega(new Date());
+            tarjetaAux.setActiva(Boolean.TRUE);
+            PersonaDTO.setTarjeta(tarjetaAux);
+            Tarjeta tarjetaEntity = tarjeta.convertirDTOTarjeta(tarjetaAux);
+            em.merge(tarjetaEntity);
             em.persist(convertirDTOPersona(PersonaDTO));
             em.flush();
             return true;
@@ -127,6 +136,7 @@ public class persona implements personaLocal {
         persona.setTelefono2(PersonaDTO.getTelefono2());
         persona.setIngreso(PersonaDTO.getIngreso());
         persona.setNumEmpleado(PersonaDTO.getNumEmpleado());
+        persona.setTarjeta(tarjeta.convertirDTOTarjeta(PersonaDTO.getTarjeta()));
         return persona;
     }
 }
