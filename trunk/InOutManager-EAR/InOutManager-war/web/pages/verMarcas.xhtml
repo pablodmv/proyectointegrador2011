@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="index.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="form" prependId="false">
+
+            <p:dataTable var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" rows="5"
+                         rowIndexVar="count" height="300">
+
+                <f:facet name="header">
+                    Select a row to display a message
+                </f:facet>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#" />
+                    </f:facet>
+                    <h:outputText value="#{count}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.idDispositivo_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.idDispositivo}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.fechaMarca_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.fechaStr}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.horaMarca_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.hora}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.dispositivo_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.dispositivo}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.correccionFecha_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.correccionFechaStr}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">#{msg.correccionHora_label}</f:facet>
+                    <h:outputText id="corrHora" value="#{mark.correccionHora}" />
+                </p:column>
+
+                <p:column>
+                    <p:commandButton update="display" oncomplete="markDialog.show()"
+                            image="ui-icon ui-icon-search">
+                    <f:setPropertyActionListener value="#{mark}"
+                                                 target="#{verMarcasBean.selectedMark}" />
+            </p:commandButton>
+                </p:column>
+        </p:dataTable>
+
+        <p:dialog header="Mark Detail" widgetVar="markDialog" resizable="false"
+                  width="400" height="300" showEffect="explode" hideEffect="explode">
+
+            <h:panelGrid id="display" columns="2" cellpadding="4">
+
+                <h:outputText value="#{msg.idDispositivo_label}:" />
+                <h:outputText value="#{verMarcasBean.selectedMark.idDispositivo}" />
+
+                <h:outputText value="#{msg.fechaMarca_label}:" />
+                <h:outputText value="#{verMarcasBean.selectedMark.fecha}" />
+
+                <h:outputText value="#{msg.horaMarca_label}:" />
+                <h:outputText value="#{verMarcasBean.selectedMark.hora}" />
+
+                <h:outputText value="#{msg.dispositivo_label}:" />
+                <h:outputText value="#{verMarcasBean.selectedMark.dispositivo}" />
+
+                <h:outputLabel value="#{msg.correccionHora_label}"/>
+                <h:inputText value="#{verMarcasBean.selectedMark.correccionHora}"/>
+
+                <h:outputLabel value="#{msg.correccionHora_label}"/>
+                <p:calendar id="fechaIngreso"  style="width:200px" pattern="dd/MM/yyyy"
+                            value="#{verMarcasBean.selectedMark.correccionFecha}"/>
+
+            </h:panelGrid>
+        </p:dialog>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
