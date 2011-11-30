@@ -33,4 +33,10 @@
         <remote>com.inout.ejb.personaLocal</remote>
         <ejb-link>persona</ejb-link>
     </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>tarjeta</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.inout.ejb.tarjetaLocal</remote>
+        <ejb-link>tarjeta</ejb-link>
+    </ejb-ref>
 </web-app>

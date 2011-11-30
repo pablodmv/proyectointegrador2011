@@ -7,12 +7,9 @@ package ati.manager.inout.beans;
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.personaDTO;
 import com.inout.dto.tarjetaDTO;
-import com.inout.ejb.tarjetaLocal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -23,8 +20,6 @@ import javax.faces.model.SelectItem;
  */
 public class PersonaBean {
 
-    @EJB
-    private tarjetaLocal tarjeta;
     private String nombre;
     private String apellido;
     private String doc;
@@ -50,6 +45,7 @@ public class PersonaBean {
 
     /** Creates a new instance of PersonaBean */
     public PersonaBean() {
+        this.cargarComboTarjetas();
     }
 
     public String getApellido() {
@@ -146,14 +142,6 @@ public class PersonaBean {
 
     public void setIdTarjetaAux(Integer idTarjetaAux) {
         this.idTarjetaAux = idTarjetaAux;
-    }
-
-    public tarjetaLocal getTarjeta() {
-        return tarjeta;
-    }
-
-    public void setTarjeta(tarjetaLocal tarjeta) {
-        this.tarjeta = tarjeta;
     }
 
     public List<SelectItem> getTarjetaItems() {
@@ -302,21 +290,20 @@ public class PersonaBean {
         return "";
     }
 
-    @PostConstruct
-    private String cargarComboTarjetas() {
+    private void cargarComboTarjetas() {
         try {
-                tarjetasDTO = tarjeta.ObtenerTarjetasActivasDTO();
-                if (tarjetasDTO != null && !tarjetasDTO.isEmpty()) {
-                    for (tarjetaDTO tarjetaAux : tarjetasDTO) {
-                        tarjetaItems.add(new SelectItem(tarjetaAux.getId(), tarjetaAux.getDescripcion()));
-                    }
-
+            Facade f = Facade.getInstance();
+            this.tarjetasDTO = f.getTarjetasActivas();
+            if (tarjetasDTO != null && !tarjetasDTO.isEmpty()) {
+                for (tarjetaDTO tarjetaAux : tarjetasDTO) {
+                    SelectItem aux = new SelectItem(tarjetaAux.getId(), tarjetaAux.getDescripcion());
+                    tarjetaItems.add(aux);
                 }
+
+            }
         } catch (Exception ex) {
             this.msgSuccess=ex.getLocalizedMessage();
         }
-        return "";
-
 
     }
 }
