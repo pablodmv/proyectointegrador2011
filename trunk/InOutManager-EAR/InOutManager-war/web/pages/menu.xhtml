@@ -8,10 +8,16 @@
     <ui:composition>
         <h:form id="form-menu" prependId="false">
             <p:menubar autoSubmenuDisplay="true">
-                <p:menuitem value="Ver Marcas" action="#{menuBean.goVerMarcas}" />
+                <p:menuitem >
+                    <p:commandLink value="Ver Marcas" ajax="false" action="#{menuBean.goVerMarcas}" />
+                </p:menuitem>
                 <p:submenu label="Personas" >
-                    <p:menuitem value="Ingresar" action="altaPersona" icon="ui-icon ui-icon-disk"></p:menuitem>
-                    <p:menuitem value="Modificar" action="#{menuBean.goEditPersona}" icon="ui-icon ui-icon-pencil"></p:menuitem>
+                    <p:menuitem icon="ui-icon ui-icon-disk">
+                        <p:commandLink value="Ingresar" ajax="false" action="altaPersona" />
+                    </p:menuitem>
+                    <p:menuitem  icon="ui-icon ui-icon-pencil">
+                        <p:commandLink value="Modificar" ajax="false" action="#{menuBean.goEditPersona}" />
+                    </p:menuitem>
                 </p:submenu>
 
             </p:menubar>

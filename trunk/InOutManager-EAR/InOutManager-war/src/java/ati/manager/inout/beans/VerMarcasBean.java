@@ -31,7 +31,7 @@ public class VerMarcasBean {
             DateFormat formatter;
             Date date;
             formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String str_date = "2011-11-21";
+            String str_date = "2011-11-27";
             date = (Date) formatter.parse(str_date);
             Facade f = Facade.getInstance();
             markSelectItems = f.getMarKByDate(date);

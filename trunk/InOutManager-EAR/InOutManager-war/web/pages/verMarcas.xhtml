@@ -11,7 +11,7 @@
         <h:form id="form" prependId="false">
 
             <p:dataTable id="table" var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" rows="5"
-                         rowIndexVar="count" height="300">
+                         rowIndexVar="count" height="600">
 
                 <f:facet name="header">
                     Select a row to display a message
@@ -93,7 +93,7 @@
                 <h:outputLabel value="#{msg.correccionHora_label}"/>
                 <h:inputText value="#{verMarcasBean.selectedMark.correccionHora}"/>
 
-                <h:outputLabel value="#{msg.correccionHora_label}"/>
+                <h:outputLabel value="#{msg.correccionFecha_label}"/>
                 <p:calendar id="fechaIngreso"  style="width:200px" pattern="dd/MM/yyyy"
                             value="#{verMarcasBean.selectedMark.correccionFecha}"/>
 
