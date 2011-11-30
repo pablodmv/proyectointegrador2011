@@ -51,6 +51,7 @@ public class marcaDTO implements Serializable {
 
     public void setCorreccionFecha(Date correccionFecha) {
         this.correccionFecha = correccionFecha;
+        this.setCorreccionFechaStr(converters.DateString(this.correccionFecha, "yyyy-MM-dd"));
     }
 
     public String getCorreccionHora() {

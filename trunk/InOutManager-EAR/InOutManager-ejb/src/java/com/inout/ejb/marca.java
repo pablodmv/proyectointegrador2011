@@ -112,7 +112,7 @@ public class marca implements marcaLocal {
             em.merge(marca);
             em.flush();
             //Logueo
-            Logger.loggerMessage("modificarMarca", userLogin, "IdMarca: " + MarcaDTO.getId());
+            //Logger.loggerMessage("modificarMarca", userLogin, "IdMarca: " + MarcaDTO.getId());
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -153,7 +153,13 @@ public class marca implements marcaLocal {
         MarcaDTO.setIdDispositivo(marca.getIdDispositivo());
         MarcaDTO.setIdPareja(marca.getIdPareja());
         MarcaDTO.setFecha(converters.StringDate(converters.DateString(marca.getFecha(), "dd/MM/yyyy"), "dd/MM/yyyy"));
-        MarcaDTO.setCorreccionFecha(marca.getFecha());
+        
+        if(marca.getCorreccionFecha() !=null){
+            MarcaDTO.setCorreccionFecha(marca.getCorreccionFecha());
+        }else{
+            MarcaDTO.setCorreccionFecha(marca.getFecha());
+        }
+
         
         MarcaDTO.setDispositivo(marca.getDispositivo());
         MarcaDTO.setFechaStr(converters.DateString(MarcaDTO.getFecha(), "dd/MM/yyyy"));
@@ -163,10 +169,10 @@ public class marca implements marcaLocal {
         } else {
             MarcaDTO.setCorreccionHora("");
         }
-        if (marca.getCorreccionFecha()!=null) {
-            MarcaDTO.setCorreccionFechaStr(converters.DateString(marca.getCorreccionFecha(), "yyyy-MM-dd"));
-
-        }
+//        if (marca.getCorreccionFecha()!=null) {
+//            MarcaDTO.setCorreccionFechaStr(converters.DateString(marca.getCorreccionFecha(), "yyyy-MM-dd"));
+//
+//        }
 
         return MarcaDTO;
     }
