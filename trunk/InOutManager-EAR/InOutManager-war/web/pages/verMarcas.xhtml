@@ -8,13 +8,34 @@
 
     <ui:define name="content">
 
+        <h:form id="formSearch" prependId="false">
+            <fieldset>
+                <legend>Filtro de busqueda</legend>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="#{msg.doc_label}" for="doc" />
+                <p:inputMask id="doc" value="#{verMarcasBean.selectDocPerson}" mask="999999"
+                         required="true" requiredMessage="#{msg.doc_required}"/>
+
+                <h:outputLabel value="*#{msg.fechaMarca_label}:" for="fecha" />
+                <p:calendar id="fecha"  style="width:200px" pattern="dd/MM/yyyy" value="#{verMarcasBean.selectDate}"/>
+            </h:panelGrid>
+
+            <h:panelGrid id="panelfilterBtn">
+                <p:commandButton value="#{msg.buscarBtn_label}" update="table,searchMsg"
+                                 actionListener="#{verMarcasBean.searchMarca}" />
+            </h:panelGrid>
+            <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
+          </fieldset>
+        </h:form>
+
+
         <h:form id="form" prependId="false">
 
             <p:dataTable id="table" var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" rows="5"
-                         rowIndexVar="count" height="600">
+                         rowIndexVar="count" height="600" style="width: 900px">
 
                 <f:facet name="header">
-                    Select a row to display a message
+                    Gestión de Movimientos
                 </f:facet>
 
                 <p:column>

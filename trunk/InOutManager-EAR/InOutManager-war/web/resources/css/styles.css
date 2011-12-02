@@ -18,7 +18,7 @@ body{
 
 
 #content{
-    margin:0 auto 0 auto; width:390px;
+    margin:0 auto 0 auto; width:890px;
     padding: 20px;
 }
 
@@ -94,3 +94,4 @@ body{
 .panelMessages{
     color:red;
 }
+

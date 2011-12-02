@@ -44,6 +44,9 @@
       <to-view-id>/pages/editarPersona.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
-
-
+    <managed-bean>
+        <managed-bean-name>tarjetaBean</managed-bean-name>
+        <managed-bean-class>ati.manager.inout.beans.TarjetaBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>
