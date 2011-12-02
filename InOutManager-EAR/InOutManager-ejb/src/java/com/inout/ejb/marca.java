@@ -45,6 +45,7 @@ public class marca implements marcaLocal {
             marcaJMS.persistir(convertirDTOMarca(marca, userLogin));
             //em.persist(convertirDTOMarca(marca, userLogin));
             //em.flush();
+
             return true;
         } catch (Exception e) {
             System.out.println("No se pudo guardar la marca" + e.getMessage());
@@ -121,6 +122,27 @@ public class marca implements marcaLocal {
         }
     }
 
+    @Override
+    public List<marcaDTO> obtenerMarcaPorFechaPersona(personaDTO persona, Date fecha) {
+        Persona personaEntity = personaEJB.convertirDTOPersona(persona);
+        try {
+            Query marcasPorFecha = em.createNamedQuery("Marca.findByFechaYPersona");
+            List<marcaDTO> marcaDTOList = new ArrayList<marcaDTO>();
+            marcasPorFecha.setParameter("fecha", fecha);
+            marcasPorFecha.setParameter("persona", personaEntity);
+            List<Marca> marcas = marcasPorFecha.getResultList();
+            for (Marca marca : marcas) {
+                marcaDTOList.add(convertirMarcaDTO(marca));
+            }
+            return marcaDTOList;
+        } catch (Exception e) {
+            return null;
+        }
+
+
+
+    }
+
     private Marca convertirDTOMarca(marcaDTO MarcaDTO, String userLogin) throws Exception {
         Marca marca = new Marca();
         try {
@@ -153,7 +175,7 @@ public class marca implements marcaLocal {
         MarcaDTO.setIdDispositivo(marca.getIdDispositivo());
         MarcaDTO.setIdPareja(marca.getIdPareja());
         MarcaDTO.setFecha(converters.StringDate(converters.DateString(marca.getFecha(), "dd/MM/yyyy"), "dd/MM/yyyy"));
-        
+
         if(marca.getCorreccionFecha() !=null){
             MarcaDTO.setCorreccionFecha(marca.getCorreccionFecha());
         }else{

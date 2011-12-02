@@ -30,7 +30,10 @@ public class tarjeta implements tarjetaLocal {
     public Boolean altaTarjeta(tarjetaDTO tarjeta, String userLogin) {
 
         try {
-            em.persist(convertirDTOTarjeta(tarjeta));
+            Tarjeta tarjetaEntity = new Tarjeta();
+            tarjetaEntity = convertirDTOTarjeta(tarjeta);
+            tarjetaEntity.setActiva(Boolean.TRUE);
+            em.persist(tarjetaEntity);
             em.flush();
             return true;
         } catch (Exception e) {

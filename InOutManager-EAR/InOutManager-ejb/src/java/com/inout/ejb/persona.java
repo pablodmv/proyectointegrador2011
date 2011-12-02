@@ -16,7 +16,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -35,15 +34,39 @@ public class persona implements personaLocal {
     @Override
     public Boolean altaPersona(personaDTO PersonaDTO, String userLogin) {
         try {
+            personaDTO obtengoPersonaDTO = ObtenerPersona(PersonaDTO.getDocumento(), "System");
 
-            tarjetaDTO tarjetaAux = tarjeta.ObtenerTarjetaDTOID(PersonaDTO.getTarjeta().getId(), userLogin);
-            tarjetaAux.setFechaEntrega(new Date());
-            tarjetaAux.setActiva(Boolean.TRUE);
-            PersonaDTO.setTarjeta(tarjetaAux);
-            Tarjeta tarjetaEntity = tarjeta.convertirDTOTarjeta(tarjetaAux);
-            em.merge(tarjetaEntity);
-            em.persist(convertirDTOPersona(PersonaDTO));
-            em.flush();
+            if (obtengoPersonaDTO != null) {
+                obtengoPersonaDTO.setApellido(PersonaDTO.getApellido());
+                obtengoPersonaDTO.setDireccion(PersonaDTO.getDireccion());
+                obtengoPersonaDTO.setIngreso(PersonaDTO.getIngreso());
+                obtengoPersonaDTO.setNombre(PersonaDTO.getNombre());
+                obtengoPersonaDTO.setNumEmpleado(PersonaDTO.getNumEmpleado());
+                obtengoPersonaDTO.setTelefono1(PersonaDTO.getTelefono1());
+                obtengoPersonaDTO.setTelefono2(PersonaDTO.getTelefono2());
+                if (!obtengoPersonaDTO.getTarjeta().getId().equalsIgnoreCase(PersonaDTO.getTarjeta().getId())) {
+                    //Actualizo la tarjeta anterior.
+                    tarjetaDTO tarjetaOld = obtengoPersonaDTO.getTarjeta();
+                    tarjetaOld.setActiva(Boolean.FALSE);
+                    tarjetaOld.setFechaDevolucion(new Date());
+                    tarjeta.modificarTarjeta(tarjetaOld, "System");
+                    obtengoPersonaDTO.setTarjeta(tarjeta.ObtenerTarjetaDTOID(PersonaDTO.getTarjeta().getId(), "System"));
+                    obtengoPersonaDTO.getTarjeta().setActiva(Boolean.TRUE);
+                    obtengoPersonaDTO.getTarjeta().setFechaEntrega(new Date());
+                    tarjeta.modificarTarjeta(obtengoPersonaDTO.getTarjeta(), "System");
+                }
+                em.merge(convertirDTOPersona(obtengoPersonaDTO));
+                em.flush();
+            } else {
+                tarjetaDTO tarjetaAux = tarjeta.ObtenerTarjetaDTOID(PersonaDTO.getTarjeta().getId(), userLogin);
+                tarjetaAux.setFechaEntrega(new Date());
+                tarjetaAux.setActiva(Boolean.TRUE);
+                PersonaDTO.setTarjeta(tarjetaAux);
+                Tarjeta tarjetaEntity = tarjeta.convertirDTOTarjeta(tarjetaAux);
+                em.merge(tarjetaEntity);
+                em.persist(convertirDTOPersona(PersonaDTO));
+                em.flush();
+            }
             return true;
         } catch (Exception e) {
             System.out.println("Alta persona:" + e.getMessage());
@@ -57,7 +80,9 @@ public class persona implements personaLocal {
         try {
             Persona persona = new Persona();
             persona = em.find(Persona.class, idPersona);
-            return new personaDTO(persona.getDocumento(), persona.getNombre(), persona.getApellido(), persona.getDireccion(), persona.getTelefono1(), persona.getTelefono2(), persona.getIngreso(), persona.getNumEmpleado());
+            personaDTO PersonaDTO = new personaDTO(persona.getDocumento(), persona.getNombre(), persona.getApellido(), persona.getDireccion(), persona.getTelefono1(), persona.getTelefono2(), persona.getIngreso(), persona.getNumEmpleado());
+            PersonaDTO.setTarjeta(tarjeta.convertirTarjetaDTO(persona.getTarjeta()));
+            return PersonaDTO;
         } catch (Exception e) {
             return null;
         }
@@ -120,13 +145,10 @@ public class persona implements personaLocal {
         }
 
         return false;
-
-
-
-
     }
 
-    private Persona convertirDTOPersona(personaDTO PersonaDTO) {
+    @Override
+    public Persona convertirDTOPersona(personaDTO PersonaDTO) {
         Persona persona = new Persona();
         persona.setDocumento(PersonaDTO.getDocumento());
         persona.setNombre(PersonaDTO.getNombre());

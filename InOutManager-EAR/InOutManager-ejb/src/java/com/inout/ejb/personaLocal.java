@@ -22,4 +22,5 @@ public interface personaLocal {
     public personaDTO ObtenerPersonaTarjeta(tarjetaDTO Tarjeta, String usuario);
     public Boolean eliminarPersona(personaDTO PersonaDTO, String usuario);
     public Boolean modificarPersona(personaDTO PersonaDTO, String usuario);
+    public Persona convertirDTOPersona(personaDTO PersonaDTO);
 }

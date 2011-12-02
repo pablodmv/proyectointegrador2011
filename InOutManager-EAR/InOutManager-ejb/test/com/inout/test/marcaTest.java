@@ -4,6 +4,9 @@
  */
 package com.inout.test;
 
+import com.inout.dto.personaDTO;
+import com.inout.entities.Persona;
+import com.inout.ejb.personaLocal;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import com.inout.dto.marcaDTO;
@@ -95,7 +98,7 @@ public class marcaTest {
 
     }
 
-         @Test
+        // @Test
     public void testModificarMarca() throws Exception {
         System.out.println("ObtenerTodasMarcas");
         marcaLocal instance = lookupMarca();
@@ -113,11 +116,37 @@ public class marcaTest {
     }
 
 
+    @Test
+    public void testObtenerMarcaPorFechaPersona() throws Exception {
+        System.out.println("testObtenerMarcaPorFechaPersona");
+        marcaLocal instance = lookupMarca();
+        DateFormat formatter;
+        Date date;
+        personaLocal instancePersona = lookupPersona();
+        personaDTO persona = instancePersona.ObtenerPersona("123456","System");
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String str_date = "2011-11-27";
+        date = (Date) formatter.parse(str_date);
+        List<marcaDTO> result1 = instance.obtenerMarcaPorFechaPersona(persona, date);
+        System.out.println("Resultado1 " + result1.size());
+
+    }
+
 
     private marcaLocal lookupMarca() {
         try {
             Context c = new InitialContext();
             return (marcaLocal) c.lookup("marca");
+        } catch (NamingException ne) {
+            java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+     private personaLocal lookupPersona() {
+        try {
+            Context c = new InitialContext();
+            return (personaLocal) c.lookup("persona");
         } catch (NamingException ne) {
             java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
