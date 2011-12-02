@@ -19,10 +19,10 @@ public class ausenciaDTO {
     private Integer ID;
     private Persona persona;
     private Date fecha;
-    private MotivoAusencia motivo;
+    private motivoausenciaDTO motivo;
     private String observacion;
 
-    public ausenciaDTO(Persona persona, Date fecha, MotivoAusencia motivo) {
+    public ausenciaDTO(Persona persona, Date fecha, motivoausenciaDTO motivo) {
         this.persona = persona;
         this.fecha = fecha;
         this.motivo = motivo;
@@ -44,11 +44,11 @@ public class ausenciaDTO {
         this.fecha = fecha;
     }
 
-    public MotivoAusencia getMotivo() {
+    public motivoausenciaDTO getMotivo() {
         return motivo;
     }
 
-    public void setMotivo(MotivoAusencia motivo) {
+    public void setMotivo(motivoausenciaDTO motivo) {
         this.motivo = motivo;
     }
 

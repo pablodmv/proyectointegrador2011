@@ -5,6 +5,8 @@
 
 package com.inout.ejb;
 
+import com.inout.dto.cierreDTO;
+import com.inout.entities.Cierre;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +15,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface cierreLocal {
+
+    public Cierre convertirDTOCierre(cierreDTO CierreDTO);
+
+    public cierreDTO convertirCierreDTO(Cierre cierre);
     
 }

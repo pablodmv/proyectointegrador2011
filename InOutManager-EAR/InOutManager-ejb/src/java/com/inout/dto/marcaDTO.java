@@ -29,7 +29,7 @@ public class marcaDTO implements Serializable {
     private String observaciones;
     private Boolean tiene_pareja;
     private Boolean cerrado;
-    private Cierre cierre;
+    private cierreDTO cierre;
 
 
     public marcaDTO(){
@@ -150,11 +150,11 @@ public class marcaDTO implements Serializable {
         this.cerrado = cerrado;
     }
 
-    public Cierre getCierre() {
+    public cierreDTO getCierre() {
         return cierre;
     }
 
-    public void setCierre(Cierre cierre) {
+    public void setCierre(cierreDTO cierre) {
         this.cierre = cierre;
     }
 

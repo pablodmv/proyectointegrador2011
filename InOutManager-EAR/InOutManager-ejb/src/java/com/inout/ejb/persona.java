@@ -84,6 +84,7 @@ public class persona implements personaLocal {
             PersonaDTO.setTarjeta(tarjeta.convertirTarjetaDTO(persona.getTarjeta()));
             return PersonaDTO;
         } catch (Exception e) {
+            System.out.println("Error al obtener persona :" +e.getMessage());
             return null;
         }
 

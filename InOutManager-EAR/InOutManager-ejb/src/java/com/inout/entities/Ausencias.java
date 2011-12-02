@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Ausencias.findById", query = "SELECT a FROM Ausencias a WHERE a.id = :id"),
     @NamedQuery(name = "Ausencias.findByIdPersona", query = "SELECT a FROM Ausencias a WHERE a.idPersona = :idPersona"),
     @NamedQuery(name = "Ausencias.findByFecha", query = "SELECT a FROM Ausencias a WHERE a.fecha = :fecha"),
-    @NamedQuery(name = "Ausencias.findByMotivo", query = "SELECT a FROM Ausencias a WHERE a.motivo = :motivo"),
+    @NamedQuery(name = "Ausencias.findByMotivo", query = "SELECT a FROM Ausencias a WHERE a.motivoausencia = :motivo"),
     @NamedQuery(name = "Ausencias.findByObservacion", query = "SELECT a FROM Ausencias a WHERE a.observacion = :observacion")})
 public class Ausencias implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -51,8 +51,8 @@ public class Ausencias implements Serializable {
     @Column(name = "OBSERVACION")
     private String observacion;
     @JoinColumn(name = "ID_MOTIVO", referencedColumnName = "ID")
-    @ManyToOne
-    private MotivoAusencia motivoAusencia;
+    @ManyToOne(optional = false)
+    private MotivoAusencia motivoausencia;
 
     public Ausencias() {
     }
@@ -101,11 +101,11 @@ public class Ausencias implements Serializable {
     }
 
     public MotivoAusencia getMotivoAusencia() {
-        return motivoAusencia;
+        return motivoausencia;
     }
 
     public void setMotivoAusencia(MotivoAusencia motivoAusencia) {
-        this.motivoAusencia = motivoAusencia;
+        this.motivoausencia = motivoAusencia;
     }
 
     @Override

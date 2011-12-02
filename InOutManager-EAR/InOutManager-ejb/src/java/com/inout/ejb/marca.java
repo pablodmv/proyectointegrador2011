@@ -35,6 +35,8 @@ public class marca implements marcaLocal {
     private loggerJMSLocal Logger;
     @EJB
     private marcaJMSLocal marcaJMS;
+    @EJB
+    private cierreLocal cierreEJB;
 
     @Override
     public Boolean altaMarca(marcaDTO marca) {
@@ -136,6 +138,7 @@ public class marca implements marcaLocal {
             }
             return marcaDTOList;
         } catch (Exception e) {
+            System.out.println("No se pudo obtener las marcas por fecha y persona: " + e.getMessage());
             return null;
         }
 
@@ -164,10 +167,10 @@ public class marca implements marcaLocal {
             marca.setObservaciones(MarcaDTO.getObservaciones());
             marca.setTiene_pareja(MarcaDTO.getTiene_pareja());
             marca.setCerrado(MarcaDTO.getCerrado());
-
-
-
-
+            if (MarcaDTO.getCierre()!=null) {
+            marca.setCierre(cierreEJB.convertirDTOCierre(MarcaDTO.getCierre()));
+            }
+            
 
             return marca;
         } catch (Exception e) {
@@ -202,6 +205,15 @@ public class marca implements marcaLocal {
 //            MarcaDTO.setCorreccionFechaStr(converters.DateString(marca.getCorreccionFecha(), "yyyy-MM-dd"));
 //
 //        }
+            MarcaDTO.setObservaciones(marca.getObservaciones());
+            MarcaDTO.setTiene_pareja(marca.getTiene_pareja());
+            MarcaDTO.setCerrado(marca.getCerrado());
+            if (marca.getCierre()!=null) {
+            MarcaDTO.setCierre(cierreEJB.convertirCierreDTO(marca.getCierre()));
+        }
+            
+
+
 
         return MarcaDTO;
     }
