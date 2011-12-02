@@ -32,7 +32,6 @@ public class tarjeta implements tarjetaLocal {
         try {
             Tarjeta tarjetaEntity = new Tarjeta();
             tarjetaEntity = convertirDTOTarjeta(tarjeta);
-            tarjetaEntity.setActiva(Boolean.TRUE);
             em.persist(tarjetaEntity);
             em.flush();
             return true;
@@ -112,7 +111,13 @@ public class tarjeta implements tarjetaLocal {
         tarjeta.setDescripcion(TarjetaDTO.getDescripcion());
         tarjeta.setFechaEntrega(TarjetaDTO.getFechaEntrega());
         tarjeta.setFechaDevolucion(TarjetaDTO.getFechaDevolucion());
-        tarjeta.setActiva(TarjetaDTO.getActiva());
+        
+        if(TarjetaDTO.getActiva() != null){
+            tarjeta.setActiva(TarjetaDTO.getActiva());
+        }else{
+            tarjeta.setActiva(Boolean.TRUE);
+        }
+        
         tarjeta.setTipo(TarjetaDTO.getTipo());
         return tarjeta;
 

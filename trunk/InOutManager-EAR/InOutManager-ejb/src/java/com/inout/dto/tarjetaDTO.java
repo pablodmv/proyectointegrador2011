@@ -20,6 +20,10 @@ public class tarjetaDTO implements Serializable {
     private Date FechaDevolucion;
     private Boolean activa;
 
+    public tarjetaDTO(){
+        
+    }
+
     public tarjetaDTO(String id, String descripcion, Short tipo, Date FechaEntrega, Date FechaDevolucion, Boolean activa) {
         this.id = id;
         this.descripcion = descripcion;
@@ -40,11 +44,6 @@ public class tarjetaDTO implements Serializable {
     public tarjetaDTO(String id) {
         this.id = id;
     }
-
-    public tarjetaDTO() {
-        
-    }
-
     
     public Date getFechaDevolucion() {
         return FechaDevolucion;
