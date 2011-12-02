@@ -4,6 +4,7 @@
  */
 package com.inout.dto;
 
+import com.inout.entities.Cierre;
 import com.inout.util.converters;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +26,11 @@ public class marcaDTO implements Serializable {
     private String correccionFechaStr="";
     private String correccionHora="";
     private String personaID="";
+    private String observaciones;
+    private Boolean tiene_pareja;
+    private Boolean cerrado;
+    private Cierre cierre;
+
 
     public marcaDTO(){
         
@@ -135,6 +141,40 @@ public class marcaDTO implements Serializable {
     public void setCorreccionFechaStr(String correccionFechaStr) {
         this.correccionFechaStr = correccionFechaStr;
     }
+
+    public Boolean getCerrado() {
+        return cerrado;
+    }
+
+    public void setCerrado(Boolean cerrado) {
+        this.cerrado = cerrado;
+    }
+
+    public Cierre getCierre() {
+        return cierre;
+    }
+
+    public void setCierre(Cierre cierre) {
+        this.cierre = cierre;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public Boolean getTiene_pareja() {
+        return tiene_pareja;
+    }
+
+    public void setTiene_pareja(Boolean tiene_pareja) {
+        this.tiene_pareja = tiene_pareja;
+    }
+
+
 
 
 }

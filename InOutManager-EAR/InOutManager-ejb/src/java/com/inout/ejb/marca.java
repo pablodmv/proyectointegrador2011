@@ -146,8 +146,6 @@ public class marca implements marcaLocal {
     private Marca convertirDTOMarca(marcaDTO MarcaDTO, String userLogin) throws Exception {
         Marca marca = new Marca();
         try {
-
-
             if (!MarcaDTO.getPersonaID().equals("")) {
                 personaDTO personaAux = personaEJB.ObtenerPersona(MarcaDTO.getPersonaID(), userLogin);
                 if (personaAux == null) {
@@ -162,6 +160,15 @@ public class marca implements marcaLocal {
             marca.setHora(MarcaDTO.getHora());
             marca.setIdDispositivo(MarcaDTO.getIdDispositivo());
             marca.setDispositivo(MarcaDTO.getDispositivo());
+
+            marca.setObservaciones(MarcaDTO.getObservaciones());
+            marca.setTiene_pareja(MarcaDTO.getTiene_pareja());
+            marca.setCerrado(MarcaDTO.getCerrado());
+
+
+
+
+
             return marca;
         } catch (Exception e) {
             throw e;
