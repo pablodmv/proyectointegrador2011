@@ -76,10 +76,14 @@ public class Facade {
 
 
 
-    public List<marcaDTO> getMarKByDate(Date date) {
-        return this.lookupmarcaRemote().obtenerTodasMarcas(date, "Gustavo");
+    public List<marcaDTO> getMarKByPersonDate(personaDTO persona, Date date) {
+
+        return this.lookupmarcaRemote().obtenerMarcaPorFechaPersona(persona, date);
     }
 
+    public Boolean saveCard(tarjetaDTO tarjeta){
+        return this.lookuptarjetaRemote().altaTarjeta(tarjeta, "Gustavo");
+    }
 
     public List<tarjetaDTO> getTarjetasActivas(){
         return this.lookuptarjetaRemote().ObtenerTarjetasActivasDTO();

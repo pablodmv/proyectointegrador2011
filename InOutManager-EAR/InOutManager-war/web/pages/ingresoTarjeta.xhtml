@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <fieldset>
+            <legend>Ingreso Tarjeta</legend>
+            <h:form id="form" prependId="false">
+                <h:panelGrid columns="4">
+
+                    <h:outputLabel value="*#{msg.idTarjeta_label}" for="idTarjeta" />
+                    <p:inputText id="idTarjeta" value="#{tarjetaBean.idTarjeta}" required="true"
+                                 requiredMessage="#{msg.idTarjeta_required}"/>
+
+                    <h:outputLabel value="*#{msg.tipoTarjeta_label}" for="tipoTarjeta"/>
+                    <h:selectOneMenu id="tipoTarjeta" value="#{tarjetaBean.tipoTarjeta}" required="true" requiredMessage="#{msg.tipoTarjeta_required}">
+                        <f:selectItem itemLabel="#{msg.rfidItem}" itemValue="0"/>
+                        <f:selectItem itemLabel="#{msg.qrItem}" itemValue="1"/>
+                    </h:selectOneMenu>
+                    
+                    <h:outputLabel value="*#{msg.descTarjeta_label}" for="descTarjeta"/>
+                    <p:inputText id="descTarjeta" value="#{tarjetaBean.descTarjeta}" required="true" requiredMessage="#{msg.descTarjeta_required}"/>
+
+                </h:panelGrid>
+
+                <h:panelGrid id="panelMessages">
+                    <h:messages />
+                </h:panelGrid>
+                <h:panelGrid id="panelBtn">
+                    <p:commandButton value="Aceptar"  actionListener="#{tarjetaBean.save}" update="infoPanel,panelMessages"/>
+                </h:panelGrid>
+
+                <h:panelGrid id="infoPanel">
+                    <h:outputText value="#{tarjetaBean.msgSuccess}"/>
+                </h:panelGrid>
+            </h:form>
+        </fieldset>
+    </ui:define>
+</ui:composition>
