@@ -26,11 +26,6 @@
         <jndi-name>jms/logger</jndi-name>
       </message-destination-ref>
     </ejb>
-
-
-
-
-
     <ejb>
       <ejb-name>persona</ejb-name>
       <jndi-name>persona</jndi-name>
@@ -42,6 +37,18 @@
     <ejb>
       <ejb-name>tarjeta</ejb-name>
       <jndi-name>tarjeta</jndi-name>
+    </ejb>
+     <ejb>
+      <ejb-name>cierre</ejb-name>
+      <jndi-name>cierre</jndi-name>
+    </ejb>
+     <ejb>
+      <ejb-name>motivoAusencia</ejb-name>
+      <jndi-name>motivoAusencia</jndi-name>
+    </ejb>
+     <ejb>
+      <ejb-name>ausencias</ejb-name>
+      <jndi-name>ausencias</jndi-name>
     </ejb>
   </enterprise-beans>
 </sun-ejb-jar>

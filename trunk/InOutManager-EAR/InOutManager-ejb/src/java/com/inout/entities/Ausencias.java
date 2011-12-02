@@ -48,8 +48,6 @@ public class Ausencias implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Column(name = "MOTIVO")
-    private String motivo;
     @Column(name = "OBSERVACION")
     private String observacion;
     @JoinColumn(name = "ID_MOTIVO", referencedColumnName = "ID")
@@ -93,13 +91,6 @@ public class Ausencias implements Serializable {
         this.fecha = fecha;
     }
 
-    public String getMotivo() {
-        return motivo;
-    }
-
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
-    }
 
     public String getObservacion() {
         return observacion;
