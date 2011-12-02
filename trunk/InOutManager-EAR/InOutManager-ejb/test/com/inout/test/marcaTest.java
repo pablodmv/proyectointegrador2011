@@ -5,12 +5,10 @@
 package com.inout.test;
 
 import com.inout.dto.personaDTO;
-import com.inout.entities.Persona;
 import com.inout.ejb.personaLocal;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import com.inout.dto.marcaDTO;
-import com.inout.entities.Marca;
 import java.util.List;
 import java.util.Date;
 import org.junit.Test;
@@ -56,11 +54,11 @@ public class marcaTest {
     // public void hello() {}
 
 
-    //@Test
+    @Test
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
-        marcaDTO marca = new marcaDTO("2010/11/23", "20:55", "4", "PUERTA", "FFF0 4021 A0D3 CCA5 6939 5F93");
+        marcaDTO marca = new marcaDTO("2010/11/23", "20:55", "4", "PUERTA", "123456");
         Boolean result1 = instance.altaMarca(marca);
         System.out.println("Resultado1 " + result1);
     }
@@ -116,7 +114,7 @@ public class marcaTest {
     }
 
 
-    @Test
+   // @Test
     public void testObtenerMarcaPorFechaPersona() throws Exception {
         System.out.println("testObtenerMarcaPorFechaPersona");
         marcaLocal instance = lookupMarca();

@@ -11,28 +11,32 @@ package com.inout.dto;
  */
 public class cierreDTO {
 
-    private int ID;
+    private Long ID;
     private String mes;
-    private int ano;
+    private Short ano;
 
-    public cierreDTO(String mes, int ano) {
+    public cierreDTO(String mes, Short ano) {
         this.mes = mes;
         this.ano = ano;
     }
 
-    public int getID() {
+    public cierreDTO() {
+
+    }
+
+    public Long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Long ID) {
         this.ID = ID;
     }
 
-    public int getAno() {
+    public Short getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(Short ano) {
         this.ano = ano;
     }
 

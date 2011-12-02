@@ -38,8 +38,6 @@ public class MotivoAusencia implements Serializable {
     @Basic(optional = false)
     @Column(name = "MOTIVO")
     private String motivo;
-    @OneToMany(mappedBy = "motivoAusencia")
-    private Collection<Ausencias> ausenciasCollection;
 
     public MotivoAusencia() {
     }
@@ -67,14 +65,6 @@ public class MotivoAusencia implements Serializable {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
-    }
-
-    public Collection<Ausencias> getAusenciasCollection() {
-        return ausenciasCollection;
-    }
-
-    public void setAusenciasCollection(Collection<Ausencias> ausenciasCollection) {
-        this.ausenciasCollection = ausenciasCollection;
     }
 
     @Override
