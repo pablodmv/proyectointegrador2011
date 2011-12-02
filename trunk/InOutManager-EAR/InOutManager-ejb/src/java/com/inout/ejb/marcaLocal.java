@@ -6,6 +6,7 @@
 package com.inout.ejb;
 
 import com.inout.dto.marcaDTO;
+import com.inout.dto.personaDTO;
 import com.inout.entities.Marca;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ public interface marcaLocal {
     public Boolean eliminarMarca( marcaDTO MarcaDTO, String usuario);
     public Boolean modificarMarca(marcaDTO MarcaDTO, String usuario) ;
     public Marca obtenerMarca(Long idMarca);
+    public List<marcaDTO> obtenerMarcaPorFechaPersona(personaDTO persona, Date fecha);
 
     
 }
