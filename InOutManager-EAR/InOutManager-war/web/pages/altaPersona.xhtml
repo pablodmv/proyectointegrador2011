@@ -43,7 +43,7 @@
                                  styleClass="#{personaBean.tel1InputValid?'':'inputTextError'}" maxlength="20"/>
 
                     <h:outputLabel value="#{msg.tel2_label}" for="tel2"/>
-                    <p:inputMask mask="99999999999999999999" id="tel2" value="#{personaBean.tel2}" validatorMessage="#{msg.tel_validation}" />
+                    <h:inputText id="tel2" value="#{personaBean.tel2}" validatorMessage="#{msg.tel_validation}" />
                     <h:outputLabel value="#{msg.tarjeta_label}" for="tel2"/>
 
                     <h:selectOneMenu  id="Tarjeta" value="#{personaBean.idTarjeta}"  required="true">

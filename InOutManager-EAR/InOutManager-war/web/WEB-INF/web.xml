@@ -19,7 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/pages/altaPersona.xhtml</welcome-file>
+        <welcome-file>faces/pages/editarPersona.xhtml</welcome-file>
     </welcome-file-list>
     <ejb-ref>
         <ejb-ref-name>marca</ejb-ref-name>
