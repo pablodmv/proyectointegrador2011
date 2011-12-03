@@ -42,6 +42,9 @@ public class PersonaBean {
     private List<tarjetaDTO> tarjetasDTO = new ArrayList<tarjetaDTO>();
     private String msgSuccess;
     private personaDTO selectedPerson = new personaDTO();
+    private tarjetaDTO tarjetaPersona;
+    private Boolean modificaTarjeta=Boolean.FALSE;
+    private Boolean mostrarModalResultado=Boolean.FALSE;
 
     /** Creates a new instance of PersonaBean */
     public PersonaBean() {
@@ -160,6 +163,30 @@ public class PersonaBean {
         this.tarjetasDTO = tarjetasDTO;
     }
 
+    public tarjetaDTO getTarjetaPersona() {
+        return tarjetaPersona;
+    }
+
+    public void setTarjetaPersona(tarjetaDTO tarjetaPersona) {
+        this.tarjetaPersona = tarjetaPersona;
+    }
+
+    public Boolean getModificaTarjeta() {
+        return modificaTarjeta;
+    }
+
+    public void setModificaTarjeta(Boolean modificaTarjeta) {
+        this.modificaTarjeta = modificaTarjeta;
+    }
+
+    public Boolean getMostrarModalResulado() {
+        return mostrarModalResultado;
+    }
+
+    public void setMostrarModalResulado(Boolean mostrarModalResulado) {
+        this.mostrarModalResultado = mostrarModalResulado;
+    }
+
     
 
     //******************Validations ******************************
@@ -259,12 +286,16 @@ public class PersonaBean {
         this.selectedPerson.setNumEmpleado(numEmpleado);
         this.selectedPerson.setTelefono1(tel1);
         this.selectedPerson.setTelefono2(tel2);
-        this.selectedPerson.setTarjeta(new tarjetaDTO(idTarjeta));
+        if (modificaTarjeta) {
+            this.selectedPerson.setTarjeta(new tarjetaDTO(idTarjeta));
+        }
+        
 
         Facade f = Facade.getInstance();
         String result = "";
         if (f.savePerson(selectedPerson)) {
             result = "Ingreso exitoso.";
+            mostrarModalResultado=Boolean.TRUE;
         } else {
             result = "Hubo un error al ingresar la persona.";
         }
@@ -273,10 +304,13 @@ public class PersonaBean {
         return "";
     }
 
+
+
     public String search() {
 
         Facade f = Facade.getInstance();
         this.selectedPerson = f.searchPerson(this.doc);
+        this.tarjetaPersona = this.selectedPerson.getTarjeta();
 
         this.setNombre(this.selectedPerson.getNombre());
         this.setApellido(this.selectedPerson.getApellido());
@@ -285,6 +319,7 @@ public class PersonaBean {
         this.setNumEmpleado(this.selectedPerson.getNumEmpleado());
         this.setTel1(this.selectedPerson.getTelefono1());
         this.setTel2(this.selectedPerson.getTelefono2());
+        
 
         System.out.println("Success Search");
         return "";
