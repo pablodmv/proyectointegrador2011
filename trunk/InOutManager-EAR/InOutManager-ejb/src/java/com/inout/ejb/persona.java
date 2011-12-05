@@ -159,7 +159,29 @@ public class persona implements personaLocal {
         persona.setTelefono2(PersonaDTO.getTelefono2());
         persona.setIngreso(PersonaDTO.getIngreso());
         persona.setNumEmpleado(PersonaDTO.getNumEmpleado());
+        if (PersonaDTO.getTarjeta()!=null) {
         persona.setTarjeta(tarjeta.convertirDTOTarjeta(PersonaDTO.getTarjeta()));
+        }
+        
         return persona;
+    }
+
+    @Override
+    
+    public personaDTO convertirPersonaDTO(Persona persona) {
+        personaDTO PersonaDTO = new personaDTO();
+        PersonaDTO.setDocumento(PersonaDTO.getDocumento());
+        PersonaDTO.setNombre(PersonaDTO.getNombre());
+        PersonaDTO.setApellido(PersonaDTO.getApellido());
+        PersonaDTO.setDireccion(PersonaDTO.getDireccion());
+        PersonaDTO.setTelefono1(PersonaDTO.getTelefono1());
+        PersonaDTO.setTelefono2(PersonaDTO.getTelefono2());
+        PersonaDTO.setIngreso(PersonaDTO.getIngreso());
+        PersonaDTO.setNumEmpleado(PersonaDTO.getNumEmpleado());
+        if (persona.getTarjeta()!=null) {
+        PersonaDTO.setTarjeta(tarjeta.convertirTarjetaDTO(persona.getTarjeta()));
+        }
+        
+        return PersonaDTO;
     }
 }

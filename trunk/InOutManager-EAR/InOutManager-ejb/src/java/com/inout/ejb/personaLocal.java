@@ -23,4 +23,5 @@ public interface personaLocal {
     public Boolean eliminarPersona(personaDTO PersonaDTO, String usuario);
     public Boolean modificarPersona(personaDTO PersonaDTO, String usuario);
     public Persona convertirDTOPersona(personaDTO PersonaDTO);
+    public personaDTO convertirPersonaDTO(Persona persona);
 }
