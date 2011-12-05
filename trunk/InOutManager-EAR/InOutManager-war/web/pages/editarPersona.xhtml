@@ -14,7 +14,7 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="*#{msg.doc_label}" for="doc" />
                     <p:inputMask id="doc" value="#{personaBean.doc}" mask="99999999"
-                                 required="true" requiredMessage="#{msg.doc_required}"/>
+                                 required="true" requiredMessage="#{msg.doc_required}" immediate="true"/>
                 </h:panelGrid>
 
                 <h:panelGrid id="panelBtn">
@@ -81,22 +81,22 @@
                 </h:panelGrid>
 
                 <h:panelGrid id="panelBtn2">
-                    <p:commandButton  value="Aceptar" oncomplete ="confirmation.show();" update="infoPanel,panelMessages,resultado,resultadoText" />
+                    <p:commandButton  value="Aceptar" onclick ="confirmation.show();" type="button"/>
                 </h:panelGrid>
 
-                <p:dialog id="resultado" modal="true" widgetVar="modalResultado" closable="true" rendered="#{personaBean.mostrarModalResulado}" >
-                    <h:outputText id="resultadoText" value="Cambios guardados con exito"/>
+                <p:dialog id="resultado" header=""  widgetVar="modalResultado" visible="#{personaBean.mostrarModalResulado}">
+                        <h:outputText id="resultadoText" value="Cambios guardados con exito"/>
+                        <p:commandButton value="Aceptar" onclick="modalResultado.hide()" type="button"/>
                 </p:dialog>
-
-
-
-                <p:confirmDialog message="#{msg.dialogoConfirmacion}?" widgetVar="confirmation">
-                    <p:commandButton value="OK" update="resultado" onclick="confirmation.hide()"
-                                     action="#{personaBean.save}" oncomplete=""  />
-                    <p:commandButton value="Cancel" onclick="confirmation.hide()" type="button" />
-                </p:confirmDialog>
+                
 
                 <!-- no funciona modal de confirmacion de resulado-->
+                <p:dialog header="Confirmación" widgetVar="confirmation" closable="false">
+                    <h:outputText value="#{msg.dialogoConfirmacion}?"/>
+                    <p:commandButton value="Aceptar" actionListener="#{personaBean.save}" ajax="false"/>
+                    <p:commandButton value="Cancel" onclick="confirmation.hide()" type="button" />
+                </p:dialog>
+
 
 
                 <h:panelGrid id="infoPanel">
