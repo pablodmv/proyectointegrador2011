@@ -130,6 +130,23 @@ public class marcaTest {
 
     }
 
+    // @Test
+    public void testCrearParejas() throws Exception {
+        System.out.println("testCrearParejas");
+        marcaLocal instance = lookupMarca();
+        DateFormat formatter;
+        Date date;
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String str_date = "2011-11-27";
+        date = (Date) formatter.parse(str_date);
+        List<marcaDTO> marcas=instance.obtenerTodasMarcas(date, "System");
+
+         for (marcaDTO marcaImprimo:marcas) {
+             System.out.println("Dispositivo:" + marcaImprimo.getIdDispositivo()+" Fecha: "+marcaImprimo.getFechaStr()+" id: "+marcaImprimo.getIdPareja());
+
+         }
+
+    }
 
     private marcaLocal lookupMarca() {
         try {

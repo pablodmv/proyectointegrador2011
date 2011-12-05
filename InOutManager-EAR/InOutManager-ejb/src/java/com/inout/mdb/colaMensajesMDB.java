@@ -5,11 +5,13 @@
 
 package com.inout.mdb;
 
+import com.inout.ejb.marcaLocal;
 import com.inout.entities.Log;
 import com.inout.entities.Marca;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -30,6 +32,8 @@ public class colaMensajesMDB implements MessageListener {
 
      @PersistenceContext
     private EntityManager em;
+     @EJB
+     marcaLocal marcaEJB;
 
     public colaMensajesMDB() {
     }
@@ -58,6 +62,7 @@ public class colaMensajesMDB implements MessageListener {
     private void persistirLog(Log log){
         try {
             em.persist(log);
+            em.flush();
         } catch (Exception e) {
             System.out.println("No se pudo guardar el log " +e.getMessage());
         }
@@ -66,6 +71,8 @@ public class colaMensajesMDB implements MessageListener {
     private void persistirMarca(Marca marca){
         try {
             em.persist(marca);
+            em.flush();
+            marcaEJB.formarParejas(marca);
         } catch (Exception e) {
             System.out.println("No se pudo guardar la marca " + e.getMessage());
         }

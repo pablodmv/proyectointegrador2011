@@ -40,21 +40,22 @@ public class marca implements marcaLocal {
 
     @Override
     public Boolean altaMarca(marcaDTO marca) {
-        String userLogin = "System";
-
-
+          String userLogin = "System";
         try {
-            marcaJMS.persistir(convertirDTOMarca(marca, userLogin));
-            //em.persist(convertirDTOMarca(marca, userLogin));
-            //em.flush();
-
+             Marca Marca = new Marca();
+            Marca = convertirDTOMarca(marca, userLogin);
+            marcaJMS.persistir(Marca);
+//            formarParejas(convertirDTOMarca(marca, "System")); //metodo que recorre
             return true;
-        } catch (Exception e) {
-            System.out.println("No se pudo guardar la marca" + e.getMessage());
+        } catch (InterruptedException ex) {
+            System.out.println("Error al agregar la marca " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error al agregar la marca " + ex.getMessage());
         }
         return false;
-    }
 
+
+    }
     @Override
     public List<marcaDTO> obtenerTodasMarcas(Date fecha, String userLogin) {
         try {
@@ -112,6 +113,7 @@ public class marca implements marcaLocal {
             marca.setCorreccionHora(MarcaDTO.getCorreccionHora());
             marca.setIdDispositivo(MarcaDTO.getIdDispositivo());
             marca.setIdPareja(MarcaDTO.getIdPareja());
+            marca.setTiene_pareja(MarcaDTO.getTiene_pareja());
             em.merge(marca);
             em.flush();
             //Logueo
@@ -167,10 +169,10 @@ public class marca implements marcaLocal {
             marca.setObservaciones(MarcaDTO.getObservaciones());
             marca.setTiene_pareja(MarcaDTO.getTiene_pareja());
             marca.setCerrado(MarcaDTO.getCerrado());
-            if (MarcaDTO.getCierre()!=null) {
-            marca.setCierre(cierreEJB.convertirDTOCierre(MarcaDTO.getCierre()));
+            if (MarcaDTO.getCierre() != null) {
+                marca.setCierre(cierreEJB.convertirDTOCierre(MarcaDTO.getCierre()));
             }
-            
+
 
             return marca;
         } catch (Exception e) {
@@ -186,13 +188,13 @@ public class marca implements marcaLocal {
         MarcaDTO.setIdPareja(marca.getIdPareja());
         MarcaDTO.setFecha(converters.StringDate(converters.DateString(marca.getFecha(), "dd/MM/yyyy"), "dd/MM/yyyy"));
 
-        if(marca.getCorreccionFecha() !=null){
+        if (marca.getCorreccionFecha() != null) {
             MarcaDTO.setCorreccionFecha(marca.getCorreccionFecha());
-        }else{
+        } else {
             MarcaDTO.setCorreccionFecha(marca.getFecha());
         }
 
-        
+
         MarcaDTO.setDispositivo(marca.getDispositivo());
         MarcaDTO.setFechaStr(converters.DateString(MarcaDTO.getFecha(), "dd/MM/yyyy"));
         MarcaDTO.setHora(marca.getHora());
@@ -205,16 +207,44 @@ public class marca implements marcaLocal {
 //            MarcaDTO.setCorreccionFechaStr(converters.DateString(marca.getCorreccionFecha(), "yyyy-MM-dd"));
 //
 //        }
-            MarcaDTO.setObservaciones(marca.getObservaciones());
-            MarcaDTO.setTiene_pareja(marca.getTiene_pareja());
-            MarcaDTO.setCerrado(marca.getCerrado());
-            if (marca.getCierre()!=null) {
+        MarcaDTO.setObservaciones(marca.getObservaciones());
+        MarcaDTO.setTiene_pareja(marca.getTiene_pareja());
+        MarcaDTO.setCerrado(marca.getCerrado());
+        MarcaDTO.setPersonaID(marca.getPersona().getDocumento());
+        if (marca.getCierre() != null) {
             MarcaDTO.setCierre(cierreEJB.convertirCierreDTO(marca.getCierre()));
         }
-            
+
 
 
 
         return MarcaDTO;
+    }
+
+    @Override
+    public void formarParejas(Marca Marca) {
+        personaDTO persona = personaEJB.ObtenerPersona(Marca.getPersona().getDocumento(), "System");
+        List<marcaDTO> Marcas = this.obtenerMarcaPorFechaPersona(persona, Marca.getFecha());
+        //Recorro la coleccion y limpio las parejas.
+        for (marcaDTO MarcaDTO : Marcas) {
+            MarcaDTO.setTiene_pareja(Boolean.FALSE);
+            MarcaDTO.setIdPareja(0);
+
+        }
+        for (int i = 0; i < Marcas.size()-1 ; i++) {
+            if (Marcas.get(i).getIdDispositivo().equalsIgnoreCase(Marcas.get(i + 1).getIdDispositivo()) && !Marcas.get(i).getTiene_pareja() && !Marcas.get(i + 1).getTiene_pareja()) {
+                //Si las marcas son del mismo dispositivo y no se marcaron como pareja
+                //seteo la pareja y tomo como id de la pareja el id del primer registro
+                Marcas.get(i).setTiene_pareja(Boolean.TRUE);
+                Marcas.get(i + 1).setTiene_pareja(Boolean.TRUE);
+                Marcas.get(i).setIdPareja(Marcas.get(i).getId());
+                Marcas.get(i + 1).setIdPareja(Marcas.get(i).getId());
+                modificarMarca(Marcas.get(i), "System");
+                modificarMarca(Marcas.get(i + 1), "System");
+            }else{
+                modificarMarca(Marcas.get(i), "System");
+            }
+        }
+
     }
 }

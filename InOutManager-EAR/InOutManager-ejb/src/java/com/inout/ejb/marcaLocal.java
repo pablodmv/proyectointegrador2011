@@ -26,6 +26,7 @@ public interface marcaLocal {
     public Boolean modificarMarca(marcaDTO MarcaDTO, String usuario) ;
     public Marca obtenerMarca(Long idMarca);
     public List<marcaDTO> obtenerMarcaPorFechaPersona(personaDTO persona, Date fecha);
+    public void formarParejas(Marca marca);
 
     
 }
