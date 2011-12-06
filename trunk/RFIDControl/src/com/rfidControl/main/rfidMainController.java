@@ -8,6 +8,7 @@ import com.rfidControl.DTO.serverRCPDTO;
 import com.rfidControl.Readers.alienReader;
 import com.rfidControl.abstractClasses.Reader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,7 +110,7 @@ public class rfidMainController {
         List<Reader> readerRetorno = new ArrayList<Reader>();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            documento = builder.parse(new File("src/com/rfidControl/readersDefinitions/readerDefinitions.xml"));
+            documento = builder.parse(new File("configuration/readerDefinitions.xml"));
             documento.getDocumentElement().normalize();
             NodeList readers = documento.getElementsByTagName("reader");
             for (int i = 0; i < readers.getLength(); i++) {
@@ -170,7 +171,7 @@ public class rfidMainController {
         Properties props = new Properties();
         serverRCPDTO server = new serverRCPDTO();
         try {
-            props.load(getClass().getResourceAsStream("Configuration.properties"));
+            props.load(new FileInputStream("configuration/Configuration.properties"));
             server.setIp(props.getProperty("REMOTE_SERVER_IP"));
             server.setPort(props.getProperty("REMOTE_SERVER_PORT"));
             return server;
