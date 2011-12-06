@@ -51,7 +51,7 @@ public class Facade {
     }
 
     public Boolean editMark(marcaDTO mDto){
-        return this.lookupmarcaRemote().modificarMarca(mDto, "Gustavo");
+        return this.lookupmarcaRemote().altaMarca(mDto);
     }
 
     private marcaLocal lookupmarcaRemote() {

@@ -13,7 +13,7 @@
                 <legend>Filtro de busqueda</legend>
             <h:panelGrid columns="2">
                 <h:outputLabel value="#{msg.doc_label}" for="doc" />
-                <p:inputMask id="doc" value="#{verMarcasBean.selectDocPerson}" mask="999999"
+                <p:inputMask id="doc" value="#{verMarcasBean.selectDocPerson}" mask="99999999"
                          required="true" requiredMessage="#{msg.doc_required}"/>
 
                 <h:outputLabel value="*#{msg.fechaMarca_label}:" for="fecha" />
@@ -75,14 +75,21 @@
 
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="#{msg.correccionFecha_label}" />
+                        <h:outputText value="#{msg.idMarca_label}" />
                     </f:facet>
-                    <h:outputText value="#{mark.correccionFechaStr}" />
+                    <h:outputText value="#{mark.id}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.idPareja_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.idPareja}" />
                 </p:column>
 
                 <p:column>
-                    <f:facet name="header">#{msg.correccionHora_label}</f:facet>
-                    <h:outputText id="corrHora" value="#{mark.correccionHora}" />
+                    <f:facet name="header">#{msg.status_label}</f:facet>
+                    <h:graphicImage value="../resources/images/ok.png" rendered="#{mark.tiene_pareja}"/>
+                    <h:graphicImage value="../resources/images/important.png" rendered="#{!mark.tiene_pareja}"/>
                 </p:column>
 
                 <p:column>
@@ -95,7 +102,7 @@
         </p:dataTable>
 
         <p:dialog header="Mark Detail" widgetVar="markDialog" resizable="false"
-                  width="400" height="300" showEffect="explode" hideEffect="explode">
+                  width="400" height="450" showEffect="explode" hideEffect="explode">
 
             <h:panelGrid id="display" columns="2" cellpadding="4">
 
@@ -111,15 +118,18 @@
                 <h:outputText value="#{msg.dispositivo_label}:" />
                 <h:outputText value="#{verMarcasBean.selectedMark.dispositivo}" />
 
-                <h:outputLabel value="#{msg.correccionHora_label}"/>
-                <h:inputText value="#{verMarcasBean.selectedMark.correccionHora}"/>
+                <h:outputLabel value="#{msg.horaMarca_label}:"/>
+                <h:inputText value="#{verMarcasBean.selectedMark.hora}"/>
 
-                <h:outputLabel value="#{msg.correccionFecha_label}"/>
+                <h:outputLabel value="#{msg.fechaMarca_label}:"/>
                 <p:calendar id="fechaIngreso"  style="width:200px" pattern="dd/MM/yyyy"
-                            value="#{verMarcasBean.selectedMark.correccionFecha}"/>
+                            value="#{verMarcasBean.selectedMark.fecha}"/>
+
+                <h:outputLabel value="#{msg.obs_label}:"/>
+                <h:inputTextarea value="#{verMarcasBean.selectedMark.observaciones}"/>
 
                 <h:panelGrid id="panelBtn">
-                    <p:commandButton value="Aceptar"  actionListener="#{verMarcasBean.editarMarca}" update="form:table"/>
+                    <p:commandButton value="Aceptar" disabled="#{verMarcasBean.selectedMark.tiene_pareja}"  actionListener="#{verMarcasBean.editarMarca}" update="form:table"/>
                 </h:panelGrid>
 
             </h:panelGrid>
