@@ -15,7 +15,7 @@ public class Interpreter {
         this.data = data;
     }
 
-    public String readData(String data) {
+    public Boolean readData(String data) {
         this.data = data;
         String[] datosEnvio = data.split(",");
         System.out.println("Recibe: " + data);
@@ -25,15 +25,16 @@ public class Interpreter {
         try {
             Boolean resultado = webservice.addMarca(datosEnvio[1], datosEnvio[2], datosEnvio[3], datosEnvio[4], datosEnvio[0]);
             if (resultado) {
-                return "Sucess!";
+                return true;
 
+            }else{
+                return false;
             }
 
         } catch (Exception e) {
             System.out.println("No se pudo conecta al webservice " + e.getLocalizedMessage());
-            return "Fail";
+            return false;
         }
-        return "Fail";
 
 
     }
