@@ -33,7 +33,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m"),
     @NamedQuery(name = "Marca.findById", query = "SELECT m FROM Marca m WHERE m.id = :id"),
     @NamedQuery(name = "Marca.findByFecha", query = "SELECT m FROM Marca m WHERE m.fecha = :fecha"),
-    @NamedQuery(name = "Marca.findByFechaYPersona", query = "SELECT m FROM Marca m WHERE m.fecha = :fecha AND m.persona = :persona"),
+    @NamedQuery(name = "Marca.findByFechaYPersona", query = "SELECT m FROM Marca m WHERE m.fecha = :fecha AND m.persona = :persona Order By m.fecha,m.hora"),
     @NamedQuery(name = "Marca.findByHora", query = "SELECT m FROM Marca m WHERE m.hora = :hora"),
     @NamedQuery(name = "Marca.findByIdDispositivo", query = "SELECT m FROM Marca m WHERE m.idDispositivo = :idDispositivo"),
     @NamedQuery(name = "Marca.findByDispositivo", query = "SELECT m FROM Marca m WHERE m.dispositivo = :dispositivo"),
