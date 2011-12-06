@@ -6,8 +6,18 @@ package com.rfidControl.rpc;
 
 import com.rfidControl.DTO.serverRCPDTO;
 import com.rfidControl.main.rfidMainController;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -36,11 +46,10 @@ public class rfidRCPClient {
     private void init() {
         final XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
         rfidMainController controller = rfidMainController.getInstance();
-       serverRCPDTO server = controller.readProperties();
-       String urlString = "http://" + server.getIp() + ":"+server.getPort();
+        serverRCPDTO server = controller.readProperties();
+        String urlString = "http://" + server.getIp() + ":" + server.getPort();
         try {
             config.setServerURL(new URL(urlString));
-
             client.setConfig(config);
         } catch (MalformedURLException ex) {
             log.error("Ocurrio un error al iniciar el cliente RCP-XML " + ex.getLocalizedMessage());
@@ -49,16 +58,57 @@ public class rfidRCPClient {
 
     }
 
-
     public void sendDataToServer(String data) throws MalformedURLException, XmlRpcException {
-       
-        Object obj = client.execute("Interpreter.readData", new Object[] { data });
 
-//        try {
-//            obj = client.execute("random_map", new Object[]{new Integer(-1)});
-//            throw new RuntimeException("La llamada remote deberia haber generado excepcion");
-//        } catch (XmlRpcException e) {
-//            e.printStackTrace();
-//        }
+
+
+        try {
+            //  obj = client.execute("random_map", new Object[]{new Integer(-1)});
+            //  throw new RuntimeException("La llamada remote deberia haber generado excepcion");
+            Boolean resultado = (Boolean) client.execute("Interpreter.readData", new Object[]{data});
+
+            if (resultado) {
+                File file = new File("data.txt");
+                if (file.exists()) {
+                    FileReader fileR = new FileReader(file);
+                    BufferedReader br = new BufferedReader(fileR);
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        client.execute("Interpreter.readData", new Object[]{line});
+                    }
+                    file.delete();
+
+                }
+
+            } else {
+                serializarArchivo(data);
+            }
+
+        } catch (XmlRpcException e) {
+            System.out.println("Error al enviar los datos al servidor: " + e.getLocalizedMessage());
+            log.error("Error al enviar los datos al servidor: " + e.getLocalizedMessage());
+            serializarArchivo(data);
+        } catch (FileNotFoundException ex) {
+            System.out.println("No se encontro el archivo: " + ex.getLocalizedMessage());
+            log.error("No se encontro el archivo: " + ex.getLocalizedMessage());
+        } catch (IOException ex) {
+            log.error("No se encontro el archivo: " + ex.getLocalizedMessage());
+
+        }
+    }
+
+    private void serializarArchivo(String data) {
+        try {
+            FileWriter fileW = new FileWriter(new File("data.txt"), true);
+            BufferedWriter bw = new BufferedWriter(fileW);
+            bw.write(data + "\n");
+            bw.close();
+            fileW.close();
+        } catch (IOException ex) {
+            System.out.println("Error al serializar a archivo: " + ex.getLocalizedMessage());
+            log.error("Error al serializar a archivo: " + ex.getLocalizedMessage());
+
+        }
+
     }
 }
