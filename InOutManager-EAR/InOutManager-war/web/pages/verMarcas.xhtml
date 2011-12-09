@@ -10,6 +10,7 @@
         <h:outputStylesheet library="css" name="jquery.gritter.css"/>
         <h:outputScript library="js" name="gritter.js"/>
         <h:outputScript library="js" name="customGrowl.js"/>
+        <h:outputScript library="js" name="excelReport.js"/>
 
         <h:form id="formSearch" prependId="false">
             <fieldset>
@@ -101,6 +102,10 @@
             </p:commandButton>
                 </p:column>
         </p:dataTable>
+            <h:panelGrid id="panelBtn2" columns="2">
+                <p:commandLink value="Exportar" action="#{verMarcasBean.xlsGenerator}" oncomplete="excelCallback();"/>
+            <p:commandButton value="Ejecutar Cierre"/>
+        </h:panelGrid>
 
         <p:dialog header="Detalle Moviemiento" widgetVar="markDialog" resizable="false"
                   width="400" height="400" >
