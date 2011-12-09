@@ -7,6 +7,9 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
+        <h:outputStylesheet library="css" name="jquery.gritter.css"/>
+        <h:outputScript library="js" name="gritter.js"/>
+        <h:outputScript library="js" name="customGrowl.js"/>
 
         <h:form id="formSearch" prependId="false">
             <fieldset>
@@ -30,63 +33,61 @@
 
 
         <h:form id="form" prependId="false">
-
-            <p:dataTable id="table" var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" rows="5"
-                         rowIndexVar="count" height="600" style="width: 900px">
+            
+            <p:dataTable id="table" var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" pageLinks="4" rows="5"
+                         rowIndexVar="count" height="600" style="width: 900px" paginatorPosition="bottom"
+                         rowSelectListener="#{verMarcasBean.onRowSelect}" styleClass="tableClass" >
 
                 <f:facet name="header">
                     Gestión de Movimientos
                 </f:facet>
 
-                <p:column>
+                <p:column style="text-align:center">
                     <f:facet name="header">
                         <h:outputText value="#" />
                     </f:facet>
-                    <h:outputText value="#{count}" />
+                    <div onmouseover="callGritter('#{mark.persona.nombreCompleto}',#{mark.persona.documento},#{mark.id},#{mark.tiene_pareja});">
+                        <h:outputText value="#{count}"/>
+                    </div>
+                    
                 </p:column>
 
-                <p:column>
+                <p:column style="text-align:center">
                     <f:facet name="header">
-                        <h:outputText value="#{msg.idDispositivo_label}" />
+                        <h:outputText value="#{msg.nombreCompletoPersona_label}" />
                     </f:facet>
-                    <h:outputText value="#{mark.idDispositivo}" />
+                    <h:outputText value="#{mark.persona.nombreCompleto}" />
                 </p:column>
 
-                <p:column>
+                <p:column style="text-align:center">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.documento_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.persona.documento}" />
+                </p:column>
+
+                <p:column style="text-align:center">
                     <f:facet name="header">
                         <h:outputText value="#{msg.fechaMarca_label}" />
                     </f:facet>
                     <h:outputText value="#{mark.fechaStr}" />
                 </p:column>
 
-                <p:column>
+                <p:column style="text-align:center">
                     <f:facet name="header">
                         <h:outputText value="#{msg.horaMarca_label}" />
                     </f:facet>
                     <h:outputText value="#{mark.hora}" />
                 </p:column>
 
-                <p:column>
+                <p:column style="text-align:center">
                     <f:facet name="header">
                         <h:outputText value="#{msg.dispositivo_label}" />
                     </f:facet>
                     <h:outputText value="#{mark.dispositivo}" />
                 </p:column>
-
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg.idMarca_label}" />
-                    </f:facet>
-                    <h:outputText value="#{mark.id}" />
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{msg.idPareja_label}" />
-                    </f:facet>
-                    <h:outputText value="#{mark.idPareja}" />
-                </p:column>
-
-                <p:column>
+                
+                <p:column style="text-align:center">
                     <f:facet name="header">#{msg.status_label}</f:facet>
                     <h:graphicImage value="../resources/images/ok.png" rendered="#{mark.tiene_pareja}"/>
                     <h:graphicImage value="../resources/images/important.png" rendered="#{!mark.tiene_pareja}"/>
@@ -101,13 +102,13 @@
                 </p:column>
         </p:dataTable>
 
-        <p:dialog header="Mark Detail" widgetVar="markDialog" resizable="false"
-                  width="400" height="450" showEffect="explode" hideEffect="explode">
+        <p:dialog header="Detalle Moviemiento" widgetVar="markDialog" resizable="false"
+                  width="400" height="400" >
 
             <h:panelGrid id="display" columns="2" cellpadding="4">
 
-                <h:outputText value="#{msg.idDispositivo_label}:" />
-                <h:outputText value="#{verMarcasBean.selectedMark.idDispositivo}" />
+                <h:outputText value="#{msg.nombreCompletoPersona_label}:" />
+                <h:outputText value="#{verMarcasBean.selectedMark.persona.nombreCompleto}" />
 
                 <h:outputText value="#{msg.fechaMarca_label}:" />
                 <h:outputText value="#{verMarcasBean.selectedMark.fecha}" />
@@ -117,7 +118,10 @@
 
                 <h:outputText value="#{msg.dispositivo_label}:" />
                 <h:outputText value="#{verMarcasBean.selectedMark.dispositivo}" />
+            </h:panelGrid>
 
+            <hr />
+            <h:panelGrid id="display2" columns="2" cellpadding="4">
                 <h:outputLabel value="#{msg.horaMarca_label}:"/>
                 <h:inputText value="#{verMarcasBean.selectedMark.hora}"/>
 
