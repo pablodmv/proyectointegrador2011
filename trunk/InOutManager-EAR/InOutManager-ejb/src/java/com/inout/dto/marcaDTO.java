@@ -5,6 +5,7 @@
 package com.inout.dto;
 
 import com.inout.entities.Cierre;
+import com.inout.entities.Persona;
 import com.inout.util.converters;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class marcaDTO implements Serializable {
     private Date correccionFecha;
     private String correccionFechaStr="";
     private String correccionHora="";
-    private String personaID="";
+    private personaDTO persona;
     private String observaciones;
     private Boolean tiene_pareja;
     private Boolean cerrado;
@@ -41,14 +42,14 @@ public class marcaDTO implements Serializable {
         this.hora = hora;
         this.idDispositivo = idDispositivo;
         this.dispositivo = dispositivo;
-        this.personaID = personaID;
+        this.persona = new personaDTO(personaID);
     }
      public marcaDTO(String fecha, String hora, String idDispositivo, String dispositivo, String personaID) {
         this.fecha = converters.StringDate(fecha, "yyyy/MM/dd");
         this.hora = hora;
         this.idDispositivo = idDispositivo;
         this.dispositivo = dispositivo;
-        this.personaID = personaID;
+        this.persona = new personaDTO(personaID);
     }
 
     public Date getCorreccionFecha() {
@@ -126,13 +127,17 @@ public class marcaDTO implements Serializable {
         this.idPareja = idPareja;
     }
 
-    public String getPersonaID() {
-        return personaID;
+    public personaDTO getPersona() {
+        return persona;
     }
 
-    public void setPersonaID(String persona) {
-        this.personaID = persona;
+    public void setPersona(personaDTO persona) {
+        this.persona = persona;
     }
+
+
+
+
 
     public String getCorreccionFechaStr() {
         return correccionFechaStr;
@@ -173,6 +178,12 @@ public class marcaDTO implements Serializable {
     public void setTiene_pareja(Boolean tiene_pareja) {
         this.tiene_pareja = tiene_pareja;
     }
+
+    public String getPersonaID(){
+        return getPersona().getDocumento();
+    }
+
+
 
 
 }

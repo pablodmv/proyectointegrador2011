@@ -198,11 +198,7 @@ public class marca implements marcaLocal {
         MarcaDTO.setDispositivo(marca.getDispositivo());
         MarcaDTO.setFechaStr(converters.DateString(MarcaDTO.getFecha(), "dd/MM/yyyy"));
         MarcaDTO.setHora(marca.getHora());
-        if (marca.getCorreccionHora() != null) {
-            MarcaDTO.setCorreccionHora(marca.getCorreccionHora());
-        } else {
-            MarcaDTO.setCorreccionHora("");
-        }
+        
 //        if (marca.getCorreccionFecha()!=null) {
 //            MarcaDTO.setCorreccionFechaStr(converters.DateString(marca.getCorreccionFecha(), "yyyy-MM-dd"));
 //
@@ -210,10 +206,19 @@ public class marca implements marcaLocal {
         MarcaDTO.setObservaciones(marca.getObservaciones());
         MarcaDTO.setTiene_pareja(marca.getTiene_pareja());
         MarcaDTO.setCerrado(marca.getCerrado());
-        MarcaDTO.setPersonaID(marca.getPersona().getDocumento());
         if (marca.getCierre() != null) {
             MarcaDTO.setCierre(cierreEJB.convertirCierreDTO(marca.getCierre()));
         }
+        if (marca.getCorreccionHora() != null) {
+            MarcaDTO.setCorreccionHora(marca.getCorreccionHora());
+        } else {
+            MarcaDTO.setCorreccionHora("");
+        }
+        if (marca.getPersona()!=null) {
+            MarcaDTO.setPersona(personaEJB.convertirPersonaDTO(marca.getPersona()));
+            
+        }
+
 
 
 

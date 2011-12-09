@@ -64,6 +64,11 @@ public class personaDTO implements Serializable {
         this.tarjeta = tarjeta;
     }
 
+    public personaDTO(String personaID) {
+        this.documento=personaID;
+
+    }
+
 
     public String getApellido() {
         return apellido;

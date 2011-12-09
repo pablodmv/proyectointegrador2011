@@ -54,7 +54,7 @@ public class marcaTest {
     // public void hello() {}
 
 
-    @Test
+   //@Test
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
@@ -100,6 +100,7 @@ public class marcaTest {
     public void testModificarMarca() throws Exception {
         System.out.println("ObtenerTodasMarcas");
         marcaLocal instance = lookupMarca();
+        personaLocal instancePersona = lookupPersona();
         DateFormat formatter;
         Date date;
         formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -107,23 +108,23 @@ public class marcaTest {
         date = (Date) formatter.parse(str_date);
         List<marcaDTO> result1 = instance.obtenerTodasMarcas(date, "Pablo");
         result1.get(0).setHora("pablo");
-        result1.get(0).setPersonaID("42562072");
+        result1.get(0).setPersona(instancePersona.ObtenerPersona("42562072", "System"));
         Boolean resultado = instance.modificarMarca(result1.get(0), "Pablo");
         System.out.println("Resultado1 " + resultado);
 
     }
 
 
-   // @Test
+    @Test
     public void testObtenerMarcaPorFechaPersona() throws Exception {
         System.out.println("testObtenerMarcaPorFechaPersona");
         marcaLocal instance = lookupMarca();
         DateFormat formatter;
         Date date;
         personaLocal instancePersona = lookupPersona();
-        personaDTO persona = instancePersona.ObtenerPersona("123456","System");
+        personaDTO persona = instancePersona.ObtenerPersona("22221111","System");
         formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String str_date = "2011-11-27";
+        String str_date = "2011-12-06";
         date = (Date) formatter.parse(str_date);
         List<marcaDTO> result1 = instance.obtenerMarcaPorFechaPersona(persona, date);
         System.out.println("Resultado1 " + result1.size());
