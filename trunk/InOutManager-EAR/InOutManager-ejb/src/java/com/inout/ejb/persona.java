@@ -93,12 +93,12 @@ public class persona implements personaLocal {
     @Override
     public personaDTO ObtenerPersonaTarjeta(tarjetaDTO TarjetaDTO, String userLogin) {
         try {
-            Tarjeta tarjeta = new Tarjeta();
+            Tarjeta tarjetaEnt = new Tarjeta();
             Persona persona = new Persona();
-            tarjeta.setId(TarjetaDTO.getId());
+            tarjetaEnt.setId(TarjetaDTO.getId());
             String jpl = "Select p FROM Persona p WHERE p.tarjeta=:tarjeta";
             Query q = em.createQuery(jpl);
-            q.setParameter("tarjeta", tarjeta);
+            q.setParameter("tarjeta", tarjetaEnt);
             persona = (Persona) q.getSingleResult();
             //Logueo
             Log bit = new Log();

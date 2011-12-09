@@ -6,7 +6,6 @@
 package com.inout.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,12 +21,13 @@ import javax.persistence.Table;
  * @author pablo
  */
 @Entity
-@Table(name = "MOTIVO_AUSENCIA")
+@Table(name = "PARAMETROS")
 @NamedQueries({
-    @NamedQuery(name = "MotivoAusencia.findAll", query = "SELECT m FROM MotivoAusencia m"),
-    @NamedQuery(name = "MotivoAusencia.findById", query = "SELECT m FROM MotivoAusencia m WHERE m.id = :id"),
-    @NamedQuery(name = "MotivoAusencia.findByMotivo", query = "SELECT m FROM MotivoAusencia m WHERE m.motivo = :motivo")})
-public class MotivoAusencia implements Serializable {
+    @NamedQuery(name = "Parametros.findAll", query = "SELECT p FROM Parametros p"),
+    @NamedQuery(name = "Parametros.findById", query = "SELECT p FROM Parametros p WHERE p.id = :id"),
+    @NamedQuery(name = "Parametros.findByParametro", query = "SELECT p FROM Parametros p WHERE p.parametro = :parametro"),
+    @NamedQuery(name = "Parametros.findByValor", query = "SELECT p FROM Parametros p WHERE p.valor = :valor")})
+public class Parametros implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,21 +35,23 @@ public class MotivoAusencia implements Serializable {
     @Column(name = "ID")
     private Long id;
     @Basic(optional = false)
-    @Column(name = "MOTIVO")
-    private String motivo;
-    @OneToMany(mappedBy = "motivoAusencia")
-    private Collection<Ausencias> ausenciasCollection;
+    @Column(name = "PARAMETRO")
+    private String parametro;
+    @Basic(optional = false)
+    @Column(name = "VALOR")
+    private String valor;
 
-    public MotivoAusencia() {
+    public Parametros() {
     }
 
-    public MotivoAusencia(Long id) {
+    public Parametros(Long id) {
         this.id = id;
     }
 
-    public MotivoAusencia(Long id, String motivo) {
+    public Parametros(Long id, String parametro, String valor) {
         this.id = id;
-        this.motivo = motivo;
+        this.parametro = parametro;
+        this.valor = valor;
     }
 
     public Long getId() {
@@ -61,20 +62,20 @@ public class MotivoAusencia implements Serializable {
         this.id = id;
     }
 
-    public String getMotivo() {
-        return motivo;
+    public String getParametro() {
+        return parametro;
     }
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
+    public void setParametro(String parametro) {
+        this.parametro = parametro;
     }
 
-    public Collection<Ausencias> getAusenciasCollection() {
-        return ausenciasCollection;
+    public String getValor() {
+        return valor;
     }
 
-    public void setAusenciasCollection(Collection<Ausencias> ausenciasCollection) {
-        this.ausenciasCollection = ausenciasCollection;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
     @Override
@@ -87,10 +88,10 @@ public class MotivoAusencia implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MotivoAusencia)) {
+        if (!(object instanceof Parametros)) {
             return false;
         }
-        MotivoAusencia other = (MotivoAusencia) object;
+        Parametros other = (Parametros) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -99,7 +100,7 @@ public class MotivoAusencia implements Serializable {
 
     @Override
     public String toString() {
-        return "com.inout.entities.MotivoAusencia[id=" + id + "]";
+        return "com.inout.entities.Parametros[id=" + id + "]";
     }
 
 }

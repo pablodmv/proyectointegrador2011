@@ -30,9 +30,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Ausencias.findAll", query = "SELECT a FROM Ausencias a"),
     @NamedQuery(name = "Ausencias.findById", query = "SELECT a FROM Ausencias a WHERE a.id = :id"),
-    @NamedQuery(name = "Ausencias.findByIdPersona", query = "SELECT a FROM Ausencias a WHERE a.idPersona = :idPersona"),
     @NamedQuery(name = "Ausencias.findByFecha", query = "SELECT a FROM Ausencias a WHERE a.fecha = :fecha"),
-    @NamedQuery(name = "Ausencias.findByMotivo", query = "SELECT a FROM Ausencias a WHERE a.motivoausencia = :motivo"),
     @NamedQuery(name = "Ausencias.findByObservacion", query = "SELECT a FROM Ausencias a WHERE a.observacion = :observacion")})
 public class Ausencias implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -42,17 +40,20 @@ public class Ausencias implements Serializable {
     @Column(name = "ID")
     private Long id;
     @Basic(optional = false)
-    @Column(name = "ID_PERSONA")
-    private String idPersona;
-    @Basic(optional = false)
     @Column(name = "FECHA")
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Column(name = "OBSERVACION")
     private String observacion;
+    @JoinColumn(name = "ID_PERSONA", referencedColumnName = "DOCUMENTO")
+    @ManyToOne
+    private Persona persona;
     @JoinColumn(name = "ID_MOTIVO", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private MotivoAusencia motivoausencia;
+    @ManyToOne
+    private MotivoAusencia motivoAusencia;
+    @JoinColumn(name = "ID_HORARIO", referencedColumnName = "ID")
+    @ManyToOne
+    private HorarioSemana horarioSemana;
 
     public Ausencias() {
     }
@@ -61,9 +62,8 @@ public class Ausencias implements Serializable {
         this.id = id;
     }
 
-    public Ausencias(Long id, String idPersona, Date fecha) {
+    public Ausencias(Long id, Date fecha) {
         this.id = id;
-        this.idPersona = idPersona;
         this.fecha = fecha;
     }
 
@@ -75,14 +75,6 @@ public class Ausencias implements Serializable {
         this.id = id;
     }
 
-    public String getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(String idPersona) {
-        this.idPersona = idPersona;
-    }
-
     public Date getFecha() {
         return fecha;
     }
@@ -90,7 +82,6 @@ public class Ausencias implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
 
     public String getObservacion() {
         return observacion;
@@ -100,12 +91,28 @@ public class Ausencias implements Serializable {
         this.observacion = observacion;
     }
 
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
     public MotivoAusencia getMotivoAusencia() {
-        return motivoausencia;
+        return motivoAusencia;
     }
 
     public void setMotivoAusencia(MotivoAusencia motivoAusencia) {
-        this.motivoausencia = motivoAusencia;
+        this.motivoAusencia = motivoAusencia;
+    }
+
+    public HorarioSemana getHorarioSemana() {
+        return horarioSemana;
+    }
+
+    public void setHorarioSemana(HorarioSemana horarioSemana) {
+        this.horarioSemana = horarioSemana;
     }
 
     @Override

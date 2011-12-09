@@ -62,10 +62,12 @@ public class Persona implements Serializable {
     @Column(name = "NUM_EMPLEADO")
     private Long numEmpleado;
     @JoinColumn(name = "ID_TARJETA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Tarjeta tarjeta;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
-    private Collection<Marca> marcaCollection;
+    private Collection<HorarioSemana> horarioSemanaCollection;
+    @OneToMany(mappedBy = "persona")
+    private Collection<Ausencias> ausenciasCollection;
 
     public Persona() {
     }
@@ -152,12 +154,20 @@ public class Persona implements Serializable {
         this.tarjeta = tarjeta;
     }
 
-    public Collection<Marca> getMarcaCollection() {
-        return marcaCollection;
+    public Collection<HorarioSemana> getHorarioSemanaCollection() {
+        return horarioSemanaCollection;
     }
 
-    public void setMarcaCollection(Collection<Marca> marcaCollection) {
-        this.marcaCollection = marcaCollection;
+    public void setHorarioSemanaCollection(Collection<HorarioSemana> horarioSemanaCollection) {
+        this.horarioSemanaCollection = horarioSemanaCollection;
+    }
+
+    public Collection<Ausencias> getAusenciasCollection() {
+        return ausenciasCollection;
+    }
+
+    public void setAusenciasCollection(Collection<Ausencias> ausenciasCollection) {
+        this.ausenciasCollection = ausenciasCollection;
     }
 
     @Override
