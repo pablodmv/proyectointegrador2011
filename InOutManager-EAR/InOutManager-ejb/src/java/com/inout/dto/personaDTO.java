@@ -19,6 +19,7 @@ public class personaDTO implements Serializable {
     private String documento;
     private String nombre;
     private String apellido;
+    private String nombreCompleto;
     private String direccion;
     private String telefono1;
     private String telefono2;
@@ -69,6 +70,14 @@ public class personaDTO implements Serializable {
 
     }
 
+    public String getNombreCompleto() {
+        this.nombreCompleto = this.nombre + " " + this.apellido;
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
 
     public String getApellido() {
         return apellido;
