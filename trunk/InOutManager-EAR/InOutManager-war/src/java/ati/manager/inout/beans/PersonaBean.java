@@ -5,6 +5,7 @@
 package ati.manager.inout.beans;
 
 import ati.manager.inout.facade.Facade;
+import ati.manager.inout.qrGenerator.QRGen;
 import com.inout.dto.personaDTO;
 import com.inout.dto.tarjetaDTO;
 import java.util.ArrayList;
@@ -339,6 +340,11 @@ public class PersonaBean {
         } catch (Exception ex) {
             this.msgSuccess=ex.getLocalizedMessage();
         }
+    }
 
+    public void generateQR(){
+        QRGen qrG = QRGen.getInstance();
+        String datos = this.nombre + "," + this.apellido + "," + this.doc;
+        qrG.generate(datos);
     }
 }

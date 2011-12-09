@@ -1,5 +1,5 @@
 body{
-    background: none repeat scroll 0 0 #F1EFE2;
+    background: none repeat scroll 0 0 #fffbf1;
     font-family: Verdana,sans-serif;
     color: #484848;
     font-size: 12px;
@@ -7,6 +7,22 @@ body{
     min-width: 900px;
     padding: 0;
 }
+
+fieldset { border-color:#ae4a2b; border-radius:4px;  }
+
+.ui-buttont { background:#ae4a2b !important; }
+
+.ui-widget-content { border: none; background:#ae4a2b !important; border-radius:0px; border-radius:none; }
+#main-menu { position: absolute; top:100px; left:0px; margin:0px; padding:10px 20px; border:none !important; border-radius:0px; border-radius:none; }
+#main-menu ul { height:300px; margin:0px auto; padding:20px; background:#ae4a2b !important; border:none !important;  border-radius:0px; border-radius:none; }
+#main-menu ul li { list-style: none; margin:0px; padding:10px; overflow: hidden; clear:both; background:#ae4a2b !important; color:#fff !important; border-radius:0px; border-radius:none; border-bottom:#fff 1px solid;  }
+#main-menu ul li a { color:#fff; margin:0px; padding:0; border-radius:0px; border-radius:none; background:none; }
+#main-menu ul li a:hover { color:#dcdcdc; }
+
+#footer { overflow:hidden; clear:both; margin:0px; padding:20px; border-top:#6f3320 1px solid; color:#000; }
+#footer a { color:#000; }
+#footer a:hover { color:#6f3320; }
+
 
 .inputTextError{
     border-color: red;
@@ -18,8 +34,9 @@ body{
 
 
 #content{
-    margin:0 auto 0 auto; width:890px;
+    margin:0 auto; width:890px;
     padding: 20px;
+    min-height:350px; 
 }
 
 
@@ -41,7 +58,7 @@ body{
 #top{
     font-size: 80%;
     height: 1.8em;
-    background: none repeat scroll 0 0 #2C4056;
+    background:#6f3320;
     color: #FFFFFF;
     font-size: 0.8em;
     height: 1.8em;
@@ -54,20 +71,13 @@ body{
 }
 
 #header{
-    background-color: #507AAA;
+    background: #ae4a2b;
     color: #F8F8F8;
     height: 6.2em;
     margin: 0;
     padding: 4px 8px 0 6px;
-    position: relative;
 }
 
-#main-menu{
-    bottom: 0;
-    left: 6px;
-    position: absolute;
-    padding: 5px;
-}
 
 
 #logo{
@@ -79,12 +89,6 @@ body{
     margin-bottom: 0;
 }
 
-/*
-.imageLink{
-    border: 0px;
-    border: none;
-}
-*/
 
 #panelMessages ul{
     list-style-type: none;
@@ -94,4 +98,3 @@ body{
 .panelMessages{
     color:red;
 }
-

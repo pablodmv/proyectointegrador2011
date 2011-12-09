@@ -5,14 +5,12 @@
 
 package ati.manager.inout.beans;
 
+import ati.manager.inout.excelGenerator.ExcelGenerator;
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.marcaDTO;
 import com.inout.dto.personaDTO;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -83,9 +81,13 @@ public class VerMarcasBean {
         }
     }
 
-
-    public void onRowSelect(SelectEvent event){
-        System.out.println("Fila seleccionada.");
+    public String xlsGenerator(){
+        System.out.println("Paso por xlsGenerator");
+        ExcelGenerator exGen = ExcelGenerator.getInstance();
+        exGen.reportGenerator(markSelectItems);
+        return "";
     }
+
+    
 
 }

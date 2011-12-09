@@ -27,20 +27,18 @@
 
             <fieldset>
                 <legend>Generar Identificación</legend>
-                <h:panelGrid id="editPersonPanel" columns="4">
+                <h:panelGrid id="editPersonPanel" columns="2">
 
-                    <h:outputLabel value="*#{msg.nombre_label}" for="nombre"
-                                   styleClass="#{personaBean.nombreInputValid?'':'inputLabel'}"/>
+                    <h:outputLabel value="*#{msg.nombre_label}" for="nombre"/>
                     <h:outputLabel id="nombre" value="#{personaBean.nombre}" />
 
-                    <h:outputLabel value="*#{msg.apellido_label}" for="apellido"
-                                   styleClass="#{personaBean.apellidoInputValid?'':'inputLabel'}"/>
+                    <h:outputLabel value="*#{msg.apellido_label}" for="apellido"/>
                     <h:outputLabel id="apellido" value="#{personaBean.apellido}" />
 
                 </h:panelGrid>
 
                 <h:panelGrid id="panelBtn2">
-                    <p:commandButton  value="Aceptar" onclick ="confirmation.show();" type="button"/>
+                    <p:commandButton  value="Aceptar" action="#{personaBean.generateQR}" ajax="false"/>
                 </h:panelGrid>
 
 

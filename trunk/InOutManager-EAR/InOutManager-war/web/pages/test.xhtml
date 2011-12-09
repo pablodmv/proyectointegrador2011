@@ -7,7 +7,7 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
-
+    <h:outputScript library="js" name="test.js"/>
 <h:panelGrid columns="1" cellpadding="5">
 	<p:commandButton value="Basic" onclick="dlg1.show();" type="button"/>
 
@@ -16,8 +16,9 @@
 	<p:commandButton value="Effects" onclick="dlg3.show();" type="button"/>
 </h:panelGrid>
 
-<p:dialog header="Basic Dialog" widgetVar="dlg1">
-	<h:outputText value="Resistance to PrimeFaces is futile!" />
+    <p:dialog header="Basic Dialog" widgetVar="dlg1" rendered="true">
+        <h:outputText value="Resistance to PrimeFaces is futile!" />
+        <p:commandButton value="Modal" onclick="dlg2.show();dlg1.hide();" type="button"/>
 </p:dialog>
 
 <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="200">

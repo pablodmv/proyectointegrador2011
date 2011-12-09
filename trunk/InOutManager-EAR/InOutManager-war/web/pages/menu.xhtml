@@ -7,7 +7,7 @@
 
     <ui:composition>
         <h:form id="form-menu" prependId="false">
-            <p:menubar autoSubmenuDisplay="true">
+            <p:menu type="tiered" >
                 <p:menuitem >
                     <p:commandLink value="Ver Marcas" ajax="false" action="#{menuBean.goVerMarcas}" />
                 </p:menuitem>
@@ -27,12 +27,12 @@
                         <p:commandLink value="Ingresar" ajax="false" action="ingresoTarjeta" />
                     </p:menuitem>
                     <p:menuitem icon="ui-icon ui-icon-disk">
-                        <p:commandLink value="Generador Tarjetas" ajax="false" action="ingresoTarjeta" />
+                        <p:commandLink value="Generador Tarjetas" ajax="false" action="generadorQR" />
                     </p:menuitem>
                 </p:submenu>
 
 
-            </p:menubar>
+            </p:menu>
         </h:form>
     </ui:composition>
 
