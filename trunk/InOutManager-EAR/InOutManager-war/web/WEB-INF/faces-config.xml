@@ -8,11 +8,11 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
     <application>
-      <resource-bundle>
+        <resource-bundle>
             <base-name>ati.manager.inout.bundle.messages</base-name>
             <var>msg</var>
-       </resource-bundle>
-     </application>
+        </resource-bundle>
+    </application>
     <managed-bean>
         <managed-bean-name>personaBean</managed-bean-name>
         <managed-bean-class>ati.manager.inout.beans.PersonaBean</managed-bean-class>
@@ -28,25 +28,35 @@
         <managed-bean-class>ati.manager.inout.beans.MenuBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-
-    <navigation-rule>
-    <from-view-id>/pages/index.xhtml</from-view-id>
-    <navigation-case>
-      <from-outcome>verMarcas</from-outcome>
-      <to-view-id>/pages/verMarcas.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>altaPersona</from-outcome>
-      <to-view-id>/pages/altaPersona.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>editarPersona</from-outcome>
-      <to-view-id>/pages/editarPersona.xhtml</to-view-id>
-    </navigation-case>
-  </navigation-rule>
     <managed-bean>
         <managed-bean-name>tarjetaBean</managed-bean-name>
         <managed-bean-class>ati.manager.inout.beans.TarjetaBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>horariosBean</managed-bean-name>
+        <managed-bean-class>ati.manager.inout.beans.HorariosBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+
+    <navigation-rule>
+        <from-view-id>/pages/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>verMarcas</from-outcome>
+            <to-view-id>/pages/verMarcas.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>altaPersona</from-outcome>
+            <to-view-id>/pages/altaPersona.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editarPersona</from-outcome>
+            <to-view-id>/pages/editarPersona.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ingresoHorarios</from-outcome>
+            <to-view-id>/pages/ingresoHorarios.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>

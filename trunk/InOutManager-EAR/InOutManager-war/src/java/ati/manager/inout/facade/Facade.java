@@ -8,6 +8,7 @@ package ati.manager.inout.facade;
 import com.inout.dto.marcaDTO;
 import com.inout.dto.personaDTO;
 import com.inout.dto.tarjetaDTO;
+import com.inout.ejb.horariosLocal;
 import com.inout.ejb.marcaLocal;
 import com.inout.ejb.personaLocal;
 import com.inout.ejb.tarjetaLocal;
@@ -27,6 +28,7 @@ public class Facade {
     tarjetaLocal tarjeta = lookuptarjetaRemote();
     personaLocal persona = lookuppersonaRemote();
     marcaLocal marca = lookupmarcaRemote();
+    horariosLocal horario = lookuphorariosRemote();
 
     private static Facade instance;
 
@@ -68,6 +70,16 @@ public class Facade {
         try {
             Context c = new InitialContext();
             return (personaLocal) c.lookup("java:comp/env/persona");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private horariosLocal lookuphorariosRemote() {
+        try {
+            Context c = new InitialContext();
+            return (horariosLocal) c.lookup("java:comp/env/horarios");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
