@@ -150,6 +150,10 @@ public class personaDTO implements Serializable {
         this.telefono2 = telefono2;
     }
 
+    public String nombreCompleto(){
+        return this.nombre + " "+this.apellido;
+    }
+
 
     
 

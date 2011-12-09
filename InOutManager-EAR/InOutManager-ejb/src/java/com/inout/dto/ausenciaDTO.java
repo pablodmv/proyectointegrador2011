@@ -5,7 +5,6 @@
 
 package com.inout.dto;
 
-import com.inout.entities.MotivoAusencia;
 import com.inout.entities.Persona;
 import java.util.Date;
 

@@ -54,7 +54,7 @@ public class marcaTest {
     // public void hello() {}
 
 
-   //@Test
+   @Test
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
@@ -115,7 +115,7 @@ public class marcaTest {
     }
 
 
-    @Test
+    //@Test
     public void testObtenerMarcaPorFechaPersona() throws Exception {
         System.out.println("testObtenerMarcaPorFechaPersona");
         marcaLocal instance = lookupMarca();
