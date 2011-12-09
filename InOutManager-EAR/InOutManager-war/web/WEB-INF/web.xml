@@ -19,7 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/pages/editarPersona.xhtml</welcome-file>
+        <welcome-file>faces/pages/ingresoHorarios.xhtml</welcome-file>
     </welcome-file-list>
     <ejb-ref>
         <ejb-ref-name>marca</ejb-ref-name>
@@ -38,5 +38,11 @@
         <ejb-ref-type>Session</ejb-ref-type>
         <remote>com.inout.ejb.tarjetaLocal</remote>
         <ejb-link>tarjeta</ejb-link>
+    </ejb-ref>
+     <ejb-ref>
+        <ejb-ref-name>horarios</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.inout.ejb.horariosLocal</remote>
+        <ejb-link>horarios</ejb-link>
     </ejb-ref>
 </web-app>

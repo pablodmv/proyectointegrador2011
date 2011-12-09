@@ -28,5 +28,8 @@ public class MenuBean {
     public String goEditPersona(){
         return "editarPersona";
     }
+    public String goHorarios(){
+        return "ingresoHorarios";
+    }
 
 }
