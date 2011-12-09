@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -80,6 +81,11 @@ public class VerMarcasBean {
         }else{
             return "edit mark unsuccessfull";
         }
+    }
+
+
+    public void onRowSelect(SelectEvent event){
+        System.out.println("Fila seleccionada.");
     }
 
 }

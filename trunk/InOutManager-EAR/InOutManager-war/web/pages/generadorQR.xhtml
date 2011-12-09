@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="index.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formSearch" prependId="false">
+            <fieldset>
+                <legend>Buscar Persona</legend>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="*#{msg.doc_label}" for="doc" />
+                    <p:inputMask id="doc" value="#{personaBean.doc}" mask="99999999"
+                                 required="true" requiredMessage="#{msg.doc_required}" immediate="true"/>
+                </h:panelGrid>
+
+                <h:panelGrid id="panelBtn">
+                    <p:commandButton value="#{msg.buscarBtn_label}" update="editPersonPanel,panelMessages,searchMsg"
+                                     actionListener="#{personaBean.search}" />
+                </h:panelGrid>
+                <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
+            </fieldset>
+        </h:form>
+        <h:form id="form" prependId="false">
+
+            <fieldset>
+                <legend>Generar Identificación</legend>
+                <h:panelGrid id="editPersonPanel" columns="4">
+
+                    <h:outputLabel value="*#{msg.nombre_label}" for="nombre"
+                                   styleClass="#{personaBean.nombreInputValid?'':'inputLabel'}"/>
+                    <h:outputLabel id="nombre" value="#{personaBean.nombre}" />
+
+                    <h:outputLabel value="*#{msg.apellido_label}" for="apellido"
+                                   styleClass="#{personaBean.apellidoInputValid?'':'inputLabel'}"/>
+                    <h:outputLabel id="apellido" value="#{personaBean.apellido}" />
+
+                </h:panelGrid>
+
+                <h:panelGrid id="panelBtn2">
+                    <p:commandButton  value="Aceptar" onclick ="confirmation.show();" type="button"/>
+                </h:panelGrid>
+
+
+                <h:panelGrid id="infoPanel">
+                    <h:outputText value="#{personaBean.msgSuccess}"/>
+                </h:panelGrid>
+
+            </fieldset>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
