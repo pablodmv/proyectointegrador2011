@@ -5,6 +5,7 @@
 
 package ati.manager.inout.facade;
 
+import com.inout.dto.horarioDTO;
 import com.inout.dto.marcaDTO;
 import com.inout.dto.personaDTO;
 import com.inout.dto.tarjetaDTO;
@@ -48,8 +49,15 @@ public class Facade {
         return this.lookuppersonaRemote().altaPersona(p, "Gustavo");
     }
 
+    public Boolean saveHorario(horarioDTO horario){
+        return this.lookuphorariosRemote().insertarHorario(horario);
+    }
+
     public personaDTO searchPerson(String idPersona){
         return this.lookuppersonaRemote().ObtenerPersona(idPersona, "Gustavo");
+    }
+    public List<horarioDTO> searchHorarios(personaDTO Persona){
+        return this.lookuphorariosRemote().obtenerHorarioPersona(Persona);
     }
 
     public Boolean editMark(marcaDTO mDto){
