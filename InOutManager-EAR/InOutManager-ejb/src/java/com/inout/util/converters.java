@@ -39,4 +39,26 @@ public class converters {
         return null;
     }
 
+
+    public static diaSemana obtenerDia(Short DiaSemana) {
+
+        if (DiaSemana == 0) {
+            return diaSemana.Domingo;
+        } else if (DiaSemana == 1) {
+            return diaSemana.Lunes;
+        } else if (DiaSemana == 2) {
+            return diaSemana.Martes;
+        } else if (DiaSemana == 3) {
+            return diaSemana.Miercoles;
+        } else if (DiaSemana == 4) {
+            return diaSemana.Jueves;
+        } else if (DiaSemana == 5) {
+            return diaSemana.Viernes;
+        } else if (DiaSemana == 6) {
+            return diaSemana.Sabado;
+        }
+        return null;
+
+    }
+
 }

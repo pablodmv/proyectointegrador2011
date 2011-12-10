@@ -28,5 +28,7 @@ public interface marcaLocal {
     public List<marcaDTO> obtenerMarcaPorFechaPersona(personaDTO persona, Date fecha);
     public void formarParejas(Marca marca);
 
+    public List<marcaDTO> obtenerMarcasPorFecha(Date fechaDesde, Date fechaHasta, String userLogin);
+
     
 }
