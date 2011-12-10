@@ -64,6 +64,10 @@ public class Facade {
         return this.lookupmarcaRemote().altaMarca(mDto);
     }
 
+    public List<marcaDTO> getAllMarks(Date date){
+        return this.lookupmarcaRemote().obtenerTodasMarcas(date, "Gustavo");
+    }
+
     private marcaLocal lookupmarcaRemote() {
         try {
             Context c = new InitialContext();

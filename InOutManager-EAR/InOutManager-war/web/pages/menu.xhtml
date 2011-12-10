@@ -8,9 +8,12 @@
     <ui:composition>
         <h:form id="form-menu" prependId="false">
             <p:menu type="tiered" >
-                <p:menuitem >
-                    <p:commandLink value="Ver Marcas" ajax="false" action="#{menuBean.goVerMarcas}" />
-                </p:menuitem>
+                <p:submenu label="Registros">
+                    <p:menuitem >
+                        <p:commandLink value="Ver Marcas" ajax="false" action="#{menuBean.goVerMarcas}" />
+                    </p:menuitem>
+                </p:submenu>
+                
                 <p:submenu label="Personas" >
                     <p:menuitem icon="ui-icon ui-icon-disk">
                         <p:commandLink value="Ingresar" ajax="false" action="altaPersona" />
