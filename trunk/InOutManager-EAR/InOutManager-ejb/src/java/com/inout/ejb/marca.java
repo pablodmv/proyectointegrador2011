@@ -75,6 +75,31 @@ public class marca implements marcaLocal {
 
     }
 
+
+    @Override
+     public List<marcaDTO> obtenerMarcasPorFecha(Date fechaDesde, Date fechaHasta,String userLogin) {
+        try {
+
+
+            Query marcasPorRangoFecha = em.createNamedQuery("Marca.findByRangoFecha");
+            List<marcaDTO> marcaDTOList = new ArrayList<marcaDTO>();
+            marcasPorRangoFecha.setParameter("fechaDesde", fechaDesde);
+            marcasPorRangoFecha.setParameter("fechaHasta", fechaHasta);
+            List<Marca> marcas = marcasPorRangoFecha.getResultList();
+            for (Marca marca : marcas) {
+                marcaDTOList.add(convertirMarcaDTO(marca));
+            }
+            return marcaDTOList;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+
+
+
+
     @Override
     public Marca obtenerMarca(Long idMarca) {
 

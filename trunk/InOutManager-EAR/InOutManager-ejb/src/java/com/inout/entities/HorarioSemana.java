@@ -33,7 +33,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "HorarioSemana.findByInicio", query = "SELECT h FROM HorarioSemana h WHERE h.inicio = :inicio"),
     @NamedQuery(name = "HorarioSemana.findByFin", query = "SELECT h FROM HorarioSemana h WHERE h.fin = :fin"),
     @NamedQuery(name = "HorarioSemana.findBySalon", query = "SELECT h FROM HorarioSemana h WHERE h.salon = :salon"),
+    @NamedQuery(name = "HorarioSemana.findByPersona", query = "SELECT h FROM HorarioSemana h WHERE h.persona = :persona"),
     @NamedQuery(name = "HorarioSemana.findByObservaciones", query = "SELECT h FROM HorarioSemana h WHERE h.observaciones = :observaciones")})
+
 public class HorarioSemana implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

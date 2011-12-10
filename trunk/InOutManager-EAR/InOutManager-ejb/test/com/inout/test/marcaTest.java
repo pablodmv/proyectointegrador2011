@@ -54,7 +54,7 @@ public class marcaTest {
     // public void hello() {}
 
 
-   @Test
+   //@Test
     public void testAltaMarca() throws Exception {
         System.out.println("AltaMarca");
         marcaLocal instance = lookupMarca();
@@ -127,6 +127,23 @@ public class marcaTest {
         String str_date = "2011-12-06";
         date = (Date) formatter.parse(str_date);
         List<marcaDTO> result1 = instance.obtenerMarcaPorFechaPersona(persona, date);
+        System.out.println("Resultado1 " + result1.size());
+
+    }
+
+    @Test
+    public void testObtenerMarcasPorFecha() throws Exception {
+        System.out.println("testObtenerMarcasPorFecha");
+        marcaLocal instance = lookupMarca();
+        DateFormat formatter;
+        Date date;
+        Date date2;
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String str_date = "2011-12-04";
+        String str_date2 = "2011-12-10";
+        date = (Date) formatter.parse(str_date);
+        date2 = (Date) formatter.parse(str_date2);
+        List<marcaDTO> result1 = instance.obtenerMarcasPorFecha(date, date2, "Pablo");
         System.out.println("Resultado1 " + result1.size());
 
     }

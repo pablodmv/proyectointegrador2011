@@ -9,12 +9,13 @@ import com.inout.dto.horarioDTO;
 import com.inout.dto.personaDTO;
 import java.util.List;
 import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author pablo
  */
-@Local
+@Remote
 public interface horariosLocal {
     public Boolean insertarHorario(horarioDTO horario);
     public List<horarioDTO> obtenerHorarioPersona(personaDTO persona);

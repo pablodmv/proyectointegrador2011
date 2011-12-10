@@ -5,25 +5,22 @@
 
 package com.inout.dto;
 
+import com.inout.util.converters;
+import com.inout.util.diaSemana;
+
 /**
  *
  * @author pablo
  */
 public class horarioDTO {
     private Long Id;
-    private Short diaSemana;
+    private Short diaSem;
     private String inicio;
     private String fin;
     private String salon;
     private personaDTO persona;
+    private String observaciones;
 
-    public Short getDiaSemana() {
-        return diaSemana;
-    }
-
-    public void setDiaSemana(Short diaSemana) {
-        this.diaSemana = diaSemana;
-    }
 
     public String getFin() {
         return fin;
@@ -57,9 +54,40 @@ public class horarioDTO {
         this.salon = salon;
     }
 
+    public Short getDiaSem() {
+        return diaSem;
+    }
+
+    public void setDiaSem(Short diaSem) {
+        this.diaSem = diaSem;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+    public String getDiaSemStr(){
+        return converters.obtenerDia(diaSem).name();
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long Id) {
+        this.Id = Id;
+    }
+
+
+    
     public horarioDTO() {
     }
 
+
+    
 
 
 }
