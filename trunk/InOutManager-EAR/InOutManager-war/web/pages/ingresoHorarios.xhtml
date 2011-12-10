@@ -8,49 +8,220 @@
 
     <ui:define name="content">
         <fieldset>
-            <legend>Ingreso Horario</legend>
+            <!--<legend>Ingreso Horario</legend>-->
+
+            <h:form id="formSearch" prependId="false">
+                <fieldset>
+                    <legend>Filtro de busqueda</legend>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msg.doc_label}" for="doc" />
+                        <p:inputMask id="doc" value="#{horariosBean.documento}" mask="99999999"
+                                     required="true" requiredMessage="#{msg.doc_required}"/>
+
+                    </h:panelGrid>
+
+                    <h:panelGrid id="panelfilterBtn">
+                        <p:commandButton value="#{msg.buscarBtn_label}" update="table,searchMsg"
+                                         actionListener="#{horariosBean.searchHorarios}" />
+                    </h:panelGrid>
+                    <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
+                </fieldset>
+            </h:form>
+
+
             <h:form id="form" prependId="false">
+
+                <p:dataTable id="table" var="horario" value="#{horariosBean.horarioSelectItems}" paginator="true" pageLinks="4" rows="5"
+                             rowIndexVar="count" height="600" style="width: 900px" paginatorPosition="bottom"
+                             rowSelectListener="#{horariosBean.onRowSelect}" styleClass="tableClass" >
+
+                    <f:facet name="header">
+                        Gestión de Horarios
+                    </f:facet>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#" />
+                        </f:facet>
+
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.nombreCompletoPersona_label}" />
+                        </f:facet>
+                        <h:outputText value="#{horario.persona.nombreCompleto}" />
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.diaSemana_label}" />
+                        </f:facet>
+                        <h:outputText value="#{horario.diaSemStr}" />
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.inicio_Label}" />
+                        </f:facet>
+                        <h:outputText value="#{horario.inicio}" />
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.fin_label}" />
+                        </f:facet>
+                        <h:outputText value="#{horario.fin}" />
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.salon_label}" />
+                        </f:facet>
+                        <h:outputText value="#{horario.salon}" />
+                    </p:column>
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.salon_label}" />
+                        </f:facet>
+                        <h:outputText value="#{horario.salon}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton update="horarioDialog:panelModifica" oncomplete="horarioDialog.show()"
+                                         image="ui-icon ui-icon-search">
+                            <f:setPropertyActionListener value="#{horario}"
+                                                         target="#{horariosBean.selectedHorario}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <h:panelGrid id="panelBtn2" columns="2">
+                    <p:commandLink value="Exportar" action="#{verMarcasBean.xlsGenerator}" oncomplete="excelCallback();"/>
+                </h:panelGrid>
+
+            <p:dialog header="Modificar Horas" widgetVar="horarioDialog" resizable="false"
+                      width="400" height="400" >
+
+                    <h:panelGrid  id="panelModifica" columns="2">
+
+                        <h:outputLabel value="#{msg.nombre_label}" for="nombre"/>
+                        <h:outputLabel value="#{horariosBean.selectedHorario.persona.nombreCompleto}" id="nombre"/>
+
+
+                        <h:outputLabel value="*#{msg.diaSemana_label}" for="diaSemana"/>
+                        <h:selectOneMenu id="diaSemana" value="#{horariosBean.diaSemana}" required="true" requiredMessage="#{msg.diaSemana_required}">
+                            <f:selectItems value="#{horariosBean.diaSemanaColection}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="*#{msg.inicio_Label}" for="horaInicio" />
+                        <p:inputText id="horaInicio" value="#{horariosBean.selectedHorario.inicio}" required="true"
+                                     requiredMessage="#{msg.inicio_required}"/>
+
+                        <h:outputLabel value="*#{msg.fin_label}" for="horaFin" />
+                        <p:inputText id="horaFin" value="#{horariosBean.selectedHorario.fin}" required="true"
+                                     requiredMessage="#{msg.fin_required}"/>
+
+                        <h:outputLabel value="#{msg.salon_label}" for="salon" />
+                        <p:inputText id="salon" value="#{horariosBean.selectedHorario.salon}" required="false"/>
+
+
+                        <h:outputLabel value="#{msg.obs_label}" for="observaciones" />
+                        <p:inputText id="observaciones" value="#{horariosBean.selectedHorario.observaciones}" required="false" />
+                    </h:panelGrid>
+                    <h:panelGrid id="panelMessages">
+                        <h:messages />
+                    </h:panelGrid>
+                    <h:panelGrid id="panelBtn3">
+                        <p:commandButton value="Aceptar"  actionListener="#{horariosBean.guardar}" update="formModifica,infoPanel,panelMessages"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid id="infoPanel">
+                        <h:outputText value="#{horariosBean.msgSuccess}"/>
+                    </h:panelGrid>
+
+
+
+
+
+            </p:dialog>
+
+
+
+ </h:form>
+
+
+
+
+
+
+
+            <h:form id="formIngreso" prependId="false" rendered="false" >
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="*#{msg.documento_label}" for="documento" />
-                    <p:inputText id="documento" value="#{horariosBean.documento}" required="true"
-                                 requiredMessage="#{msg.doc_required}"/>
+                    <h:outputLabel value="*#{msg.documento_label}" for="documentoModifi" />
+                    <p:inputText id="documentoModifi" value="#{horariosBean.documento}" required="true"
+                                 requiredMessage="#{msg.doc_required}" >
+                        <p:ajax listener="#{horariosBean.obtenerPersona}" update="nombre"></p:ajax>
+                    </p:inputText>
+                    <h:outputLabel value="#{msg.nombre_label}" for="nombreModifi"/>
+                    <h:outputLabel value="#{horariosBean.persona.nombreCompleto}" id="nombreModifi"/>
 
-                    <h:outputLabel value="*#{msg.nombre_label}" for="NombreCompleto"/>
-                    <h:outputLabel value="*#{horariosBean.persona.nombreCompleto}" id="NombreCompleto"/>
 
-
-                    <h:outputLabel value="*#{msg.diaSemana_label}" for="diaSemana"/>
-                    <h:selectOneMenu id="diaSemana" value="#{horariosBean.diaSemana}" required="true" requiredMessage="#{msg.diaSemana_required}">
+                    <h:outputLabel value="*#{msg.diaSemana_label}" for="diaSemanaModifi"/>
+                    <h:selectOneMenu id="diaSemanaModifi" value="#{horariosBean.diaSemana}" required="true" requiredMessage="#{msg.diaSemana_required}">
                         <f:selectItems value="#{horariosBean.diaSemanaColection}"/>
                     </h:selectOneMenu>
 
-                    <h:outputLabel value="*#{msg.inicio_Label}" for="horaInicio" />
-                    <p:inputText id="horaInicio" value="#{horariosBean.inicio}" required="true"
+                    <h:outputLabel value="*#{msg.inicio_Label}" for="horaInicioModifi" />
+                    <p:inputText id="horaInicioModifi" value="#{horariosBean.inicio}" required="true"
                                  requiredMessage="#{msg.inicio_required}"/>
 
-                    <h:outputLabel value="*#{msg.fin_label}" for="horaFin" />
-                    <p:inputText id="horaFin" value="#{horariosBean.fin}" required="true"
+                    <h:outputLabel value="*#{msg.fin_label}" for="horaFinModifi" />
+                    <p:inputText id="horaFinModifi" value="#{horariosBean.fin}" required="true"
                                  requiredMessage="#{msg.fin_required}"/>
 
-                    <h:outputLabel value="*#{msg.salon_label}" for="salon" />
-                    <p:inputText id="salon" value="#{horariosBean.salon}" required="false"/>
-                                 
+                    <h:outputLabel value="#{msg.salon_label}" for="salonModifi" />
+                    <p:inputText id="salonModifi" value="#{horariosBean.salon}" required="false"/>
 
-                    <h:outputLabel value="*#{msg.obs_label}" for="observaciones" />
-                    <p:inputText id="observaciones" value="#{horariosBean.observaciones}" required="false" />
+
+                    <h:outputLabel value="#{msg.obs_label}" for="observacionesModifi" />
+                    <p:inputText id="observacionesModifi" value="#{horariosBean.observaciones}" required="false" />
                 </h:panelGrid>
-                <h:panelGrid id="panelMessages">
+                <h:panelGrid id="panelMessagesModifi">
                     <h:messages />
                 </h:panelGrid>
-                <h:panelGrid id="panelBtn">
-                    <p:commandButton value="Aceptar"  actionListener="#{horariosBean.save}" update="infoPanel,panelMessages"/>
+                <h:panelGrid id="panelBtn3Modifi">
+                    <p:commandButton value="Aceptar"  actionListener="#{horariosBean.guardar}" update="formIngreso,infoPanelModifi,panelMessagesModifi"/>
                 </h:panelGrid>
 
-                <h:panelGrid id="infoPanel">
+                <h:panelGrid id="infoPanelModifi">
                     <h:outputText value="#{horariosBean.msgSuccess}"/>
                 </h:panelGrid>
             </h:form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <p:ajaxStatus style="width:16px;height:16px;">
+                <f:facet name="start">
+                    <h:graphicImage value="../resources/images/indicator.gif" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
         </fieldset>
     </ui:define>
 </ui:composition>

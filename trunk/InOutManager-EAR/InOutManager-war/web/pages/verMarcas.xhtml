@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition template="index.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.prime.com.tr/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
         <h:outputStylesheet library="css" name="jquery.gritter.css"/>
@@ -15,26 +15,26 @@
         <h:form id="formSearch" prependId="false">
             <fieldset>
                 <legend>Filtro de busqueda</legend>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="#{msg.doc_label}" for="doc" />
-                <p:inputMask id="doc" value="#{verMarcasBean.selectDocPerson}" mask="99999999"
-                         required="true" requiredMessage="#{msg.doc_required}"/>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{msg.doc_label}" for="doc" />
+                    <p:inputMask id="doc" value="#{verMarcasBean.selectDocPerson}" mask="99999999"
+                                 required="true" requiredMessage="#{msg.doc_required}"/>
 
-                <h:outputLabel value="*#{msg.fechaMarca_label}:" for="fecha" />
-                <p:calendar id="fecha"  style="width:200px" pattern="dd/MM/yyyy" value="#{verMarcasBean.selectDate}"/>
-            </h:panelGrid>
+                    <h:outputLabel value="*#{msg.fechaMarca_label}:" for="fecha" />
+                    <p:calendar id="fecha"  style="width:200px" pattern="dd/MM/yyyy" value="#{verMarcasBean.selectDate}"/>
+                </h:panelGrid>
 
-            <h:panelGrid id="panelfilterBtn">
-                <p:commandButton value="#{msg.buscarBtn_label}" update="table,searchMsg"
-                                 actionListener="#{verMarcasBean.searchMarca}" />
-            </h:panelGrid>
-            <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
-          </fieldset>
+                <h:panelGrid id="panelfilterBtn">
+                    <p:commandButton value="#{msg.buscarBtn_label}" update="table,searchMsg"
+                                     actionListener="#{verMarcasBean.searchMarca}" />
+                </h:panelGrid>
+                <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
+            </fieldset>
         </h:form>
 
 
         <h:form id="form" prependId="false">
-            
+
             <p:dataTable id="table" var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" pageLinks="4" rows="5"
                          rowIndexVar="count" height="600" style="width: 900px" paginatorPosition="bottom"
                          rowSelectListener="#{verMarcasBean.onRowSelect}" styleClass="tableClass" >
@@ -50,7 +50,7 @@
                     <div onmouseover="callGritter('#{mark.persona.nombreCompleto}',#{mark.persona.documento},#{mark.id},#{mark.tiene_pareja});">
                         <h:outputText value="#{count}"/>
                     </div>
-                    
+
                 </p:column>
 
                 <p:column style="text-align:center">
@@ -87,7 +87,7 @@
                     </f:facet>
                     <h:outputText value="#{mark.dispositivo}" />
                 </p:column>
-                
+
                 <p:column style="text-align:center">
                     <f:facet name="header">#{msg.status_label}</f:facet>
                     <h:graphicImage value="../resources/images/ok.png" rendered="#{mark.tiene_pareja}"/>
@@ -96,53 +96,53 @@
 
                 <p:column>
                     <p:commandButton update="display" oncomplete="markDialog.show()"
-                            image="ui-icon ui-icon-search">
-                    <f:setPropertyActionListener value="#{mark}"
-                                                 target="#{verMarcasBean.selectedMark}" />
-            </p:commandButton>
+                                     image="ui-icon ui-icon-search">
+                        <f:setPropertyActionListener value="#{mark}"
+                                                     target="#{verMarcasBean.selectedMark}" />
+                    </p:commandButton>
                 </p:column>
-        </p:dataTable>
+            </p:dataTable>
             <h:panelGrid id="panelBtn2" columns="2">
                 <p:commandLink value="Exportar" action="#{verMarcasBean.xlsGenerator}" oncomplete="excelCallback();"/>
-            <p:commandButton value="Ejecutar Cierre"/>
-        </h:panelGrid>
-
-        <p:dialog header="Detalle Moviemiento" widgetVar="markDialog" resizable="false"
-                  width="400" height="400" >
-
-            <h:panelGrid id="display" columns="2" cellpadding="4">
-
-                <h:outputText value="#{msg.nombreCompletoPersona_label}:" />
-                <h:outputText value="#{verMarcasBean.selectedMark.persona.nombreCompleto}" />
-
-                <h:outputText value="#{msg.fechaMarca_label}:" />
-                <h:outputText value="#{verMarcasBean.selectedMark.fecha}" />
-
-                <h:outputText value="#{msg.horaMarca_label}:" />
-                <h:outputText value="#{verMarcasBean.selectedMark.hora}" />
-
-                <h:outputText value="#{msg.dispositivo_label}:" />
-                <h:outputText value="#{verMarcasBean.selectedMark.dispositivo}" />
+                <p:commandButton value="Ejecutar Cierre"/>
             </h:panelGrid>
 
-            <hr />
-            <h:panelGrid id="display2" columns="2" cellpadding="4">
-                <h:outputLabel value="#{msg.horaMarca_label}:"/>
-                <h:inputText value="#{verMarcasBean.selectedMark.hora}"/>
+            <p:dialog header="Detalle Moviemiento" widgetVar="markDialog" resizable="false"
+                      width="400" height="400" >
 
-                <h:outputLabel value="#{msg.fechaMarca_label}:"/>
-                <p:calendar id="fechaIngreso"  style="width:200px" pattern="dd/MM/yyyy"
-                            value="#{verMarcasBean.selectedMark.fecha}"/>
+                <h:panelGrid id="display" columns="2" cellpadding="4">
 
-                <h:outputLabel value="#{msg.obs_label}:"/>
-                <h:inputTextarea value="#{verMarcasBean.selectedMark.observaciones}"/>
+                    <h:outputText value="#{msg.nombreCompletoPersona_label}:" />
+                    <h:outputText value="#{verMarcasBean.selectedMark.persona.nombreCompleto}" />
 
-                <h:panelGrid id="panelBtn">
-                    <p:commandButton value="Aceptar" disabled="#{verMarcasBean.selectedMark.tiene_pareja}"  actionListener="#{verMarcasBean.editarMarca}" update="form:table"/>
+                    <h:outputText value="#{msg.fechaMarca_label}:" />
+                    <h:outputText value="#{verMarcasBean.selectedMark.fecha}" />
+
+                    <h:outputText value="#{msg.horaMarca_label}:" />
+                    <h:outputText value="#{verMarcasBean.selectedMark.hora}" />
+
+                    <h:outputText value="#{msg.dispositivo_label}:" />
+                    <h:outputText value="#{verMarcasBean.selectedMark.dispositivo}" />
                 </h:panelGrid>
 
-            </h:panelGrid>
-        </p:dialog>
+                <hr />
+                <h:panelGrid id="display2" columns="2" cellpadding="4">
+                    <h:outputLabel value="#{msg.horaMarca_label}:"/>
+                    <h:inputText value="#{verMarcasBean.selectedMark.hora}"/>
+
+                    <h:outputLabel value="#{msg.fechaMarca_label}:"/>
+                    <p:calendar id="fechaIngreso"  style="width:200px" pattern="dd/MM/yyyy"
+                                value="#{verMarcasBean.selectedMark.fecha}"/>
+
+                    <h:outputLabel value="#{msg.obs_label}:"/>
+                    <h:inputTextarea value="#{verMarcasBean.selectedMark.observaciones}"/>
+
+                    <h:panelGrid id="panelBtn">
+                        <p:commandButton value="Aceptar" disabled="#{verMarcasBean.selectedMark.tiene_pareja}"  actionListener="#{verMarcasBean.editarMarca}" update="form:table"/>
+                    </h:panelGrid>
+
+                </h:panelGrid>
+            </p:dialog>
 
         </h:form>
     </ui:define>
