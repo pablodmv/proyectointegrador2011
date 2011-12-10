@@ -121,9 +121,9 @@ public class ExcelGenerator {
                 if(countLine % 2 == 0){
 
                     if(!marca.getPersona().getNombreCompleto().equals("")){
-                        completeNameLabel = new Label(col, row, marca.getPersona().getNombreCompleto(), this.normalText);
+                        completeNameLabel = new Label(col++, row, marca.getPersona().getNombreCompleto(), this.normalText);
                     }else{
-                        completeNameLabel = new Label(col, row, "", this.normalText);
+                        completeNameLabel = new Label(col++, row, "", this.normalText);
                     }
 
                     if(!marca.getPersona().getDocumento().equals("")){
@@ -173,9 +173,9 @@ public class ExcelGenerator {
                 }else{
 
                     if(!marca.getPersona().getNombreCompleto().equals("")){
-                        completeNameLabel = new Label(col, row, marca.getPersona().getNombreCompleto(), this.normalTextBackGround);
+                        completeNameLabel = new Label(col++, row, marca.getPersona().getNombreCompleto(), this.normalTextBackGround);
                     }else{
-                        completeNameLabel = new Label(col, row, "", this.normalTextBackGround);
+                        completeNameLabel = new Label(col++, row, "", this.normalTextBackGround);
                     }
 
                     if(!marca.getPersona().getDocumento().equals("")){

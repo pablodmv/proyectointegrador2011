@@ -15,21 +15,20 @@
         <h:form id="formSearch" prependId="false">
             <fieldset>
                 <legend>Filtro de busqueda</legend>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{msg.doc_label}" for="doc" />
-                    <p:inputMask id="doc" value="#{verMarcasBean.selectDocPerson}" mask="99999999"
-                                 required="true" requiredMessage="#{msg.doc_required}"/>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="#{msg.doc_label}" for="doc" />
+                <p:inputMask id="doc" value="#{verMarcasBean.selectDocPerson}" mask="99999999" />
 
                     <h:outputLabel value="*#{msg.fechaMarca_label}:" for="fecha" />
                     <p:calendar id="fecha"  style="width:200px" pattern="dd/MM/yyyy" value="#{verMarcasBean.selectDate}"/>
                 </h:panelGrid>
 
-                <h:panelGrid id="panelfilterBtn">
-                    <p:commandButton value="#{msg.buscarBtn_label}" update="table,searchMsg"
-                                     actionListener="#{verMarcasBean.searchMarca}" />
-                </h:panelGrid>
-                <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
-            </fieldset>
+            <h:panelGrid id="panelfilterBtn">
+                <p:commandButton value="#{msg.buscarBtn_label}" update="table"
+                                 actionListener="#{verMarcasBean.searchMarca}" />
+            </h:panelGrid>
+                
+          </fieldset>
         </h:form>
 
 
@@ -37,7 +36,7 @@
 
             <p:dataTable id="table" var="mark" value="#{verMarcasBean.markSelectItems}" paginator="true" pageLinks="4" rows="5"
                          rowIndexVar="count" height="600" style="width: 900px" paginatorPosition="bottom"
-                         rowSelectListener="#{verMarcasBean.onRowSelect}" styleClass="tableClass" >
+                         rowSelectListener="#{verMarcasBean.onRowSelect}" styleClass="tableClass" rowStyleClass="rowItem">
 
                 <f:facet name="header">
                     Gestión de Movimientos
@@ -51,6 +50,20 @@
                         <h:outputText value="#{count}"/>
                     </div>
 
+                </p:column>
+
+                <p:column style="text-align:center">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.idMarca_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.id}" />
+                </p:column>
+
+                <p:column style="text-align:center">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.idPareja_label}" />
+                    </f:facet>
+                    <h:outputText value="#{mark.idPareja}" />
                 </p:column>
 
                 <p:column style="text-align:center">
@@ -103,7 +116,7 @@
                 </p:column>
             </p:dataTable>
             <h:panelGrid id="panelBtn2" columns="2">
-                <p:commandLink value="Exportar" action="#{verMarcasBean.xlsGenerator}" oncomplete="excelCallback();"/>
+                <p:commandLink value="Exportar" actionListener="#{verMarcasBean.xlsGenerator}" ajax="false"/>
                 <p:commandButton value="Ejecutar Cierre"/>
             </h:panelGrid>
 

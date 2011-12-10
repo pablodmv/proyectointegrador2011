@@ -5,6 +5,7 @@
 
 package ati.manager.inout.servlets;
 
+import com.oreilly.servlet.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,15 +33,11 @@ public class ExcelGeneratorPopUp extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here*/
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ExcelGeneratorPopUp</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ExcelGeneratorPopUp at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            response.setHeader( "Content-Disposition", "attachment; filename=defaultLog.xls");
+            response.setContentType("application/vnd.ms-excel");
+            response.reset();
+            response.resetBuffer();
+            ServletUtils.returnFile(System.getProperty("user.home") + "/excelReport.xls", response.getOutputStream());
             
         } finally { 
             out.close();

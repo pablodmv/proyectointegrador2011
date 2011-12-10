@@ -9,8 +9,16 @@ import ati.manager.inout.excelGenerator.ExcelGenerator;
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.marcaDTO;
 import com.inout.dto.personaDTO;
+import com.oreilly.servlet.ServletUtils;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -64,8 +72,12 @@ public class VerMarcasBean {
 
     public List<marcaDTO> searchMarca(){
         Facade f = Facade.getInstance();
-        personaDTO persona = f.searchPerson(selectDocPerson);
-        markSelectItems = f.getMarKByPersonDate(persona,this.selectDate);
+        if(!this.selectDocPerson.equals("") && this.selectDate != null){
+            personaDTO persona = f.searchPerson(selectDocPerson);
+            markSelectItems = f.getMarKByPersonDate(persona,this.selectDate);
+        }else if(this.selectDate != null){
+            markSelectItems = f.getAllMarks(this.selectDate);
+        }
         
         return markSelectItems;
     }
@@ -81,11 +93,24 @@ public class VerMarcasBean {
         }
     }
 
-    public String xlsGenerator(){
-        System.out.println("Paso por xlsGenerator");
-        ExcelGenerator exGen = ExcelGenerator.getInstance();
-        exGen.reportGenerator(markSelectItems);
-        return "";
+    public void xlsGenerator(ActionEvent event){
+        try {
+            System.out.println("Paso por xlsGenerator");
+            ExcelGenerator exGen = ExcelGenerator.getInstance();
+            exGen.reportGenerator(markSelectItems);
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.setHeader("Content-Disposition", "attachment; filename=excelReport.xls");
+            response.setContentType("application/vnd.ms-excel");
+            ServletUtils.returnFile(System.getProperty("user.home") + "/excelReport.xls", response.getOutputStream());
+
+            FacesContext faces = FacesContext.getCurrentInstance();
+            faces.responseComplete();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(VerMarcasBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VerMarcasBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     
