@@ -64,6 +64,13 @@ public class Facade {
         return this.lookupmarcaRemote().altaMarca(mDto);
     }
 
+     public Boolean editHorario(horarioDTO horario){
+        return this.lookuphorariosRemote().modificarHorarioPersona(horario);
+    }
+     public Boolean deleteHorario(horarioDTO horario){
+        return this.lookuphorariosRemote().eliminarHorarioPersona(horario);
+    }
+
     public List<marcaDTO> getAllMarks(Date date){
         return this.lookupmarcaRemote().obtenerTodasMarcas(date, "Gustavo");
     }

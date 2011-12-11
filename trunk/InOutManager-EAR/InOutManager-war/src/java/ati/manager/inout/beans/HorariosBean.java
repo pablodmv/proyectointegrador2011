@@ -7,12 +7,15 @@ package ati.manager.inout.beans;
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.horarioDTO;
 import com.inout.dto.personaDTO;
+import com.inout.reportes.generarReporte;
 import com.inout.util.converters;
 import com.inout.util.diaSemana;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +39,9 @@ public class HorariosBean {
     private String msgSuccess;
     private Boolean refrescar = Boolean.FALSE;
     private List<horarioDTO> horarioSelectItems;
+    private List<horarioDTO> horarioSelectItemsCache;
     private horarioDTO selectedHorario = new horarioDTO();
+    private Boolean mostrarModal= Boolean.FALSE;
 
     /** Creates a new instance of HorariosMB */
     public HorariosBean() {
@@ -116,6 +121,7 @@ public class HorariosBean {
 
     public Boolean getRefrescar() {
         return refrescar;
+
     }
 
     public void setRefrescar(Boolean refrescar) {
@@ -129,10 +135,8 @@ public class HorariosBean {
 
     public void setSelectedHorario(horarioDTO selectedHorario) {
         this.selectedHorario = selectedHorario;
+        this.msgSuccess = "";
     }
-
-    
-
 
     public void obtenerPersona() {
         this.msgSuccess = "";
@@ -149,7 +153,23 @@ public class HorariosBean {
     public void setHorarioSelectItems(List<horarioDTO> horarioSelectItems) {
         this.horarioSelectItems = horarioSelectItems;
     }
-    
+
+    public List<horarioDTO> getHorarioSelectItemsCache() {
+        return horarioSelectItemsCache;
+    }
+
+    public void setHorarioSelectItemsCache(List<horarioDTO> horarioSelectItemsCache) {
+        this.horarioSelectItemsCache = horarioSelectItemsCache;
+    }
+
+    public Boolean getMostrarModal() {
+        return mostrarModal;
+    }
+
+    public void setMostrarModal(Boolean mostrarModal) {
+        this.mostrarModal = mostrarModal;
+    }
+
 
     @PostConstruct
     public void comboDiaSemana() {
@@ -178,11 +198,12 @@ public class HorariosBean {
             if (f.saveHorario(horario)) {
                 msgSuccess = "Se guardo correctamente";
                 limpiar();
-                refrescar=Boolean.TRUE;
+                refrescar = Boolean.TRUE;
+                searchHorarios();
             } else {
                 msgSuccess = "Ocurrio un error";
             }
-        } 
+        }
 
     }
 
@@ -193,7 +214,7 @@ public class HorariosBean {
         this.inicio = "";
         this.persona = null;
         this.salon = "";
-        this.observaciones="";
+        this.observaciones = "";
     }
 
     private Boolean validar() {
@@ -217,13 +238,35 @@ public class HorariosBean {
 
     }
 
+    private Boolean validarModal() {
+        try {
+            if (parserHora(selectedHorario.getInicio()) == null) {
+                msgSuccess = "Hora inicio invalida. Formato HH:mm";
+                return false;
+            }
+            if (parserHora(selectedHorario.getFin()) == null) {
+                msgSuccess = "Hora final invalida. Formato HH:mm";
+                return false;
+            }
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(HorariosBean.class.getName()).log(Level.SEVERE, null, ex);
+            msgSuccess = "Error en la hora ingresada. El Formato es HH:mm";
+        }
+
+
+        return null;
+
+
+    }
+
     public Date parserHora(String hora) {
         try {
-            Date inicioDate=null;
+            Date inicioDate = null;
             SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
-              inicioDate= sf.parse(hora);
-              if (!(Integer.parseInt(hora.split(":")[0])>=0) || !(Integer.parseInt(hora.split(":")[0])<=24)
-                      || !(Integer.parseInt(hora.split(":")[1])>=0) || !(Integer.parseInt(hora.split(":")[1])<=59)) {
+            inicioDate = sf.parse(hora);
+            if (!(Integer.parseInt(hora.split(":")[0]) >= 0) || !(Integer.parseInt(hora.split(":")[0]) <= 24)
+                    || !(Integer.parseInt(hora.split(":")[1]) >= 0) || !(Integer.parseInt(hora.split(":")[1]) <= 59)) {
                 return null;
             }
 
@@ -237,15 +280,61 @@ public class HorariosBean {
         }
     }
 
+    public void eliminar(){
+             Facade f = Facade.getInstance();
+            if (f.deleteHorario(selectedHorario)) {
+                searchHorarios();
+            msgSuccess = "Modificacion correcta";
+        }else{
+                 msgSuccess = "Ocurrio un error";
+            }
+ 
+    }
 
-    public List<horarioDTO> searchHorarios(){
+    public List<horarioDTO> searchHorarios() {
+
         Facade f = Facade.getInstance();
         persona = f.searchPerson(Documento);
         horarioSelectItems = f.searchHorarios(persona);
-
+        mostrarModal=Boolean.TRUE;
         return horarioSelectItems;
     }
 
+    public Boolean modificar() {
+        try {
+            if (validarModal()) {
 
 
+                refrescar = Boolean.FALSE;
+                Facade f = Facade.getInstance();
+                Boolean result = f.editHorario(selectedHorario);
+
+                if (result) {
+                    searchHorarios();
+                    refrescar = Boolean.TRUE;
+                    msgSuccess = "Modificacion correcta";
+                    return true;
+
+                } else {
+                    searchHorarios();
+                    msgSuccess = "Ocurrio un error";
+                    return false;
+                }
+            } else {
+                searchHorarios();
+                return false;
+            }
+        } catch (Exception e) {
+            searchHorarios();
+            return false;
+
+        }
+
+    }
+
+    public void reporte() {
+        generarReporte reporte = new generarReporte();
+        reporte.printReport("P", new HashMap(), "ausenciasPersonal.jasper", "template");
+
+    }
 }
