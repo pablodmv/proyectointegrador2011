@@ -83,7 +83,7 @@ public class VerMarcasBean {
         Facade f = Facade.getInstance();
         if(!this.selectDocPerson.equals("") && this.selectDate != null && this.selectDateFin != null){
             personaDTO persona = f.searchPerson(selectDocPerson);
-            markSelectItems = f.getMarkByPersonDate(persona,this.selectDate);
+            markSelectItems = f.getMarkByPersonDate(persona,this.selectDate,this.selectDateFin);
         }else if(this.selectDate != null && this.selectDateFin != null){
             markSelectItems = f.getMarkByDateRange(selectDate, selectDateFin);
         }
