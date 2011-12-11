@@ -79,11 +79,24 @@ public class horarios implements horariosLocal {
             System.out.println("Ocurrio un error al modificar el horario " + e.getMessage());
         }
         return false;
-
-
-
-
     }
+
+    @Override
+    public Boolean eliminarHorarioPersona(horarioDTO horario) {
+
+        try {
+            HorarioSemana horarioEntity = em.find(HorarioSemana.class, horario.getId());
+            em.remove(horarioEntity);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Ocurrio un error al modificar el horario " + e.getMessage());
+        }
+        return false;
+    }
+
+
+
 
     private HorarioSemana convertirDTOHorario(horarioDTO horario) {
         HorarioSemana horarioSem = new HorarioSemana();
