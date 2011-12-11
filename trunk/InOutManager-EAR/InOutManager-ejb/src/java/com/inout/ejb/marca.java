@@ -168,10 +168,36 @@ public class marca implements marcaLocal {
             System.out.println("No se pudo obtener las marcas por fecha y persona: " + e.getMessage());
             return null;
         }
-
-
-
     }
+
+    @Override
+    public List<marcaDTO> obtenerMarcaEntreFechaPersona(personaDTO persona, Date fechaDesde, Date fechaHasta) {
+        Persona personaEntity = personaEJB.convertirDTOPersona(persona);
+        try {
+            Query marcasPorFecha = em.createNamedQuery("Marca.findByEntreFechaYPersona");
+            List<marcaDTO> marcaDTOList = new ArrayList<marcaDTO>();
+            marcasPorFecha.setParameter("fechaDesde", fechaDesde);
+            marcasPorFecha.setParameter("fechaHasta", fechaHasta);
+            marcasPorFecha.setParameter("persona", personaEntity);
+            List<Marca> marcas = marcasPorFecha.getResultList();
+            for (Marca marca : marcas) {
+                marcaDTOList.add(convertirMarcaDTO(marca));
+            }
+            return marcaDTOList;
+        } catch (Exception e) {
+            System.out.println("No se pudo obtener las marcas por fecha y persona: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
 
     private Marca convertirDTOMarca(marcaDTO MarcaDTO, String userLogin) throws Exception {
         Marca marca = new Marca();

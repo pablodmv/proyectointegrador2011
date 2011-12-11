@@ -59,14 +59,30 @@ public class horarios implements horariosLocal {
         } catch (Exception e) {
             return null;
         }
-
-
-
     }
+
 
     @Override
     public Boolean modificarHorarioPersona(horarioDTO horario) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        try {
+            HorarioSemana horarioEntity = em.find(HorarioSemana.class, horario.getId());
+            horarioEntity.setDiaSemana(horario.getDiaSem());
+            horarioEntity.setFin(horario.getFin());
+            horarioEntity.setInicio(horario.getInicio());
+            horarioEntity.setObservaciones(horario.getObservaciones());
+            horarioEntity.setSalon(horario.getSalon());
+            em.merge(horarioEntity);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Ocurrio un error al modificar el horario " + e.getMessage());
+        }
+        return false;
+
+
+
+
     }
 
     private HorarioSemana convertirDTOHorario(horarioDTO horario) {

@@ -10,13 +10,14 @@ package com.inout.util;
  */
 public enum diaSemana {
 
+    Domingo,
     Lunes,
     Martes,
     Miercoles,
     Jueves,
     Viernes,
-    Sabado,
-    Domingo
+    Sabado
+    
 
 
 }
