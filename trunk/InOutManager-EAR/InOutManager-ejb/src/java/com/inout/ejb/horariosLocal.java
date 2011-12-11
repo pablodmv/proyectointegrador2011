@@ -21,8 +21,7 @@ public interface horariosLocal {
     public Boolean insertarHorario(horarioDTO horario);
     public List<horarioDTO> obtenerHorarioPersona(personaDTO persona);
     public Boolean modificarHorarioPersona(horarioDTO horario);
-
-    public java.lang.Boolean eliminarHorarioPersona(com.inout.dto.horarioDTO horario);
+    public Boolean eliminarHorarioPersona(horarioDTO horario);
 
 
 
