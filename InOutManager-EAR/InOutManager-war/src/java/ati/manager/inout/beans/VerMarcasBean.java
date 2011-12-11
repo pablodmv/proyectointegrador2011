@@ -30,6 +30,7 @@ public class VerMarcasBean {
     private marcaDTO selectedMark = new marcaDTO();
     private String selectDocPerson = "";
     private Date selectDate = new Date();
+    private Date selectDateFin = new Date();
 
     /** Creates a new instance of VerMarcasBean */
     public VerMarcasBean() {
@@ -42,6 +43,14 @@ public class VerMarcasBean {
 
     public void setSelectDate(Date selectDate) {
         this.selectDate = selectDate;
+    }
+
+    public Date getSelectDateFin() {
+        return selectDateFin;
+    }
+
+    public void setSelectDateFin(Date selectDateFin) {
+        this.selectDateFin = selectDateFin;
     }
 
     public String getSelectDocPerson() {
@@ -72,11 +81,11 @@ public class VerMarcasBean {
 
     public List<marcaDTO> searchMarca(){
         Facade f = Facade.getInstance();
-        if(!this.selectDocPerson.equals("") && this.selectDate != null){
+        if(!this.selectDocPerson.equals("") && this.selectDate != null && this.selectDateFin != null){
             personaDTO persona = f.searchPerson(selectDocPerson);
-            markSelectItems = f.getMarKByPersonDate(persona,this.selectDate);
-        }else if(this.selectDate != null){
-            markSelectItems = f.getAllMarks(this.selectDate);
+            markSelectItems = f.getMarkByPersonDate(persona,this.selectDate);
+        }else if(this.selectDate != null && this.selectDateFin != null){
+            markSelectItems = f.getMarkByDateRange(selectDate, selectDateFin);
         }
         
         return markSelectItems;

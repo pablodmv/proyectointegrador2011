@@ -99,8 +99,12 @@ public class Facade {
     }
 
 
+    public List<marcaDTO> getMarkByDateRange(Date dateIni, Date dateFin){
+        return this.lookupmarcaRemote().obtenerMarcasPorFecha(dateIni, dateFin, "Gustavo");
+    }
 
-    public List<marcaDTO> getMarKByPersonDate(personaDTO persona, Date date) {
+
+    public List<marcaDTO> getMarkByPersonDate(personaDTO persona, Date date) {
 
         return this.lookupmarcaRemote().obtenerMarcaPorFechaPersona(persona, date);
     }

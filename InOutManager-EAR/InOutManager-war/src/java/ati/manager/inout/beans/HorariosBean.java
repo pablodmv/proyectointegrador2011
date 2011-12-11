@@ -36,7 +36,7 @@ public class HorariosBean {
     private String msgSuccess;
     private Boolean refrescar = Boolean.FALSE;
     private List<horarioDTO> horarioSelectItems;
-    private horarioDTO selectedHorario;
+    private horarioDTO selectedHorario = new horarioDTO();
 
     /** Creates a new instance of HorariosMB */
     public HorariosBean() {
@@ -123,6 +123,7 @@ public class HorariosBean {
     }
 
     public horarioDTO getSelectedHorario() {
+        horarioDTO auxHorario = selectedHorario;
         return selectedHorario;
     }
 
