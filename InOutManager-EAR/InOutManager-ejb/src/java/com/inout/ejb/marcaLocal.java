@@ -30,5 +30,7 @@ public interface marcaLocal {
 
     public List<marcaDTO> obtenerMarcasPorFecha(Date fechaDesde, Date fechaHasta, String userLogin);
 
+    public List<marcaDTO> obtenerMarcaEntreFechaPersona(personaDTO persona, Date fechaDesde, Date fechaHasta);
+
     
 }

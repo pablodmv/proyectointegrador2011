@@ -131,7 +131,30 @@ public class marcaTest {
 
     }
 
+
     @Test
+    public void testObtenerMarcaEntreFechaPersona() throws Exception {
+        System.out.println("testObtenerMarcaEntreFechaPersona");
+        marcaLocal instance = lookupMarca();
+        DateFormat formatter;
+        Date date,date2;
+        personaLocal instancePersona = lookupPersona();
+        personaDTO persona = instancePersona.ObtenerPersona("22221111","System");
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String str_date = "2011-12-04";
+        String str_date2 = "2011-12-10";
+        date = (Date) formatter.parse(str_date);
+        date2 = (Date) formatter.parse(str_date2);
+        List<marcaDTO> result1 = instance.obtenerMarcaEntreFechaPersona(persona, date, date2);
+        System.out.println("Resultado1 " + result1.size());
+
+    }
+
+
+
+
+
+    //@Test
     public void testObtenerMarcasPorFecha() throws Exception {
         System.out.println("testObtenerMarcasPorFecha");
         marcaLocal instance = lookupMarca();
