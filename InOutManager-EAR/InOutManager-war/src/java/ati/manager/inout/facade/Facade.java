@@ -111,9 +111,8 @@ public class Facade {
     }
 
 
-    public List<marcaDTO> getMarkByPersonDate(personaDTO persona, Date date) {
-
-        return this.lookupmarcaRemote().obtenerMarcaPorFechaPersona(persona, date);
+    public List<marcaDTO> getMarkByPersonDate(personaDTO persona, Date dateIni, Date dateFin) {
+        return this.lookupmarcaRemote().obtenerMarcaEntreFechaPersona(persona, dateIni, dateFin);
     }
 
     public Boolean saveCard(tarjetaDTO tarjeta){
