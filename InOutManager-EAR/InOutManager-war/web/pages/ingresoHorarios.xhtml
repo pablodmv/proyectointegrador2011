@@ -21,11 +21,11 @@
                     </h:panelGrid>
 
                     <h:panelGrid id="panelfilterBtn" columns="2">
-                        <p:commandButton value="#{msg.buscarBtn_label}" update="table,searchMsg"
+                        <p:commandButton value="#{msg.buscarBtn_label}" update="table,searchMsg,botonIngresar"
                                          actionListener="#{horariosBean.searchHorarios}" />
 
-                         <p:commandButton value="#{msg.ingresar}" update="ingresarDialog,searchMsg,formIngresoHorario,table"
-                                          actionListener="#{horariosBean.searchHorarios}" oncomplete="ingresarDialog.show()" />
+                        <p:commandButton id="botonIngresar" value="#{msg.ingresar}" update="ingresarDialog,searchMsg,formIngresoHorario,table"
+                                         actionListener="#" disabled="#{horariosBean.mostrarModal?'false':'true'}" oncomplete="ingresarDialog.show()" />
                     </h:panelGrid>
                     <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
                 </fieldset>
@@ -185,7 +185,7 @@
                     <h:messages />
                 </h:panelGrid>
                 <h:panelGrid id="panelBtn3Modifi">
-                    <p:commandButton value="Aceptar"  actionListener="#{horariosBean.guardar}" update="formIngresoHorario,infoPanelModifi,table,panelMessagesModifi"/>
+                <p:commandButton value="Aceptar"  actionListener="#{horariosBean.guardar}" update="formIngresoHorario,infoPanelModifi,table,panelMessagesModifi"/>
                 </h:panelGrid>
 
                 <h:panelGrid id="infoPanelModifi">
