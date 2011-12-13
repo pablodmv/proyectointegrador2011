@@ -7,19 +7,17 @@ package ati.manager.inout.beans;
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.horarioDTO;
 import com.inout.dto.personaDTO;
-import com.inout.reportes.generarReporte;
-import com.inout.util.converters;
+import com.inout.ejb.ausenciasLocal;
 import com.inout.util.diaSemana;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 /**
@@ -41,7 +39,7 @@ public class HorariosBean {
     private List<horarioDTO> horarioSelectItems;
     private List<horarioDTO> horarioSelectItemsCache;
     private horarioDTO selectedHorario = new horarioDTO();
-    private Boolean mostrarModal= Boolean.FALSE;
+    private Boolean mostrarModal = Boolean.FALSE;
 
     /** Creates a new instance of HorariosMB */
     public HorariosBean() {
@@ -170,7 +168,6 @@ public class HorariosBean {
         this.mostrarModal = mostrarModal;
     }
 
-
     @PostConstruct
     public void comboDiaSemana() {
         diaSemanaColection = new ArrayList<SelectItem>();
@@ -280,15 +277,15 @@ public class HorariosBean {
         }
     }
 
-    public void eliminar(){
-             Facade f = Facade.getInstance();
-            if (f.deleteHorario(selectedHorario)) {
-                searchHorarios();
+    public void eliminar() {
+        Facade f = Facade.getInstance();
+        if (f.deleteHorario(selectedHorario)) {
+            searchHorarios();
             msgSuccess = "Modificacion correcta";
-        }else{
-                 msgSuccess = "Ocurrio un error";
-            }
- 
+        } else {
+            msgSuccess = "Ocurrio un error";
+        }
+
     }
 
     public List<horarioDTO> searchHorarios() {
@@ -296,7 +293,7 @@ public class HorariosBean {
         Facade f = Facade.getInstance();
         persona = f.searchPerson(Documento);
         horarioSelectItems = f.searchHorarios(persona);
-        mostrarModal=Boolean.TRUE;
+        mostrarModal = Boolean.TRUE;
         return horarioSelectItems;
     }
 
@@ -332,9 +329,5 @@ public class HorariosBean {
 
     }
 
-    public void reporte() {
-        generarReporte reporte = new generarReporte();
-        reporte.printReport("P", new HashMap(), "ausenciasPersonal.jasper", "template");
-
-    }
+    
 }
