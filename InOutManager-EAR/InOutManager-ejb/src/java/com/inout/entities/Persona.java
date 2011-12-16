@@ -6,12 +6,14 @@
 package com.inout.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -64,22 +66,28 @@ public class Persona implements Serializable {
     @JoinColumn(name = "ID_TARJETA", referencedColumnName = "ID")
     @ManyToOne
     private Tarjeta tarjeta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch=FetchType.EAGER)
     private Collection<HorarioSemana> horarioSemanaCollection;
-    @OneToMany(mappedBy = "persona")
+    @OneToMany(mappedBy = "persona", fetch=FetchType.EAGER)
     private Collection<Ausencias> ausenciasCollection;
 
     public Persona() {
+        this.horarioSemanaCollection = new ArrayList<HorarioSemana>();
+        this.ausenciasCollection = new ArrayList<Ausencias>();
     }
 
     public Persona(String documento) {
         this.documento = documento;
+         this.horarioSemanaCollection = new ArrayList<HorarioSemana>();
+        this.ausenciasCollection = new ArrayList<Ausencias>();
     }
 
     public Persona(String documento, String nombre, String apellido) {
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
+         this.horarioSemanaCollection = new ArrayList<HorarioSemana>();
+        this.ausenciasCollection = new ArrayList<Ausencias>();
     }
 
     public String getDocumento() {

@@ -11,18 +11,22 @@ package com.inout.dto;
  */
 public class motivoausenciaDTO {
 
-    private int ID;
+    private Long ID;
     private String motivo;
 
     public motivoausenciaDTO(String motivo) {
         this.motivo = motivo;
     }
 
-    public int getID() {
+    public motivoausenciaDTO() {
+        
+    }
+
+    public Long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Long ID) {
         this.ID = ID;
     }
 
@@ -32,6 +36,11 @@ public class motivoausenciaDTO {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    @Override
+    public String toString() {
+        return motivo ;
     }
 
 

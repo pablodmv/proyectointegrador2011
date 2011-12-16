@@ -40,6 +40,9 @@ public class Cierre implements Serializable {
     @Basic(optional = false)
     @Column(name = "ANO")
     private short ano;
+    @Basic(optional = false)
+    @Column(name = "CODIGO")
+    private String codigo;
 
     public Cierre() {
     }
@@ -53,6 +56,13 @@ public class Cierre implements Serializable {
         this.mes = mes;
         this.ano = ano;
     }
+
+    public Cierre(String mes, short ano, String codigo) {
+        this.mes = mes;
+        this.ano = ano;
+        this.codigo = codigo;
+    }
+    
 
     public Long getId() {
         return id;
@@ -78,12 +88,23 @@ public class Cierre implements Serializable {
         this.ano = ano;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+
+
 
     @Override
     public boolean equals(Object object) {

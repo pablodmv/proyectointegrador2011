@@ -86,6 +86,11 @@ public class horarioDTO {
     public horarioDTO() {
     }
 
+    @Override
+    public String toString() {
+        return converters.obtenerDia(diaSem) + "-" + inicio + " a " + fin ;
+    }
+
 
     
 

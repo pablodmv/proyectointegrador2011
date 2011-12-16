@@ -32,6 +32,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "HorarioSemana.findByDiaSemana", query = "SELECT h FROM HorarioSemana h WHERE h.diaSemana = :diaSemana"),
     @NamedQuery(name = "HorarioSemana.findByInicio", query = "SELECT h FROM HorarioSemana h WHERE h.inicio = :inicio"),
     @NamedQuery(name = "HorarioSemana.findByFin", query = "SELECT h FROM HorarioSemana h WHERE h.fin = :fin"),
+    @NamedQuery(name = "HorarioSemana.findDiasSemana", query = "SELECT DISTINCT h.diaSemana FROM HorarioSemana h WHERE h.persona = :persona"),
     @NamedQuery(name = "HorarioSemana.findBySalon", query = "SELECT h FROM HorarioSemana h WHERE h.salon = :salon"),
     @NamedQuery(name = "HorarioSemana.findByPersona", query = "SELECT h FROM HorarioSemana h WHERE h.persona = :persona"),
     @NamedQuery(name = "HorarioSemana.findByObservaciones", query = "SELECT h FROM HorarioSemana h WHERE h.observaciones = :observaciones")})
