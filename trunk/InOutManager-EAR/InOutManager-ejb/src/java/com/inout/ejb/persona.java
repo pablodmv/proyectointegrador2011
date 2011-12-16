@@ -4,8 +4,10 @@
  */
 package com.inout.ejb;
 
+import com.inout.dto.horarioDTO;
 import com.inout.dto.personaDTO;
 import com.inout.dto.tarjetaDTO;
+import com.inout.entities.HorarioSemana;
 import com.inout.entities.Log;
 import com.inout.entities.Persona;
 import com.inout.entities.Tarjeta;
@@ -30,6 +32,8 @@ public class persona implements personaLocal {
     private loggerJMSLocal Logger;
     @EJB
     private tarjetaLocal tarjeta;
+    @EJB
+    horariosLocal horarios;
 
     @Override
     public Boolean altaPersona(personaDTO PersonaDTO, String userLogin) {
@@ -80,7 +84,7 @@ public class persona implements personaLocal {
         try {
             Persona persona = new Persona();
             persona = em.find(Persona.class, idPersona);
-            personaDTO PersonaDTO = new personaDTO(persona.getDocumento(), persona.getNombre(), persona.getApellido(), persona.getDireccion(), persona.getTelefono1(), persona.getTelefono2(), persona.getIngreso(), persona.getNumEmpleado());
+            personaDTO PersonaDTO = convertirPersonaDTO(persona);
             PersonaDTO.setTarjeta(tarjeta.convertirTarjetaDTO(persona.getTarjeta()));
             return PersonaDTO;
         } catch (Exception e) {
@@ -162,6 +166,11 @@ public class persona implements personaLocal {
         if (PersonaDTO.getTarjeta()!=null) {
         persona.setTarjeta(tarjeta.convertirDTOTarjeta(PersonaDTO.getTarjeta()));
         }
+        if(PersonaDTO.getHorariosCollection()!=null){
+            for (horarioDTO HorarioDTO:PersonaDTO.getHorariosCollection()) {
+                 persona.getHorarioSemanaCollection().add(horarios.convertirDTOHorario(HorarioDTO,true));
+            }
+        }
         
         return persona;
     }
@@ -180,6 +189,11 @@ public class persona implements personaLocal {
         PersonaDTO.setNumEmpleado(persona.getNumEmpleado());
         if (persona.getTarjeta()!=null) {
         PersonaDTO.setTarjeta(tarjeta.convertirTarjetaDTO(persona.getTarjeta()));
+        }
+        if(persona.getHorarioSemanaCollection()!=null && persona.getHorarioSemanaCollection().size()>0){
+            for (HorarioSemana horarioEntidad:persona.getHorarioSemanaCollection()) {
+                 PersonaDTO.getHorariosCollection().add(horarios.convertirHorarioDTO(horarioEntidad,true));
+            }
         }
         
         return PersonaDTO;

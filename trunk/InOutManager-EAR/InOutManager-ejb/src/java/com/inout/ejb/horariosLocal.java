@@ -22,6 +22,13 @@ public interface horariosLocal {
     public List<horarioDTO> obtenerHorarioPersona(personaDTO persona);
     public Boolean modificarHorarioPersona(horarioDTO horario);
     public Boolean eliminarHorarioPersona(horarioDTO horario);
+    public List<Short> obtenerDiasSemana(personaDTO personaParam);
+
+    public horarioDTO convertirHorarioDTO(HorarioSemana horario,Boolean esPersona);
+
+        public HorarioSemana convertirDTOHorario(horarioDTO horario,Boolean esPersona);
+
+    public horarioDTO obtenerHorario(Long idHorario);
 
 
 

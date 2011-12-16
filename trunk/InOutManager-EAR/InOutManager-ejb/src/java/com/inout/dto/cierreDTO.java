@@ -14,6 +14,7 @@ public class cierreDTO {
     private Long ID;
     private String mes;
     private Short ano;
+    private String seguridad;
 
     public cierreDTO(String mes, Short ano) {
         this.mes = mes;
@@ -47,6 +48,16 @@ public class cierreDTO {
     public void setMes(String mes) {
         this.mes = mes;
     }
+
+    public String getSeguridad() {
+        return seguridad;
+    }
+
+    public void setSeguridad(String seguridad) {
+        this.seguridad = seguridad;
+    }
+
+    
 
 
 

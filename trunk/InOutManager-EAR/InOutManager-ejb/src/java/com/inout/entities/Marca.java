@@ -31,9 +31,11 @@ import javax.persistence.TemporalType;
 @Table(name = "MARCA")
 @NamedQueries({
     @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m"),
+    @NamedQuery(name = "Marca.findByDiasTrabajados", query = "SELECT DISTINCT m.fecha FROM Marca m WHERE m.fecha BETWEEN :fechaDesde AND :fechaHasta AND m.persona = :persona Order By m.fecha"),
     @NamedQuery(name = "Marca.findById", query = "SELECT m FROM Marca m WHERE m.id = :id"),
     @NamedQuery(name = "Marca.findByFecha", query = "SELECT m FROM Marca m WHERE m.fecha = :fecha Order By m.fecha,m.hora"),
     @NamedQuery(name = "Marca.findByRangoFecha", query = "SELECT m FROM Marca m WHERE m.fecha BETWEEN :fechaDesde AND :fechaHasta Order By m.fecha,m.hora"),
+    @NamedQuery(name = "Marca.findByRangoFechaAbierto", query = "SELECT m FROM Marca m WHERE m.fecha BETWEEN :fechaDesde AND :fechaHasta AND m.cerrado=False Order By m.fecha,m.hora"),
     @NamedQuery(name = "Marca.findByEntreFechaYPersona", query = "SELECT m FROM Marca m WHERE m.fecha BETWEEN :fechaDesde AND :fechaHasta AND m.persona = :persona Order By m.fecha"),
     @NamedQuery(name = "Marca.findByFechaYPersona", query = "SELECT m FROM Marca m WHERE m.fecha = :fecha AND m.persona = :persona Order By m.fecha,m.hora"),
     @NamedQuery(name = "Marca.findByHora", query = "SELECT m FROM Marca m WHERE m.hora = :hora"),
@@ -229,8 +231,10 @@ public class Marca implements Serializable {
 
     @Override
     public String toString() {
-        return "com.inout.entities.Marca[id=" + id + "]";
+        return "Marca{" + "id=" + id + "fecha=" + fecha + "hora=" + hora + "idDispositivo=" + idDispositivo + "dispositivo=" + dispositivo + "idPareja=" + idPareja + "correccionFecha=" + correccionFecha + "correccionHora=" + correccionHora + "persona=" + persona + "observaciones=" + observaciones + "tiene_pareja=" + tiene_pareja + "cerrado=" + cerrado + "cierre=" + cierre + '}';
     }
+
+   
 
 }
 

@@ -1,11 +1,11 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.inout.dto;
 
 import com.inout.entities.Persona;
+import com.inout.util.converters;
 import java.util.Date;
 
 /**
@@ -14,24 +14,27 @@ import java.util.Date;
  */
 public class ausenciaDTO {
 
-
-    private Integer ID;
-    private Persona persona;
+    private Long ID;
+    private personaDTO persona;
     private Date fecha;
     private motivoausenciaDTO motivo;
     private String observacion;
+    private horarioDTO horario;
 
-    public ausenciaDTO(Persona persona, Date fecha, motivoausenciaDTO motivo) {
+    public ausenciaDTO(personaDTO persona, Date fecha, motivoausenciaDTO motivo) {
         this.persona = persona;
         this.fecha = fecha;
         this.motivo = motivo;
     }
 
-    public Integer getID() {
+    public ausenciaDTO() {
+    }
+
+    public Long getID() {
         return ID;
     }
 
-    public void setID(Integer ID) {
+    public void setID(Long ID) {
         this.ID = ID;
     }
 
@@ -59,15 +62,25 @@ public class ausenciaDTO {
         this.observacion = observacion;
     }
 
-    public Persona getPersona() {
+    public personaDTO getPersona() {
         return persona;
     }
 
-    public void setPersona(Persona persona) {
+    public void setPersona(personaDTO persona) {
         this.persona = persona;
     }
-    
 
+    public horarioDTO getHorario() {
+        return horario;
+    }
+
+    public void setHorario(horarioDTO horario) {
+        this.horario = horario;
+    }
+
+    public String getFechaStr() {
+        return converters.DateString(fecha, "dd/MM/yyyy");
+    }
 
 
 }

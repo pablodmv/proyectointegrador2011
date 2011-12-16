@@ -42,6 +42,7 @@ public class marca implements marcaLocal {
     public Boolean altaMarca(marcaDTO marca) {
           String userLogin = "System";
         try {
+            //TODO: chequear que el mes no este cerrado
              Marca Marca = new Marca();
             Marca = convertirDTOMarca(marca, userLogin);
             marcaJMS.persistir(Marca);
@@ -90,6 +91,36 @@ public class marca implements marcaLocal {
                 marcaDTOList.add(convertirMarcaDTO(marca));
             }
             return marcaDTOList;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<String> obtenerDiasTrabajados(Date fechaDesde, Date fechaHasta,personaDTO Persona ,String userLogin) {
+        try {
+            Query marcasPorRangoFecha = em.createNamedQuery("Marca.findByDiasTrabajados");
+            List<String> marcaDTOList = new ArrayList<String>();
+            marcasPorRangoFecha.setParameter("fechaDesde", fechaDesde);
+            marcasPorRangoFecha.setParameter("fechaHasta", fechaHasta);
+            marcasPorRangoFecha.setParameter("persona", personaEJB.convertirDTOPersona(Persona));
+            List<String> marcas = marcasPorRangoFecha.getResultList();
+            return marcas;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    @Override
+     public List<Marca> obtenerMarcasPorFechaAbierto(Date fechaDesde, Date fechaHasta,String userLogin) {
+        try {
+            Query marcasPorRangoFecha = em.createNamedQuery("Marca.findByRangoFechaAbierto");
+            marcasPorRangoFecha.setParameter("fechaDesde", fechaDesde);
+            marcasPorRangoFecha.setParameter("fechaHasta", fechaHasta);
+            List<Marca> marcas = marcasPorRangoFecha.getResultList();
+            return marcas;
         } catch (Exception e) {
             return null;
         }
@@ -302,5 +333,20 @@ public class marca implements marcaLocal {
             }
         }
 
+    }
+
+    @Override
+    public List<Marca> obtenerMarcasEntidadPorFecha(Date fechaDesde, Date fechaHasta, String userLogin) {
+        try {
+
+
+            Query marcasPorRangoFecha = em.createNamedQuery("Marca.findByRangoFecha");
+            marcasPorRangoFecha.setParameter("fechaDesde", fechaDesde);
+            marcasPorRangoFecha.setParameter("fechaHasta", fechaHasta);
+            List<Marca> marcas = marcasPorRangoFecha.getResultList();
+            return marcas;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

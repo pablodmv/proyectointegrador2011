@@ -7,6 +7,8 @@ package com.inout.dto;
 
 import com.inout.entities.Tarjeta;
 import java.io.Serializable;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +29,11 @@ public class personaDTO implements Serializable {
     private Long numEmpleado;
     private tarjetaDTO tarjeta;
     private List<marcaDTO> marcaCollection;
+    private List<horarioDTO> horariosCollection;
 
     public personaDTO(){
+        this.marcaCollection = new ArrayList<marcaDTO>();
+        this.horariosCollection = new ArrayList<horarioDTO>();
         
     }
 
@@ -65,6 +70,15 @@ public class personaDTO implements Serializable {
         this.tarjeta = tarjeta;
     }
 
+    public List<horarioDTO> getHorariosCollection() {
+        return horariosCollection;
+    }
+
+    public void setHorariosCollection(List<horarioDTO> horariosCollection) {
+        this.horariosCollection = horariosCollection;
+    }
+
+    
     public personaDTO(String personaID) {
         this.documento=personaID;
 

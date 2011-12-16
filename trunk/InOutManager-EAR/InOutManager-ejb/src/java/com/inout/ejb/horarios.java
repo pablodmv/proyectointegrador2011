@@ -15,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
  *
@@ -32,16 +33,29 @@ public class horarios implements horariosLocal {
     public Boolean insertarHorario(horarioDTO horario) {
 
         try {
-            em.persist(convertirDTOHorario(horario));
+            em.persist(convertirDTOHorario(horario,false));
             em.flush();
             return true;
         } catch (Exception e) {
             System.out.println("Ocurrio un error al guardar horario " + e.getLocalizedMessage());
         }
         return false;
+    }
+
+
+    @Override
+    public horarioDTO obtenerHorario(Long idHorario){
+
+        try {
+            convertirHorarioDTO(em.find(HorarioSemana.class, idHorario), Boolean.TRUE);
+        } catch (Exception e) {
+            System.out.println("Error al obtener horario " + e.getMessage());
+        }
+        return null;
 
 
     }
+
 
     @Override
     public List<horarioDTO> obtenerHorarioPersona(personaDTO personaParam) {
@@ -53,7 +67,7 @@ public class horarios implements horariosLocal {
             horario.setParameter("persona", personaEnt);
             List<HorarioSemana> horarios = horario.getResultList();
             for (HorarioSemana horarioEnt : horarios) {
-                horarioDTOList.add(convertirHorarioDTO(horarioEnt));
+                horarioDTOList.add(convertirHorarioDTO(horarioEnt,false));
             }
             return horarioDTOList;
         } catch (Exception e) {
@@ -61,6 +75,20 @@ public class horarios implements horariosLocal {
         }
     }
 
+    @Override
+    public List<Short> obtenerDiasSemana(personaDTO personaParam) {
+
+        try {
+            Persona personaEnt = persona.convertirDTOPersona(personaParam);
+            Query horario = em.createNamedQuery("HorarioSemana.findDiasSemana");
+            List<Short> diaSemana = new ArrayList<Short>();
+            horario.setParameter("persona", personaEnt);
+            diaSemana = horario.getResultList();
+            return diaSemana;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     @Override
     public Boolean modificarHorarioPersona(horarioDTO horario) {
@@ -95,27 +123,32 @@ public class horarios implements horariosLocal {
         return false;
     }
 
-
-
-
-    private HorarioSemana convertirDTOHorario(horarioDTO horario) {
+    @Override
+    public HorarioSemana convertirDTOHorario(horarioDTO horario, Boolean esPersona) {
         HorarioSemana horarioSem = new HorarioSemana();
         horarioSem.setDiaSemana(horario.getDiaSem());
         horarioSem.setFin(horario.getFin());
         horarioSem.setInicio(horario.getInicio());
         horarioSem.setObservaciones(horario.getObservaciones());
+        if (!esPersona) {
         horarioSem.setPersona(persona.convertirDTOPersona(horario.getPersona()));
+        }
+        
         horarioSem.setSalon(horario.getSalon());
         return horarioSem;
     }
 
-    private horarioDTO convertirHorarioDTO(HorarioSemana horario) {
+    @Override
+    public horarioDTO convertirHorarioDTO(HorarioSemana horario,Boolean esPersona) {
         horarioDTO horarioSem = new horarioDTO();
         horarioSem.setDiaSem(horario.getDiaSemana());
         horarioSem.setFin(horario.getFin());
         horarioSem.setInicio(horario.getInicio());
         horarioSem.setObservaciones(horario.getObservaciones());
+        if (!esPersona) {
         horarioSem.setPersona(persona.convertirPersonaDTO(horario.getPersona()));
+        }
+        
         horarioSem.setSalon(horario.getSalon());
         horarioSem.setId(horario.getId());
         return horarioSem;

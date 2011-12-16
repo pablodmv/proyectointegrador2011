@@ -28,10 +28,13 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "AUSENCIAS")
 @NamedQueries({
-    @NamedQuery(name = "Ausencias.findAll", query = "SELECT a FROM Ausencias a"),
-    @NamedQuery(name = "Ausencias.findById", query = "SELECT a FROM Ausencias a WHERE a.id = :id"),
-    @NamedQuery(name = "Ausencias.findByFecha", query = "SELECT a FROM Ausencias a WHERE a.fecha = :fecha"),
-    @NamedQuery(name = "Ausencias.findByObservacion", query = "SELECT a FROM Ausencias a WHERE a.observacion = :observacion")})
+    @NamedQuery(name = "Ausencias.findAll", query = "SELECT a FROM Ausencias a ORDER BY a.fecha"),
+    @NamedQuery(name = "Ausencias.findById", query = "SELECT a FROM Ausencias a WHERE a.id = :id ORDER BY a.fecha"),
+    @NamedQuery(name = "Ausencias.findByFecha", query = "SELECT a FROM Ausencias a WHERE a.fecha = :fecha ORDER BY a.fecha"),
+    @NamedQuery(name = "Ausencias.findByPersona", query = "SELECT a FROM Ausencias a WHERE a.persona = :persona ORDER BY a.fecha"),
+    @NamedQuery(name = "Ausencias.findByFechaPersona", query = "SELECT a FROM Ausencias a WHERE a.persona = :persona AND a.fecha = :fecha ORDER BY a.fecha"),
+    @NamedQuery(name = "Ausencias.findByEntreFechaPersona", query = "SELECT a FROM Ausencias a WHERE a.persona = :persona AND a.fecha BETWEEN :fechaDesde AND :fechaHasta ORDER BY a.fecha"),
+    @NamedQuery(name = "Ausencias.findByObservacion", query = "SELECT a FROM Ausencias a WHERE a.observacion = :observacion ORDER BY a.fecha")})
 public class Ausencias implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
