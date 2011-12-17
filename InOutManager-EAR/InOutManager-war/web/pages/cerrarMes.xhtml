@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <fieldset>
+            <!--<legend>Ingreso Horario</legend>-->
+
+            <h:form id="formAnioMes" prependId="false">
+                <fieldset>
+                    <legend>Filtro de busqueda</legend>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msg.Mes}" for="mes" />
+                        <p:inputMask id="mes" value="#{cerrarMesBean.mes}" mask="99"
+                                     required="true" requiredMessage="#{msg.mes_required}"/>
+                        <h:outputLabel value="#{msg.Anio}" for="anio" />
+                        <p:inputMask id="anio" value="#{cerrarMesBean.anio}" mask="9999"
+                                     required="true" requiredMessage="#{msg.anio_required}"/>
+
+                    </h:panelGrid>
+
+                    <h:panelGrid id="panelfilterBtn" columns="2">
+                        <p:commandButton value="Ejecutar Cierre" action="#{cerrarMesBean.cerrarMes}"
+                                         update="mensaje,formAnioMes"
+                                         onclick="if (! window.confirm('Confirma cerrar el mes seleccionado ?') ) {return false}"/>
+                    </h:panelGrid>
+                    <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
+                </fieldset>
+            </h:form>
+            <h:panelGrid id="infoPanel">
+                <h:outputText id="mensaje" value="#{cerrarMesBean.msgResultado}"/>
+            </h:panelGrid>
+
+
+
+
+
+
+            <p:ajaxStatus style="width:16px;height:16px;">
+                <f:facet name="start">
+                    <h:graphicImage value="../resources/images/indicator.gif" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+        </fieldset>
+    </ui:define>
+</ui:composition>
+
+

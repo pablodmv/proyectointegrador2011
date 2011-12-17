@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <fieldset>
+            <!--<legend>Ingreso ausencia</legend>-->
+
+            <h:form id="formAnioMes" prependId="false">
+                <fieldset>
+                    <legend>Filtro de busqueda</legend>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msg.doc_label}" for="doc" />
+                        <p:inputMask id="doc" value="#{manejoAusenciasBean.documento}" mask="99999999" />
+                        <h:outputLabel value="#{msg.Mes}" for="mes" />
+                        <p:inputMask id="mes" value="#{manejoAusenciasBean.mes}" mask="99"
+                                     required="true" requiredMessage="#{msg.mes_required}"/>
+                        <h:outputLabel value="#{msg.Anio}" for="anio" />
+                        <p:inputMask id="anio" value="#{manejoAusenciasBean.anio}" mask="9999"
+                                     required="true" requiredMessage="#{msg.anio_required}"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid id="panelfilterBtn" columns="2">
+                        <p:commandButton value="Buscar" action="#{manejoAusenciasBean.searchAusencias}"
+                                         update="form,table,searchMsg,infoPanel"
+                                         />
+                    </h:panelGrid>
+                    <h:message id="searchMsg" styleClass="panelMessages" for="doc"/>
+                </fieldset>
+            </h:form>
+            <h:panelGrid id="infoPanel">
+                <h:outputText id="mensaje" value="#{manejoAusenciasBean.msgResultado}"/>
+            </h:panelGrid>
+
+            <h:form id="form" prependId="false">
+
+                <p:dataTable id="table" var="ausencia" value="#{manejoAusenciasBean.ausencias}" paginator="true" pageLinks="4" rows="5"
+                             rowIndexVar="count" height="600" style="width: 900px" paginatorPosition="bottom"
+                             rowSelectListener="#{manejoAusenciasBean.onRowSelect}" styleClass="tableClass" >
+
+                    <f:facet name="header">
+                        Gestión de Ausencias
+                    </f:facet>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#" />
+                        </f:facet>
+                        <h:outputText value="#{count}"/>
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.nombreCompletoPersona_label}" />
+                        </f:facet>
+                        <h:outputText value="#{ausencia.persona.nombreCompleto}" />
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.Fecha}" />
+                        </f:facet>
+                        <h:outputText value="#{ausencia.fechaStr}" />
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.Motivo}" />
+                        </f:facet>
+                        <h:outputText value="#{ausencia.motivo.motivo}" />
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.Observaciones}" />
+                        </f:facet>
+                        <h:outputText value="#{ausencia.observacion}" />
+                    </p:column>
+
+                    <p:column style="text-align:center">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.Horarios}" />
+                        </f:facet>
+                        <h:outputText value="#{ausencia.horario.tostring}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton update="panelModifica,formModificaAusencia" oncomplete="ausenciaDialog.show()"
+                                         image="ui-icon ui-icon-search" action="#{manejoAusenciasBean.seleccionarFila}" >
+                            <f:setPropertyActionListener value="#{ausencia}"
+                                                         target="#{manejoAusenciasBean.selectedAusencia}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <h:panelGrid id="panelBtn2" columns="2">
+                    <p:commandLink value="Exportar" action="#{manejoAusenciasBean.xlsGenerator}" oncomplete="excelCallback();"/>
+                </h:panelGrid>
+
+                <p:dialog header="Modificar Ausencia" widgetVar="ausenciaDialog" resizable="false"
+                          width="400" height="300" >
+                    <h:panelGrid id="panelModifica" columns="2">
+
+                        <h:outputLabel value="#{msg.Observaciones}" for="observacionesInput"/>
+                        <p:inputText id="observacionesInput" value="#{manejoAusenciasBean.observaciones}"/>
+                        <h:outputLabel value="#{msg.Motivo}" />
+                        <h:selectOneMenu id="Motivo" value="#{manejoAusenciasBean.idMotivo}" >
+                            <f:selectItems value="#{manejoAusenciasBean.motivosItem}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="#{msg.Horarios}" for="Horarios"/>
+                        <h:selectOneMenu id="Horarios" value="#{manejoAusenciasBean.idHorario}" >
+                            <f:selectItems value="#{manejoAusenciasBean.horariosItem}"/>
+                        </h:selectOneMenu>
+
+
+                    </h:panelGrid>
+
+                    <h:panelGrid id="panelBtn3" columns="3">
+                        <p:commandButton value="Aceptar"  actionListener="#{manejoAusenciasBean.modificar}" update="infoPanel2,form:table"/>
+                        <p:commandButton value="Cerrar"  actionListener="#" update="infoPanel2,form:table"/>
+
+                    </h:panelGrid>
+
+                    <h:panelGrid id="infoPanel2">
+                        <h:outputText id="mensaje2" value="#{manejoAusenciasBean.msgResultado}"/>
+                    </h:panelGrid>
+
+
+                </p:dialog>
+
+
+
+            </h:form>
+
+
+
+
+
+
+
+
+
+
+            <p:ajaxStatus style="width:16px;height:16px;">
+                <f:facet name="start">
+                    <h:graphicImage value="../resources/images/indicator.gif" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+        </fieldset>
+    </ui:define>
+</ui:composition>
+
+

@@ -31,5 +31,11 @@ public class MenuBean {
     public String goHorarios(){
         return "ingresoHorarios";
     }
+     public String goCerrarMes(){
+        return "cerrarMes";
+    }
+      public String goFaltas(){
+        return "manejoAusencias";
+    }
 
 }

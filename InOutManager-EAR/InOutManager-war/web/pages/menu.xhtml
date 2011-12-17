@@ -12,6 +12,9 @@
                     <p:menuitem >
                         <p:commandLink value="Ver Marcas" ajax="false" action="#{menuBean.goVerMarcas}" />
                     </p:menuitem>
+                    <p:menuitem >
+                        <p:commandLink value="Cerrar mes" ajax="false" action="#{menuBean.goCerrarMes}" />
+                    </p:menuitem>
                 </p:submenu>
                 
                 <p:submenu label="Personas" >
@@ -23,6 +26,9 @@
                     </p:menuitem>
                     <p:menuitem  icon="ui-icon ui-icon-pencil">
                         <p:commandLink value="Horarios" ajax="false" action="#{menuBean.goHorarios}" />
+                    </p:menuitem>
+                     <p:menuitem  icon="ui-icon ui-icon-pencil">
+                        <p:commandLink value="Faltas" ajax="false" action="#{menuBean.goFaltas}" />
                     </p:menuitem>
                 </p:submenu>
                 <p:submenu label="Tarjetas" >

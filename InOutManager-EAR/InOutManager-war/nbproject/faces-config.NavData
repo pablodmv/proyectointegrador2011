@@ -2,12 +2,15 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
+        <Node id="pages/manejoAusencias.xhtml" x="1150" y="150" zoom="true"/>
         <Node id="pages/ingresoTarjeta.xhtml" x="650" y="300" zoom="true"/>
         <Node id="pages/altaPersona.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="pages/cerrarMes.xhtml" x="150" y="600" zoom="true"/>
         <Node id="pages/generadorQR.xhtml" x="900" y="150" zoom="true"/>
         <Node id="pages/ingresoHorarios.xhtml" x="110" y="49" zoom="false"/>
         <Node id="pages/menu.xhtml" x="150" y="150" zoom="true"/>
         <Node id="pages/test.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="pages/misMarcas.xhtml" x="400" y="450" zoom="true"/>
         <Node id="pages/verMarcas.xhtml" x="650" y="150" zoom="true"/>
         <Node id="pages/index.xhtml" x="400" y="150" zoom="false"/>
         <Node id="pages/editarPersona.xhtml" x="400" y="300" zoom="true"/>
