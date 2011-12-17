@@ -53,4 +53,22 @@
         <remote>com.inout.ejb.horariosLocal</remote>
         <ejb-link>horarios</ejb-link>
     </ejb-ref>
+     <ejb-ref>
+        <ejb-ref-name>cierre</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.inout.ejb.cierreLocal</remote>
+        <ejb-link>cierre</ejb-link>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>ausencias</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.inout.ejb.ausenciasLocal</remote>
+        <ejb-link>ausencias</ejb-link>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>motivoAusencia</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.inout.ejb.motivoAusenciaLocal</remote>
+        <ejb-link>motivoAusencia</ejb-link>
+    </ejb-ref>
 </web-app>

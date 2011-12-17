@@ -38,6 +38,16 @@
         <managed-bean-class>ati.manager.inout.beans.HorariosBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>cerrarMesBean</managed-bean-name>
+        <managed-bean-class>ati.manager.inout.beans.CerrarMesBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+       <managed-bean>
+        <managed-bean-name>manejoAusenciasBean</managed-bean-name>
+        <managed-bean-class>ati.manager.inout.beans.ManejoAusenciasBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 
     <navigation-rule>
         <from-view-id>/pages/index.xhtml</from-view-id>
@@ -57,6 +67,14 @@
             <from-outcome>ingresoHorarios</from-outcome>
             <to-view-id>/pages/ingresoHorarios.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>cerrarMes</from-outcome>
+            <to-view-id>/pages/cerrarMes.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>manejoAusencias</from-outcome>
+            <to-view-id>/pages/manejoAusencias.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
-    
+ 
 </faces-config>

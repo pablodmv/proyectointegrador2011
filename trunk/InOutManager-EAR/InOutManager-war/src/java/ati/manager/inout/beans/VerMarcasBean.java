@@ -2,16 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ati.manager.inout.beans;
 
 import ati.manager.inout.excelGenerator.ExcelGenerator;
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.marcaDTO;
 import com.inout.dto.personaDTO;
+import com.inout.util.converters;
 import com.oreilly.servlet.ServletUtils;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,10 +32,11 @@ public class VerMarcasBean {
     private String selectDocPerson = "";
     private Date selectDate = new Date();
     private Date selectDateFin = new Date();
+    private Boolean mostrarResultado=Boolean.FALSE;
+    private String msgResultado;
 
     /** Creates a new instance of VerMarcasBean */
     public VerMarcasBean() {
-        
     }
 
     public Date getSelectDate() {
@@ -61,7 +63,6 @@ public class VerMarcasBean {
         this.selectDocPerson = selectDocPerson;
     }
 
-    
     public List<marcaDTO> getMarkSelectItems() {
         return markSelectItems;
     }
@@ -71,7 +72,7 @@ public class VerMarcasBean {
     }
 
     public marcaDTO getSelectedMark() {
-       // marcaDTO auxMarca = selectedMark;
+        // marcaDTO auxMarca = selectedMark;
         return selectedMark;
     }
 
@@ -79,30 +80,49 @@ public class VerMarcasBean {
         this.selectedMark = selectedMark;
     }
 
-    public List<marcaDTO> searchMarca(){
+    public Boolean getMostrarResultado() {
+        return mostrarResultado;
+    }
+
+    public void setMostrarResultado(Boolean mostrarResultado) {
+        this.mostrarResultado = mostrarResultado;
+    }
+
+    public String getMsgResultado() {
+        return msgResultado;
+    }
+
+    public void setMsgResultado(String msgResultado) {
+        this.msgResultado = msgResultado;
+    }
+
+
+
+
+    public List<marcaDTO> searchMarca() {
         Facade f = Facade.getInstance();
-        if(!this.selectDocPerson.equals("") && this.selectDate != null && this.selectDateFin != null){
+        if (!this.selectDocPerson.equals("") && this.selectDate != null && this.selectDateFin != null) {
             personaDTO persona = f.searchPerson(selectDocPerson);
-            markSelectItems = f.getMarkByPersonDate(persona,this.selectDate,this.selectDateFin);
-        }else if(this.selectDate != null && this.selectDateFin != null){
+            markSelectItems = f.getMarkByPersonDate(persona, this.selectDate, this.selectDateFin);
+        } else if (this.selectDate != null && this.selectDateFin != null) {
             markSelectItems = f.getMarkByDateRange(selectDate, selectDateFin);
         }
-        
+
         return markSelectItems;
     }
 
-    public String editarMarca(){
+    public String editarMarca() {
         Facade f = Facade.getInstance();
         Boolean result = f.editMark(selectedMark);
 
-        if(result){
+        if (result) {
             return "edit mark succesfull";
-        }else{
+        } else {
             return "edit mark unsuccessfull";
         }
     }
 
-    public void xlsGenerator(ActionEvent event){
+    public void xlsGenerator(ActionEvent event) {
         try {
             System.out.println("Paso por xlsGenerator");
             ExcelGenerator exGen = ExcelGenerator.getInstance();
@@ -119,9 +139,8 @@ public class VerMarcasBean {
         } catch (IOException ex) {
             Logger.getLogger(VerMarcasBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     
-
 }

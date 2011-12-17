@@ -120,8 +120,11 @@
             </p:dataTable>
             <h:panelGrid id="panelBtn2" columns="2">
                 <p:commandLink value="Exportar" actionListener="#{verMarcasBean.xlsGenerator}" ajax="false"/>
-                <p:commandButton value="Ejecutar Cierre"/>
+                
             </h:panelGrid>
+              <h:panelGrid id="infoPanel">
+                  <h:outputText value="#{verMarcasBean.msgResultado}"/>
+                    </h:panelGrid>
 
             <p:dialog header="Detalle Moviemiento" widgetVar="markDialog" resizable="false"
                       width="400" height="400" >
