@@ -15,7 +15,7 @@ function callGritter(name,doc,markId,tienePar){
 
         title: 'Registro de '+name,
         text: 'Documento número ' + doc +  ', cuyo id de registro es ' + markId + ' y su estado es ' + estadoRegistro
-        //sticky: true
+       // sticky: true
 
 
     });

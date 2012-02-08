@@ -45,7 +45,8 @@
 .gritter-item {
 	display:block;
 	background:url(../resources/images/gritter.png) no-repeat left -40px;
-	color:#ae4a2b;
+	/* color:#ae4a2b;*/
+        color:#BF4823;
 	padding:2px 11px 8px 11px;
 	font-size: 11px;
 	font-family:verdana;
