@@ -48,6 +48,19 @@
         <managed-bean-class>ati.manager.inout.beans.ManejoAusenciasBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
+    <navigation-rule>
+        <from-view-id>/pages/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/pages/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>misMarcas</from-outcome>
+            <to-view-id>/pages/misMarcas.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
 
     <navigation-rule>
         <from-view-id>/pages/index.xhtml</from-view-id>
@@ -76,5 +89,9 @@
             <to-view-id>/pages/manejoAusencias.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
- 
+    <managed-bean>
+        <managed-bean-name>loginBean</managed-bean-name>
+        <managed-bean-class>ati.manager.inout.beans.LoginBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

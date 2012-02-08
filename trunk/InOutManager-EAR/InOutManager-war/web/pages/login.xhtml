@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>InOut Manager</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="styles.css"  />
+       <div id="layout">
+            <div id="layout2">
+                <div id="top">
+                    
+                </div>
+                <div id="header">
+                    <div id="logo"><h1><h:outputText value="#{msg.mainTitle}" /></h1></div>
+                    <div id="main-menu" class="centrado">
+                        <div id="menu-content" class="centrado">
+                        </div>
+                    </div>
+		</div>
+		<div id="content">
+                   <h:form id="formLogin" prependId="false">
+
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="*#{msg.usuario_label}" for="usr"/>
+                            <p:inputText id="usr" value="#{loginBean.usuario}" required="true" requiredMessage="#{msg.usuario_required}"  />
+
+                            <h:outputLabel value="*#{msg.pwd_label}" for="pwd" />
+                            <p:password id="pwd" value="#{loginBean.pwd}" required="true" requiredMessage="#{msg.pwd_required}"/>
+                        </h:panelGrid>
+                      
+                        <h:panelGrid id="panelfilterBtn">
+                            <h:commandButton value="#{msg.aceptarBtn_label}" action="#{loginBean.loggin}"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid id="panelMessages">
+                            <h:messages />
+                        </h:panelGrid>
+
+                    </h:form>
+
+		</div>
+
+		<div id="footer">
+			<p><a href="#">InOut Manager</a></p>
+		</div>
+            </div>
+	</div>
+    </h:body>
+</html>
