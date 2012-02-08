@@ -50,5 +50,9 @@
       <ejb-name>ausencias</ejb-name>
       <jndi-name>ausencias</jndi-name>
     </ejb>
+    <ejb>
+      <ejb-name>reportJasper</ejb-name>
+      <jndi-name>reportJasper</jndi-name>
+    </ejb>
   </enterprise-beans>
 </sun-ejb-jar>

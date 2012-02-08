@@ -94,6 +94,18 @@ public class persona implements personaLocal {
 
     }
 
+        @Override
+    public Persona ObtenerPersonaEntidad(String idPersona, String userLogin) {
+        try {
+            Persona persona = new Persona();
+            return em.find(Persona.class, idPersona);
+        } catch (Exception e) {
+            System.out.println("Error al obtener persona :" +e.getMessage());
+            return null;
+        }
+
+    }
+
     @Override
     public personaDTO ObtenerPersonaTarjeta(tarjetaDTO TarjetaDTO, String userLogin) {
         try {
@@ -148,7 +160,6 @@ public class persona implements personaLocal {
             return true;
         } catch (Exception e) {
         }
-
         return false;
     }
 
@@ -178,7 +189,7 @@ public class persona implements personaLocal {
     @Override
     
     public personaDTO convertirPersonaDTO(Persona persona) {
-        personaDTO PersonaDTO = new personaDTO();
+            personaDTO PersonaDTO = new personaDTO();
         PersonaDTO.setDocumento(persona.getDocumento());
         PersonaDTO.setNombre(persona.getNombre());
         PersonaDTO.setApellido(persona.getApellido());

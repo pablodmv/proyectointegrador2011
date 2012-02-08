@@ -81,14 +81,9 @@
                         <h:outputText value="#{ausencia.observacion}" />
                     </p:column>
 
-                    <p:column style="text-align:center">
-                        <f:facet name="header">
-                            <h:outputText value="#{msg.Horarios}" />
-                        </f:facet>
-                        <h:outputText value="#{ausencia.horario.tostring}" />
-                    </p:column>
+                   
                     <p:column>
-                        <p:commandButton update="panelModifica,formModificaAusencia" oncomplete="ausenciaDialog.show()"
+                        <p:commandButton update="panelModifica,formModificaAusencia,mensaje2" oncomplete="ausenciaDialog.show()"
                                          image="ui-icon ui-icon-search" action="#{manejoAusenciasBean.seleccionarFila}" >
                             <f:setPropertyActionListener value="#{ausencia}"
                                                          target="#{manejoAusenciasBean.selectedAusencia}" />
@@ -96,7 +91,7 @@
                     </p:column>
                 </p:dataTable>
                 <h:panelGrid id="panelBtn2" columns="2">
-                    <p:commandLink value="Exportar" action="#{manejoAusenciasBean.xlsGenerator}" oncomplete="excelCallback();"/>
+                    <p:commandLink value="Exportar" action="#{manejoAusenciasBean.xlsgenerator}" oncomplete="excelCallback();" ajax="false"/>
                 </h:panelGrid>
 
                 <p:dialog header="Modificar Ausencia" widgetVar="ausenciaDialog" resizable="false"

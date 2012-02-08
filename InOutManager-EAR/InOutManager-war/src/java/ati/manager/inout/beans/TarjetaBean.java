@@ -7,6 +7,7 @@ package ati.manager.inout.beans;
 
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.tarjetaDTO;
+import java.util.Date;
 
 
 /**
@@ -73,6 +74,8 @@ public class TarjetaBean {
         this.selectedCard.setId(this.getIdTarjeta());
         this.selectedCard.setTipo(Short.parseShort(this.getTipoTarjeta()));
         this.selectedCard.setDescripcion(this.getDescTarjeta());
+        this.selectedCard.setFechaEntrega(new Date());
+        this.selectedCard.setActiva(Boolean.FALSE);
         Facade f = Facade.getInstance();
         
         String result = "";
