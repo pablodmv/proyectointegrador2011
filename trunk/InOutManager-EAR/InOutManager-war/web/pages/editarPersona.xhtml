@@ -59,8 +59,8 @@
                     <h:outputLabel value="#{msg.tel2_label}" for="tel2"/>
                     <p:inputText id="tel2" value="#{personaBean.tel2}" validatorMessage="#{msg.tel_validation}" />
                     <h:outputLabel value="#{msg.modifica_tarjeta}" for="checkModifica"/>
-                    <p:selectBooleanCheckbox id="checkModifica" value="#{personaBean.modificaTarjeta}">
-                        <p:ajax update="Tarjeta"/>
+                    <p:selectBooleanCheckbox id="checkModifica" value="#{personaBean.modificaTarjeta}" >
+                        <p:ajax update="Tarjeta" />
                     </p:selectBooleanCheckbox>
                     <h:outputLabel value="#{msg.idTarjeta_label}" for="idTarjeta"/>
                     <h:outputText id="idTarjeta" value="#{personaBean.tarjetaPersona.id}"  />
@@ -91,10 +91,14 @@
                 
 
                 <!-- no funciona modal de confirmacion de resulado-->
-                <p:dialog header="Confirmación" widgetVar="confirmation" closable="false">
+                <p:dialog header="Confirmación" widgetVar="confirmation" closable="false" modal="true">
                     <h:outputText value="#{msg.dialogoConfirmacion}?"/>
+                    <p:spacer height="30"/>
+                    <h:panelGrid columns="2">
                     <p:commandButton value="Aceptar" actionListener="#{personaBean.save}" ajax="false"/>
                     <p:commandButton value="Cancel" onclick="confirmation.hide()" type="button" />
+                    </h:panelGrid>
+                    
                 </p:dialog>
 
 

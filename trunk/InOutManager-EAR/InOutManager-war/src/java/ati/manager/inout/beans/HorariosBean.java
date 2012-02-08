@@ -4,11 +4,16 @@
  */
 package ati.manager.inout.beans;
 
+import ati.manager.inout.excelGenerator.ExcelGenerator;
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.horarioDTO;
 import com.inout.dto.personaDTO;
 import com.inout.ejb.ausenciasLocal;
+import com.inout.util.converters;
 import com.inout.util.diaSemana;
+import com.oreilly.servlet.ServletUtils;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +23,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -329,5 +337,24 @@ public class HorariosBean {
 
     }
 
-    
+    public void xlsGenerator(ActionEvent event) {
+        try {
+            String fecha = converters.DateString(new Date(), "yyyyMMddHHmm");
+            System.out.println("Paso por xlsGenerator");
+            ExcelGenerator exGen = ExcelGenerator.getInstance();
+            exGen.reportHorarioGenerator(horarioSelectItems);
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.setHeader("Content-Disposition", "attachment; filename=excelHorariosReport_"+ fecha+".xls");
+            response.setContentType("application/vnd.ms-excel");
+            //ServletUtils.returnFile(System.getProperty("user.home") + "/excelReport.xls", response.getOutputStream());
+            ServletUtils.returnFile(System.getProperty("user.home") + "/excelHorariosReport.xls", response.getOutputStream());
+            FacesContext faces = FacesContext.getCurrentInstance();
+            faces.responseComplete();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(VerMarcasBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VerMarcasBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }

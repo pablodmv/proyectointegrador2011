@@ -92,7 +92,7 @@
                     </p:column>
                 </p:dataTable>
                     <h:panelGrid id="panelBtn2" columns="2">
-                        <p:commandLink value="Exportar" action="#{verMarcasBean.xlsGenerator}" oncomplete="excelCallback();"/>
+                        <p:commandLink value="Exportar" actionListener="#{horariosBean.xlsGenerator}" ajax="false" />
                     </h:panelGrid>
 
                 <p:dialog header="Modificar Horas" widgetVar="horarioDialog" resizable="false"

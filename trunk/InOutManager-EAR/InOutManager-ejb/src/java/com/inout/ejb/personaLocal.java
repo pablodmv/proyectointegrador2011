@@ -24,4 +24,5 @@ public interface personaLocal {
     public Boolean modificarPersona(personaDTO PersonaDTO, String usuario);
     public Persona convertirDTOPersona(personaDTO PersonaDTO);
     public personaDTO convertirPersonaDTO(Persona persona);
+    public Persona ObtenerPersonaEntidad(String idPersona, String userLogin);
 }

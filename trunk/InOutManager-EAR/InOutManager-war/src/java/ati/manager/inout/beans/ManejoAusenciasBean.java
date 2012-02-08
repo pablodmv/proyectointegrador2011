@@ -4,15 +4,25 @@
  */
 package ati.manager.inout.beans;
 
+import ati.manager.inout.excelGenerator.ExcelGenerator;
 import ati.manager.inout.facade.Facade;
 import com.inout.dto.ausenciaDTO;
 import com.inout.dto.horarioDTO;
 import com.inout.dto.motivoausenciaDTO;
 import com.inout.dto.personaDTO;
+import com.inout.util.converters;
+import com.oreilly.servlet.ServletUtils;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -207,10 +217,10 @@ public class ManejoAusenciasBean {
             date.set(Calendar.YEAR, anio);
             date.set(Calendar.MONTH, mesAux);
             date.set(Calendar.DAY_OF_MONTH, 1);
-            if (date.get(Calendar.MONTH) <= actual.get(Calendar.MONTH)) {
+            if (date.get(Calendar.MONTH)>= date.getMinimum(Calendar.MONTH) && date.get(Calendar.MONTH) <= date.getMaximum(Calendar.MONTH)) {
                 // if (dateFin.get(Calendar.MONTH)<actual.get(Calendar.MONTH) && dateFin.get(Calendar.YEAR)<=actual.get(Calendar.YEAR)) {
                 ausencias = f.searchAusencias(persona, date.getTime());
-                if (ausencias == null) {
+                if (ausencias == null || ausencias.isEmpty()) {
                     msgResultado = "La persona seleccionada no tiene ausencias";
                 }
                 //}else{
@@ -226,7 +236,23 @@ public class ManejoAusenciasBean {
     }
 
     public void xlsgenerator() {
-        msgResultado = "No implementado";
+         try {
+            String fecha = converters.DateString(new Date(), "yyyyMMddHHmm");
+            System.out.println("Paso por xlsGenerator");
+            ExcelGenerator exGen = ExcelGenerator.getInstance();
+            exGen.reportAusenciaGenerator(ausencias);
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.setHeader("Content-Disposition", "attachment; filename=excelAusenciasReport_"+ fecha+".xls");
+            response.setContentType("application/vnd.ms-excel");
+            //ServletUtils.returnFile(System.getProperty("user.home") + "/excelReport.xls", response.getOutputStream());
+            ServletUtils.returnFile(System.getProperty("user.home") + "/excelAusenciasReport.xls", response.getOutputStream());
+            FacesContext faces = FacesContext.getCurrentInstance();
+            faces.responseComplete();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(VerMarcasBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VerMarcasBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void modificar() {
@@ -236,6 +262,7 @@ public class ManejoAusenciasBean {
         selectedAusencia.setHorario(f.getHorario(idHorario.longValue()));
 
         if (f.saveAusencia(selectedAusencia)) {
+            searchAusencias();
             msgResultado = "Se actualizo la falta correctamente";
         } else {
             msgResultado = "Error al actualizar la ausencia";

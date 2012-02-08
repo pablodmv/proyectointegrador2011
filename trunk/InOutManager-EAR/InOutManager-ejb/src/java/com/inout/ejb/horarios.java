@@ -47,11 +47,12 @@ public class horarios implements horariosLocal {
     public horarioDTO obtenerHorario(Long idHorario){
 
         try {
-            convertirHorarioDTO(em.find(HorarioSemana.class, idHorario), Boolean.TRUE);
+           return convertirHorarioDTO(em.find(HorarioSemana.class, idHorario), Boolean.TRUE);
         } catch (Exception e) {
             System.out.println("Error al obtener horario " + e.getMessage());
+            return null;
         }
-        return null;
+        
 
 
     }
@@ -130,7 +131,7 @@ public class horarios implements horariosLocal {
         horarioSem.setFin(horario.getFin());
         horarioSem.setInicio(horario.getInicio());
         horarioSem.setObservaciones(horario.getObservaciones());
-        if (!esPersona) {
+        if (!esPersona && horario.getPersona()!=null ) {
         horarioSem.setPersona(persona.convertirDTOPersona(horario.getPersona()));
         }
         
@@ -145,7 +146,7 @@ public class horarios implements horariosLocal {
         horarioSem.setFin(horario.getFin());
         horarioSem.setInicio(horario.getInicio());
         horarioSem.setObservaciones(horario.getObservaciones());
-        if (!esPersona) {
+        if (!esPersona && horario.getPersona()!=null) {
         horarioSem.setPersona(persona.convertirPersonaDTO(horario.getPersona()));
         }
         

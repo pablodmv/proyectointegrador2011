@@ -47,19 +47,22 @@ public class ausencias implements ausenciasLocal {
     public Boolean insertarAusencia(ausenciaDTO ausencia) {
         try {
             Ausencias ausenciaEntity = new Ausencias();
-            Persona persona = personaEJB.convertirDTOPersona(ausencia.getPersona());
+            Persona persona = personaEJB.ObtenerPersonaEntidad(ausencia.getPersona().getDocumento(), null);
+
             ausenciaEntity = this.obtenerAusenciaEntity(ausencia.getFecha(), persona);
             ausenciaEntity.setFecha(ausencia.getFecha());
             ausenciaEntity.setObservacion(ausencia.getObservacion());
+            ausenciaEntity.setPersona(persona);
             if (ausencia.getHorario()!=null) {
                 ausenciaEntity.setHorarioSemana(horario.convertirDTOHorario(ausencia.getHorario(), Boolean.FALSE));
+                ausenciaEntity.getHorarioSemana().setPersona(persona);
             }
             if (ausencia.getMotivo()!=null) {
                 ausenciaEntity.setMotivoAusencia(motivo.convertirDTOMotivo(ausencia.getMotivo()));
             }
 
 
-            ausenciaEntity.setPersona(persona);
+            //ausenciaEntity.setPersona(personaEJB.ObtenerPersona(persona.getDocumento(), null);
 
             if (ausenciaEntity.getId() != null) {
                 em.merge(ausenciaEntity);
@@ -164,6 +167,10 @@ public class ausencias implements ausenciasLocal {
         ausencia.setObservacion(ausenciasEntidad.getObservacion());
         if (ausenciasEntidad.getPersona()!=null) {
         ausencia.setPersona(personaEJB.convertirPersonaDTO(ausenciasEntidad.getPersona()));
+        }
+        if (ausenciasEntidad.getHorarioSemana()!=null) {
+            ausencia.setHorario(horario.convertirHorarioDTO(ausenciasEntidad.getHorarioSemana(), Boolean.FALSE));
+
         }
         
         return ausencia;
