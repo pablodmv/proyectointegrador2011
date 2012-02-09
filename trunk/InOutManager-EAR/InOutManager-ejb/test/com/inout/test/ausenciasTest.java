@@ -60,7 +60,7 @@ public class ausenciasTest {
         formatter = new SimpleDateFormat("yyyy-MM-dd");
         String str_date = "2011-12-01";
         String str_date2 = "2011-12-31";
-        instance.chequearAusencias(persona);
+        instance.chequearAusencias(persona,new Date());
      
      
      

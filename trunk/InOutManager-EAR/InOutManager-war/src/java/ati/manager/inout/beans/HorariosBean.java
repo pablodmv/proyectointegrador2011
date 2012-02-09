@@ -202,9 +202,9 @@ public class HorariosBean {
             horario.setObservaciones(observaciones);
             if (f.saveHorario(horario)) {
                 msgSuccess = "Se guardo correctamente";
-                limpiar();
                 refrescar = Boolean.TRUE;
                 searchHorarios();
+                 limpiar();
             } else {
                 msgSuccess = "Ocurrio un error";
             }

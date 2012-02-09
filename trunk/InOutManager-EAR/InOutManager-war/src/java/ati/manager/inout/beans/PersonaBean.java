@@ -47,6 +47,7 @@ public class PersonaBean {
     private tarjetaDTO tarjetaPersona;
     private Boolean modificaTarjeta=Boolean.FALSE;
     private Boolean mostrarModalResultado=Boolean.FALSE;
+    private boolean modificar=false;
 
     /** Creates a new instance of PersonaBean */
     public PersonaBean() {
@@ -280,6 +281,7 @@ public class PersonaBean {
 
     public String save() {
 
+         Facade f = Facade.getInstance();
         this.selectedPerson.setApellido(apellido);
         this.selectedPerson.setDireccion(dir);
         this.selectedPerson.setDocumento(doc);
@@ -288,12 +290,12 @@ public class PersonaBean {
         this.selectedPerson.setNumEmpleado(numEmpleado);
         this.selectedPerson.setTelefono1(tel1);
         this.selectedPerson.setTelefono2(tel2);
-        if (modificaTarjeta) {
+        if (modificaTarjeta || f.searchPerson(doc)==null ) {
             this.selectedPerson.setTarjeta(new tarjetaDTO(idTarjeta));
         }
         
 
-        Facade f = Facade.getInstance();
+       
         String result = "";
         if (f.savePerson(selectedPerson)) {
             result = "Ingreso exitoso.";
@@ -321,7 +323,7 @@ public class PersonaBean {
         this.setNumEmpleado(this.selectedPerson.getNumEmpleado());
         this.setTel1(this.selectedPerson.getTelefono1());
         this.setTel2(this.selectedPerson.getTelefono2());
-        
+        modificar = true;
 
         System.out.println("Success Search");
         return "";

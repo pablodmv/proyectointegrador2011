@@ -50,6 +50,9 @@ public class ausencias implements ausenciasLocal {
             Persona persona = personaEJB.ObtenerPersonaEntidad(ausencia.getPersona().getDocumento(), null);
 
             ausenciaEntity = this.obtenerAusenciaEntity(ausencia.getFecha(), persona);
+            if (ausenciaEntity==null) {
+                ausenciaEntity = new Ausencias();
+            }
             ausenciaEntity.setFecha(ausencia.getFecha());
             ausenciaEntity.setObservacion(ausencia.getObservacion());
             ausenciaEntity.setPersona(persona);
@@ -100,7 +103,7 @@ public class ausencias implements ausenciasLocal {
 
     @Override
     public List<ausenciaDTO> obtenerAusenciaPersona(personaDTO persona) {
-        chequearAusencias(persona);
+       // chequearAusencias(persona);
         Persona personaEntity = personaEJB.convertirDTOPersona(personaEJB.ObtenerPersona(persona.getDocumento(), null));
         try {
             Query ausenciasPorPersona = em.createNamedQuery("Ausencias.findByPersona");
@@ -119,6 +122,7 @@ public class ausencias implements ausenciasLocal {
 
     @Override
     public List<ausenciaDTO> obtenerAusenciaFechaPersona(personaDTO persona, Date fecha) {
+        chequearAusencias(persona, fecha);
         List<ausenciaDTO> ausenciasRetorno = new ArrayList<ausenciaDTO>() ;
         Calendar fechaCalendar = Calendar.getInstance();
         fechaCalendar.setTime(fecha);
@@ -187,18 +191,21 @@ public class ausencias implements ausenciasLocal {
     }
 
     @Override
-    public void chequearAusencias(personaDTO persona) {
+    public void chequearAusencias(personaDTO persona,Date Fecha) {
         try {
             Calendar fecha = Calendar.getInstance();
-            fecha.set(Calendar.DAY_OF_MONTH, fecha.getActualMinimum(Calendar.DAY_OF_MONTH));
+            fecha.setTime(Fecha);
+            Calendar fechaDesde = Calendar.getInstance();
+
+            fechaDesde.set(fecha.get(Calendar.YEAR), fecha.get(Calendar.MONTH), fecha.getActualMinimum(Calendar.DAY_OF_MONTH));
             Calendar fechaHasta = Calendar.getInstance();
-            fechaHasta.set(Calendar.DAY_OF_MONTH, fecha.getActualMaximum(Calendar.DAY_OF_MONTH));
+            fechaHasta.set(fecha.get(Calendar.YEAR), fecha.get(Calendar.MONTH), fecha.getActualMaximum(Calendar.DAY_OF_MONTH));
             List<String> fechaTrabajaList = new ArrayList<String>();
             List<String> fechaTrabajoList = new ArrayList<String>();
             List<Short> diaSemanaList = horario.obtenerDiasSemana(persona);
-            fechaTrabajoList = marca.obtenerDiasTrabajados(fecha.getTime(), fechaHasta.getTime(), persona, null);
+            fechaTrabajoList = marca.obtenerDiasTrabajados(fechaDesde.getTime(), fechaHasta.getTime(), persona, null);
             for (Short diaSemana : diaSemanaList) {
-                fechaTrabajaList.addAll(obtenerDia(fecha, diaSemana));
+                fechaTrabajaList.addAll(obtenerDia(fechaDesde, diaSemana) );
             }
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date fechaTrabaja = null;
@@ -224,7 +231,7 @@ public class ausencias implements ausenciasLocal {
         fechaAux.set(fecha.get(Calendar.YEAR), fecha.get(Calendar.MONTH), fecha.getActualMinimum(Calendar.DAY_OF_MONTH));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = fecha.getActualMinimum(Calendar.DAY_OF_MONTH); i < fecha.getActualMaximum(Calendar.DAY_OF_MONTH) + 1; i++) {
-            if (fechaAux.get(Calendar.DAY_OF_WEEK) == dia) {
+            if (fechaAux.get(Calendar.DAY_OF_WEEK) == dia+1) {
                 retorno.add(sdf.format(fechaAux.getTime()));
             }
             fechaAux.add(Calendar.DAY_OF_MONTH, 1);

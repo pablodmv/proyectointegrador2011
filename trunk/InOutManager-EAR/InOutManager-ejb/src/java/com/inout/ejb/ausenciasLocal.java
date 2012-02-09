@@ -25,7 +25,7 @@ public interface ausenciasLocal {
 
     public List<ausenciaDTO> obtenerAusenciaPersona(personaDTO persona);
 
-    public void chequearAusencias(personaDTO persona);
+    public void chequearAusencias(personaDTO persona, Date fecha);
 
     public Ausencias obtenerAusenciaEntity(Date fecha, Persona persona);
 

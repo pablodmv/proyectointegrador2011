@@ -80,7 +80,7 @@ public class horarios implements horariosLocal {
     public List<Short> obtenerDiasSemana(personaDTO personaParam) {
 
         try {
-            Persona personaEnt = persona.convertirDTOPersona(personaParam);
+                Persona personaEnt = persona.convertirDTOPersona(personaParam);
             Query horario = em.createNamedQuery("HorarioSemana.findDiasSemana");
             List<Short> diaSemana = new ArrayList<Short>();
             horario.setParameter("persona", personaEnt);
