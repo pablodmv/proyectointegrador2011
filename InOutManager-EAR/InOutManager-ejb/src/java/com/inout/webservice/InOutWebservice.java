@@ -21,6 +21,7 @@ import javax.ejb.Stateless;
 @WebService()
 @Stateless()
 public class InOutWebservice {
+
     @EJB
     marcaLocal marca ;
 
@@ -34,6 +35,7 @@ public class InOutWebservice {
     String id_Dispositivo, @WebParam(name = "descripcion_Dispositivo")
     String descripcion_Dispositivo,  @WebParam(name = "id_persona") String id_persona) {
         marcaDTO MarcaDTO = new marcaDTO(fecha, hora, id_Dispositivo, descripcion_Dispositivo, id_persona);
+        MarcaDTO.setCerrado(Boolean.FALSE);
         return marca.altaMarca(MarcaDTO);
 
     }
