@@ -346,6 +346,7 @@ public class PersonaBean {
     public void generateQR(){
         QRGen qrG = QRGen.getInstance();
         String datos = this.nombre + "," + this.apellido + "," + this.doc;
+        datos = "QR-Code:" + this.nombre + "-" + this.apellido + "-" + this.doc + "-D-MAT";
         qrG.generate(datos);
     }
 }
